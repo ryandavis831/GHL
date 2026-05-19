@@ -6,12 +6,12 @@ import { site } from "@/lib/site";
 import QuoteButton from "./QuoteButton";
 
 const highlights = [
-  "Homes & apartments",
+  "Raleigh homes & apartments",
   "AirBnB / STR turnovers",
+  "Cary, Durham & Johnston Co.",
+  "Nash County families",
   "Offices & churches",
   "Move-in / move-out",
-  "Carpet cleaning",
-  "Decluttering & organizing",
 ];
 
 export default function About() {
@@ -25,18 +25,20 @@ export default function About() {
           transition={{ duration: 0.45 }}
           className="relative"
         >
-          <div className="relative aspect-square w-full overflow-hidden rounded-[2rem] bg-brand-soft shadow-soft ring-1 ring-brand-navy/5">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-brand-soft shadow-soft ring-1 ring-brand-navy/5">
             <Image
-              src="/assets/gallery/hardwood-2.png"
-              alt="Open living area with freshly cleaned hardwood floor"
+              src="/assets/brand/about-hardwood.png"
+              alt="The Perfect Clean LLC branded hardwood floor — open living area"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover object-center"
             />
           </div>
-          <div className="absolute -bottom-5 -right-3 w-44 rounded-2xl bg-white p-4 shadow-soft ring-1 ring-brand-navy/5">
-            <p className="text-xs uppercase tracking-widest text-brand-teal">Service Area</p>
-            <p className="mt-1 text-sm font-semibold text-brand-navy">{site.serviceArea}</p>
+          <div className="absolute -bottom-5 -right-3 w-52 rounded-2xl bg-white p-4 shadow-soft ring-1 ring-brand-navy/5">
+            <p className="text-xs uppercase tracking-widest text-brand-teal">Locally Owned</p>
+            <p className="mt-1 text-sm font-semibold text-brand-navy">
+              Jessica &mdash; based in Raleigh, NC
+            </p>
           </div>
         </motion.div>
 
@@ -48,13 +50,18 @@ export default function About() {
         >
           <span className="section-eyebrow">About Us</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
-            Local cleaning you can count on
+            Locally owned by Jessica &mdash; trusted across the Raleigh area
           </h2>
           <p className="mt-4 text-brand-navy/75">
-            The Perfect Clean LLC provides professional cleaning services for homes, AirBnBs,
-            short-term rentals, offices, and commercial spaces. Whether you need a one-time deep
-            clean, recurring service, move-out cleaning, carpet cleaning, or help decluttering and
-            organizing, our team brings the supplies and leaves your space feeling fresh.
+            The Perfect Clean LLC is a Raleigh-based cleaning company owned and led by Jessica.
+            From everyday residential cleans to AirBnB turnovers, move-in / move-out resets, carpet
+            care, and commercial spaces, Jessica and her team bring the supplies, sweat the
+            details, and leave every room feeling fresh.
+          </p>
+          <p className="mt-3 text-brand-navy/75">
+            Trusted by Raleigh-area homeowners and businesses &mdash; proudly serving Raleigh, NC
+            and surrounding areas including <span className="font-semibold text-brand-navy">Nash County,
+            Durham, Cary, and Johnston County</span>.
           </p>
 
           <ul className="mt-6 grid grid-cols-2 gap-2">
@@ -71,7 +78,7 @@ export default function About() {
           </ul>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <QuoteButton>Request Free Estimate</QuoteButton>
+            <QuoteButton>Call Jessica for a Free Estimate</QuoteButton>
             <a href={`tel:${site.phoneTel}`} className="btn-outline">Call {site.phone}</a>
           </div>
         </motion.div>

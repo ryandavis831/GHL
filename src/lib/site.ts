@@ -1,12 +1,19 @@
 export const site = {
   name: "The Perfect Clean LLC",
   shortName: "The Perfect Clean",
+  owner: "Jessica",
   phone: "(252) 668-1898",
   phoneTel: "+12526681898",
   domain: "theperfectcleanllc.net",
   rating: 5.0,
   reviewCount: 13,
-  serviceArea: "Wake County and surrounding areas",
+  primaryCity: "Raleigh, NC",
+  serviceArea: "Raleigh, NC and surrounding areas",
+  serviceAreaLong:
+    "Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County",
+  surroundingAreas: ["Nash County", "Durham", "Cary", "Johnston County"],
+  googleReviewUrl:
+    "https://www.google.com/search?sca_esv=afc85aa92f7b31d4&rlz=1C5AJCO_enUS1195US1196&sxsrf=ANbL-n5UQFQh0sbosOvjoxCSuSJpNF9NoA:1779220170892&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOUSNcpoPA9JUE_p27pnPhb-xwduvgC32Xjm4IqWrW9U3gcIev6XDO35j0FjUh0izmyDnbKEjtyUMclJgKxLz6NCYqnldTFPaIGnWEnr5bOcrwxeKtw%3D%3D&q=The+Perfect+Clean+LLC+Reviews&sa=X&ved=2ahUKEwjWm43Sj8aUAxXwGFkFHUEvOUQQ0bkNegQINRAD",
 };
 
 export const navLinks = [
@@ -97,7 +104,7 @@ export const beforeAfter = [
 
 export type GalleryCategory =
   | "Kitchens"
-  | "Floors"
+  | "Hardwood Floors"
   | "Bathrooms"
   | "Bedrooms"
   | "Carpets";
@@ -105,7 +112,7 @@ export type GalleryCategory =
 export const galleryCategories: ("All" | GalleryCategory)[] = [
   "All",
   "Kitchens",
-  "Floors",
+  "Hardwood Floors",
   "Bathrooms",
   "Bedrooms",
   "Carpets",
@@ -116,64 +123,79 @@ export interface GalleryImage {
   category: GalleryCategory;
   caption: string;
   alt: string;
-  feature?: boolean;
+  width: number;
+  height: number;
 }
 
-// Ordered so groups stay clustered even in "All": Kitchens → Floors → Bathrooms → Bedrooms → Carpets.
-// `feature: true` marks the hero tile for that group in the bento layout.
+// Ordered so groups stay clustered even in "All": Kitchens → Hardwood Floors → Bathrooms → Bedrooms → Carpets.
+// Intrinsic width/height drive the masonry column layout.
 export const gallery: GalleryImage[] = [
-  // Kitchens — featured first, then supporting shots.
+  // Kitchens.
   {
     src: "/assets/gallery/kitchen-warm-island.png",
     category: "Kitchens",
     caption: "Wood-floor kitchen with polished island",
     alt: "Warm wood kitchen with island and freshly cleaned hardwood floor",
-    feature: true,
+    width: 243,
+    height: 406,
   },
   {
     src: "/assets/gallery/kitchen-white.png",
     category: "Kitchens",
     caption: "White cabinet kitchen detail",
     alt: "Kitchen with white cabinets, dark countertops, and stainless appliances",
+    width: 243,
+    height: 244,
   },
   {
     src: "/assets/gallery/kitchen-island.png",
     category: "Kitchens",
     caption: "Black island kitchen",
     alt: "Modern kitchen with black island and white countertop",
+    width: 243,
+    height: 304,
   },
   {
     src: "/assets/gallery/kitchen-wood.png",
     category: "Kitchens",
     caption: "Wood cabinet kitchen",
     alt: "Wood cabinet kitchen with dark countertop and light hardwood floor",
+    width: 243,
+    height: 406,
   },
   {
     src: "/assets/gallery/kitchen-darkwood-floor.png",
     category: "Kitchens",
     caption: "Kitchen with dark wood floor",
     alt: "Kitchen with granite counters and clean dark wood floor",
+    width: 243,
+    height: 203,
   },
 
-  // Floors — featured hardwood, plus tile entryway.
+  // Hardwood Floors.
   {
     src: "/assets/gallery/hardwood-2.png",
-    category: "Floors",
+    category: "Hardwood Floors",
     caption: "Open-plan hardwood floor",
     alt: "Open living area with freshly cleaned dark hardwood floor",
-    feature: true,
+    width: 243,
+    height: 304,
   },
   {
     src: "/assets/gallery/hardwood-1.png",
-    category: "Floors",
+    category: "Hardwood Floors",
     caption: "Polished hardwood entry",
     alt: "Shiny dark hardwood floor reflecting natural light near a doorway",
+    width: 243,
+    height: 304,
   },
   {
     src: "/assets/gallery/tile-entryway.png",
-    category: "Floors",
+    category: "Hardwood Floors",
     caption: "Tile entryway shine",
     alt: "Tiled entryway with sliding doors and clean tile floor",
+    width: 243,
+    height: 244,
   },
 
   // Bathrooms.
@@ -182,25 +204,32 @@ export const gallery: GalleryImage[] = [
     category: "Bathrooms",
     caption: "Bath and tub combo",
     alt: "Clean bathroom with white bathtub and toilet on hardwood-look floor",
-    feature: true,
+    width: 243,
+    height: 406,
   },
   {
     src: "/assets/gallery/bathroom-shower.png",
     category: "Bathrooms",
     caption: "Walk-in shower bathroom",
     alt: "White walk-in shower next to clean toilet in a refreshed bathroom",
+    width: 243,
+    height: 304,
   },
   {
     src: "/assets/gallery/bathroom-tile-shower.png",
     category: "Bathrooms",
     caption: "Spotless tile shower",
     alt: "Tile shower with light gray walls and clean white base",
+    width: 243,
+    height: 304,
   },
   {
     src: "/assets/gallery/bathroom-bathtub.png",
     category: "Bathrooms",
     caption: "Polished white bathtub",
     alt: "Freshly cleaned white bathtub with shiny finish",
+    width: 243,
+    height: 244,
   },
 
   // Bedrooms.
@@ -209,7 +238,8 @@ export const gallery: GalleryImage[] = [
     category: "Bedrooms",
     caption: "Bedroom made up and dusted",
     alt: "Freshly made bedroom with neat bed and clean floor",
-    feature: true,
+    width: 243,
+    height: 244,
   },
 
   // Carpets.
@@ -218,19 +248,24 @@ export const gallery: GalleryImage[] = [
     category: "Carpets",
     caption: "Dining area carpet refresh",
     alt: "Dining area carpet with fresh cleaning marks and striped pillow",
-    feature: true,
+    width: 243,
+    height: 406,
   },
   {
     src: "/assets/gallery/carpet-fresh.png",
     category: "Carpets",
     caption: "Carpet with fresh sweep lines",
     alt: "Beige carpet showing freshly cleaned sweep lines",
+    width: 243,
+    height: 244,
   },
   {
     src: "/assets/gallery/carpet-texture.png",
     category: "Carpets",
     caption: "Carpet close-up detail",
     alt: "Close-up of carpet freshly cleaned with visible texture",
+    width: 243,
+    height: 244,
   },
 ];
 

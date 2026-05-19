@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import QuoteFormBody from "./QuoteFormBody";
+import GoogleReviewButton from "./GoogleReviewButton";
 import { site } from "@/lib/site";
 
 export default function QuoteForm() {
@@ -16,10 +17,12 @@ export default function QuoteForm() {
         >
           <span className="section-eyebrow">Get a Free Estimate</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
-            Tell us about your space — we&apos;ll send you a quote
+            Call Jessica today &mdash; or tell us about your space
           </h2>
           <p className="mt-3 text-brand-navy/70">
-            Share a few quick details and we&apos;ll follow up with a free, no-pressure estimate.
+            Proudly serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary,
+            and Johnston County. Share a few details and Jessica will follow up with a free,
+            no-pressure estimate.
           </p>
 
           <div className="mt-7 space-y-4">
@@ -33,7 +36,7 @@ export default function QuoteForm() {
                 </svg>
               </span>
               <span>
-                <span className="block text-xs uppercase tracking-widest text-brand-navy/60">Prefer to call?</span>
+                <span className="block text-xs uppercase tracking-widest text-brand-navy/60">Call Jessica</span>
                 <span className="block text-base font-semibold text-brand-navy">{site.phone}</span>
               </span>
             </a>
@@ -47,8 +50,14 @@ export default function QuoteForm() {
               </span>
               <span>
                 <span className="block text-xs uppercase tracking-widest text-brand-navy/60">Service Area</span>
-                <span className="block text-base font-semibold text-brand-navy">{site.serviceArea}</span>
+                <span className="block text-base font-semibold text-brand-navy">
+                  Raleigh, NC &middot; Nash County &middot; Durham &middot; Cary &middot; Johnston County
+                </span>
               </span>
+            </div>
+
+            <div className="card-soft flex items-center gap-4 p-4">
+              <GoogleReviewButton variant="ghost" className="w-full justify-center" />
             </div>
           </div>
         </motion.div>

@@ -26,18 +26,19 @@ export default function Hero() {
         >
           <span className="section-eyebrow">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-teal" />
-            Serving {site.serviceArea}
+            Proudly serving Raleigh, NC &amp; surrounding areas
           </span>
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-brand-navy sm:text-5xl md:text-[3.4rem]">
-            Professional Cleaning <span className="text-brand-teal">That Makes Your Space Sparkle</span>
+            Raleigh&apos;s Trusted Cleaning Team <span className="text-brand-teal">— Locally Owned by Jessica</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-brand-navy/70">
-            Residential, AirBnB, STR, and commercial cleaning services with flexible scheduling,
-            free estimates, and detail-focused results.
+            Jessica and her team deliver residential, AirBnB, STR, and commercial cleaning across
+            Raleigh, Nash County, Durham, Cary, and Johnston County — flexible scheduling, free
+            estimates, and detail-focused results.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <QuoteButton />
+            <QuoteButton>Call Jessica for a Free Estimate</QuoteButton>
             <a href={`tel:${site.phoneTel}`} className="btn-outline">
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
@@ -69,11 +70,11 @@ export default function Hero() {
         >
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-white shadow-soft ring-1 ring-brand-navy/5">
             <Image
-              src="/assets/gallery/kitchen-warm-island.png"
-              alt="Warm wood kitchen with island and freshly cleaned hardwood floor"
+              src="/assets/brand/hero-kitchen.png"
+              alt="The Perfect Clean LLC branded kitchen — granite island and hardwood floor"
               fill
               priority
-              className="object-cover"
+              className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-brand-navy/30 to-transparent" />
@@ -103,7 +104,7 @@ export default function Hero() {
             className="absolute -right-3 top-8 hidden w-48 rounded-2xl bg-brand-navy p-4 text-white shadow-soft sm:block"
           >
             <p className="text-xs uppercase tracking-widest text-brand-mint">Free Estimate</p>
-            <p className="mt-1 text-sm leading-snug">Tell us the space, we&apos;ll quote it.</p>
+            <p className="mt-1 text-sm leading-snug">Call Jessica — she&apos;ll quote your space fast.</p>
           </motion.div>
         </motion.div>
       </div>

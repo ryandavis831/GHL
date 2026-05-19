@@ -18,14 +18,14 @@ const display = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} | Professional Cleaning in Wake County`,
+  title: `${site.name} | Raleigh, NC Cleaning Services — Locally Owned by Jessica`,
   description:
-    "Residential, AirBnB, STR, and commercial cleaning services with flexible scheduling, free estimates, and detail-focused results in Wake County, NC.",
+    "Locally owned by Jessica. Residential, AirBnB, STR, and commercial cleaning serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County.",
   metadataBase: new URL(`https://${site.domain}`),
   openGraph: {
-    title: site.name,
+    title: `${site.name} — Raleigh, NC Cleaning`,
     description:
-      "Professional cleaning that makes your space sparkle. Serving Wake County and surrounding areas.",
+      "Trusted by Raleigh-area homeowners and businesses. Jessica and her team — free estimates, supplies included.",
     type: "website",
   },
 };

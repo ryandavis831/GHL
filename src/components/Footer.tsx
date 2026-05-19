@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { navLinks, services, site } from "@/lib/site";
+import GoogleReviewButton from "./GoogleReviewButton";
 
 export default function Footer() {
   return (
@@ -19,14 +20,21 @@ export default function Footer() {
               />
             </div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-              Professional residential, AirBnB, STR, and commercial cleaning serving {site.serviceArea}.
-              Free estimates, supplies included, detail-focused results.
+              Locally owned by Jessica. Professional residential, AirBnB, STR, and commercial
+              cleaning proudly serving <span className="font-semibold text-white">Raleigh, NC</span> and
+              surrounding areas including Nash County, Durham, Cary, and Johnston County.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <a href={`tel:${site.phoneTel}`} className="btn-primary">Call {site.phone}</a>
-              <a href="#contact" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
+              <a href={`tel:${site.phoneTel}`} className="btn-primary">Call Jessica · {site.phone}</a>
+              <a
+                href="#contact"
+                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
                 Get Free Estimate
               </a>
+            </div>
+            <div className="mt-5">
+              <GoogleReviewButton variant="outline" />
             </div>
           </div>
 
@@ -50,12 +58,13 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-brand-mint">Contact</p>
+            <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-brand-mint">Service Area</p>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               <li>
                 <a href={`tel:${site.phoneTel}`} className="transition hover:text-white">{site.phone}</a>
               </li>
-              <li>{site.serviceArea}</li>
+              <li>Raleigh, NC <span className="text-white/40">(primary)</span></li>
+              <li>Nash County · Durham · Cary · Johnston County</li>
             </ul>
           </div>
         </div>

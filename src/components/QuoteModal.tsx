@@ -51,10 +51,11 @@ export default function QuoteModal() {
                   id="quote-modal-title"
                   className="mt-2 text-xl font-bold leading-tight text-brand-navy sm:text-2xl"
                 >
-                  Tell us about your space
+                  Tell Jessica about your space
                 </h2>
                 <p className="mt-1 text-sm text-brand-navy/65">
-                  We&apos;ll follow up with a free, no-pressure quote. Or call{" "}
+                  Serving Raleigh, NC &amp; surrounding areas. Jessica will follow up with a free,
+                  no-pressure quote &mdash; or call{" "}
                   <a
                     href={`tel:${site.phoneTel}`}
                     className="font-semibold text-brand-teal hover:underline"

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { reviews, site } from "@/lib/site";
+import GoogleReviewButton from "./GoogleReviewButton";
 
 function StarIcon({ className }: { className?: string }) {
   return (
@@ -18,8 +19,11 @@ export default function Reviews() {
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-eyebrow">Reviews</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
-            What clients say
+            Trusted by Raleigh-area homeowners and businesses
           </h2>
+          <p className="mt-3 text-brand-navy/70">
+            Jessica takes pride in every clean &mdash; here&apos;s what her clients say.
+          </p>
           <div className="mt-5 inline-flex items-center gap-3 rounded-full bg-white px-4 py-2 shadow-card ring-1 ring-brand-navy/5">
             <span className="text-sm font-semibold text-brand-navy">Rated {site.rating.toFixed(1)} on Google</span>
             <span className="flex items-center gap-0.5 text-[#FBBC04]">
@@ -61,6 +65,19 @@ export default function Reviews() {
             </motion.figure>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.4 }}
+          className="mt-12 flex flex-col items-center justify-center gap-3 text-center"
+        >
+          <p className="text-sm text-brand-navy/70">
+            Loved working with Jessica and her team? Share it with future Raleigh neighbors.
+          </p>
+          <GoogleReviewButton />
+        </motion.div>
       </div>
     </section>
   );
