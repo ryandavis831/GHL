@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sonora Tax & Bookkeeping — Premium bilingual tax preparation and bookkeeping for individuals, families, and small businesses. Founded by Astrid Bollain. Servicio bilingüe en inglés y español." />
+  <title>Sonora Tax &amp; Bookkeeping — Bilingual Tax &amp; Bookkeeping Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" href="assets/brand/logo-black.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============== TOP BAR ============== -->
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <div class="topbar__left">
+        <span class="topbar__pill">
+          <span class="dot"></span>
+          <span data-i18n="topbar.habla">Se Habla Español</span>
+        </span>
+        <span class="topbar__muted" data-i18n="topbar.bilingual">Bilingual Support · English &amp; Español</span>
+      </div>
+      <div class="topbar__right">
+        <a href="tel:+15555551234" class="topbar__phone" aria-label="Call Sonora Tax and Bookkeeping">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.91.34 1.8.66 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.43a2 2 0 0 1 2.11-.45c.85.32 1.74.54 2.65.66A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>(555) 555-1234</span>
+        </a>
+        <div class="lang-toggle" role="group" aria-label="Language toggle">
+          <button class="lang-btn is-active" data-lang-btn="en" type="button">EN</button>
+          <span class="lang-toggle__sep">/</span>
+          <button class="lang-btn" data-lang-btn="es" type="button">ES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== NAVBAR ============== -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__brand" aria-label="Sonora Tax and Bookkeeping home">
+        <img src="assets/brand/logo-black.png" alt="Sonora ST logo" class="nav__logo" />
+        <div class="nav__brandtxt">
+          <span class="nav__name">Sonora</span>
+          <span class="nav__tag">Tax &amp; Bookkeeping</span>
+        </div>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="nav__cta">
+        <button class="btn btn--gold" data-open-modal data-i18n="nav.cta">Free Consultation / Consulta Gratis</button>
+      </div>
+
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <a href="#home" data-i18n="nav.home">Home</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <button class="btn btn--gold btn--block" data-open-modal data-i18n="nav.cta">Free Consultation / Consulta Gratis</button>
+    </div>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero" id="home">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="orb orb--cyan"></div>
+      <div class="orb orb--purple"></div>
+      <div class="orb orb--gold"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow">
+          <span class="eyebrow__dot"></span>
+          <span data-i18n="hero.eyebrow">Trusted bilingual financial partner</span>
+        </span>
+
+        <h1 class="hero__title">
+          <span data-i18n="hero.title1">Professional Tax &amp;</span>
+          <span class="gradient-text" data-i18n="hero.title2">Bookkeeping Services</span>
+          <span data-i18n="hero.title3">You Can Trust</span>
+        </h1>
+
+        <p class="hero__sub" data-i18n="hero.sub">
+          Personalized tax preparation and year-round bookkeeping for individuals, families, and small businesses — delivered with clarity, confidence, and bilingual support in English &amp; Español.
+        </p>
+
+        <div class="hero__cta">
+          <button class="btn btn--gold btn--glow" data-open-modal>
+            <span data-i18n="hero.cta1">Schedule Consultation</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <a href="tel:+15555551234" class="btn btn--ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.91.34 1.8.66 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.43a2 2 0 0 1 2.11-.45c.85.32 1.74.54 2.65.66A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-i18n="hero.cta2">Call Now</span>
+          </a>
+        </div>
+
+        <div class="hero__badges">
+          <div class="badge-card">
+            <div class="badge-card__num">500+</div>
+            <div class="badge-card__lbl" data-i18n="hero.b1">Returns Filed</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-card__num">EN · ES</div>
+            <div class="badge-card__lbl" data-i18n="hero.b2">Bilingual Support</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-card__num">100%</div>
+            <div class="badge-card__lbl" data-i18n="hero.b3">Small Business Friendly</div>
+          </div>
+          <div class="badge-card">
+            <div class="badge-card__num">12mo</div>
+            <div class="badge-card__lbl" data-i18n="hero.b4">Year-Round Guidance</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="false">
+        <div class="hero__glow"></div>
+        <div class="hero__frame">
+          <img src="assets/brand/astrid-portrait.png" alt="Astrid Bollain, Founder & Tax Professional at Sonora Tax & Bookkeeping" />
+          <div class="hero__namecard">
+            <div class="hero__namecard-name">Astrid Bollain</div>
+            <div class="hero__namecard-role" data-i18n="hero.namecard">Founder &amp; Tax Professional</div>
+          </div>
+        </div>
+        <div class="hero__floater hero__floater--top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          <div>
+            <strong>IRS</strong>
+            <span data-i18n="hero.float1">Compliant filing</span>
+          </div>
+        </div>
+        <div class="hero__floater hero__floater--bottom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <strong data-i18n="hero.float2a">5-Star Rated</strong>
+            <span data-i18n="hero.float2b">Local clients</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== ABOUT ============== -->
+  <section class="about" id="about">
+    <div class="container about__inner">
+      <div class="about__media">
+        <div class="about__media-frame">
+          <img src="assets/brand/astrid-card.png" alt="Astrid Bollain working at her desk at Sonora Tax & Bookkeeping" />
+        </div>
+        <div class="about__badge">
+          <span class="about__badge-line"></span>
+          <div>
+            <div class="about__badge-title" data-i18n="about.badgeTitle">Bilingual Service</div>
+            <div class="about__badge-sub">English · Español</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__copy">
+        <span class="section-eyebrow" data-i18n="about.eyebrow">About Sonora</span>
+        <h2 class="section-title">
+          <span data-i18n="about.title1">Meet Astrid Bollain —</span><br/>
+          <span class="gradient-text" data-i18n="about.title2">your trusted bilingual tax &amp; bookkeeping partner.</span>
+        </h2>
+        <p class="section-lead" data-i18n="about.lead">
+          Astrid founded Sonora Tax &amp; Bookkeeping to bring clarity, confidence, and care to the families and small businesses in our community. With deep expertise in both tax preparation and bookkeeping, she delivers personalized service in English and Español — every step of the way.
+        </p>
+
+        <ul class="about__list">
+          <li>
+            <span class="about__list-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            <span data-i18n="about.li1">Personalized service for every client</span>
+          </li>
+          <li>
+            <span class="about__list-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            <span data-i18n="about.li2">Bookkeeping expertise built for small business</span>
+          </li>
+          <li>
+            <span class="about__list-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            <span data-i18n="about.li3">Year-round tax planning &amp; guidance</span>
+          </li>
+          <li>
+            <span class="about__list-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            <span data-i18n="about.li4">Clear bilingual communication — Inglés &amp; Español</span>
+          </li>
+          <li>
+            <span class="about__list-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            </span>
+            <span data-i18n="about.li5">Local, community-rooted trust</span>
+          </li>
+        </ul>
+
+        <div class="about__cta">
+          <button class="btn btn--gradient" data-open-modal>
+            <span data-i18n="about.cta">Book a Free Consultation</span>
+          </button>
+          <span class="about__sig">— Astrid Bollain, <em data-i18n="about.sigRole">Founder</em></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SERVICES ============== -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow" data-i18n="services.eyebrow">Our Services</span>
+        <h2 class="section-title">
+          <span data-i18n="services.title1">Everything you need for</span>
+          <span class="gradient-text" data-i18n="services.title2">taxes &amp; bookkeeping</span>
+        </h2>
+        <p class="section-lead" data-i18n="services.lead">From personal returns to full-service bookkeeping, we provide premium bilingual support to individuals, families, and small businesses.</p>
+      </div>
+
+      <div class="services__grid">
+        <article class="service-card">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6M9 9h2"/></svg></div>
+          <h3 data-i18n="svc.tax">Tax Preparation</h3>
+          <p data-i18n="svc.taxD">Accurate, on-time personal and business returns with maximum legal savings.</p>
+        </article>
+
+        <article class="service-card service-card--featured">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+          <h3 data-i18n="svc.book">Bookkeeping</h3>
+          <p data-i18n="svc.bookD">Clean monthly books, reconciliations, and reports that keep your business clear.</p>
+          <span class="service-card__chip" data-i18n="svc.bookChip">Year-round</span>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M5 7v13h14V7"/><path d="M9 3h6v4H9z"/></svg></div>
+          <h3 data-i18n="svc.sb">Small Business Services</h3>
+          <p data-i18n="svc.sbD">From LLC formation guidance to quarterly filings — built for local entrepreneurs.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3 data-i18n="svc.plan">Tax Planning</h3>
+          <p data-i18n="svc.planD">Proactive, year-round strategy to minimize your liability and avoid surprises.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 11V7a4 4 0 0 0-8 0v4"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg></div>
+          <h3 data-i18n="svc.pay">Payroll Assistance</h3>
+          <p data-i18n="svc.payD">Reliable payroll setup, processing, and compliance for growing teams.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <h3 data-i18n="svc.org">Financial Organization</h3>
+          <p data-i18n="svc.orgD">Clean records and systems — so tax time becomes a calm, simple process.</p>
+        </article>
+
+        <article class="service-card service-card--wide">
+          <div class="service-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3 data-i18n="svc.bil">Bilingual Client Support</h3>
+          <p data-i18n="svc.bilD">Every conversation, document, and question — handled clearly in English or Español.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== WHY CHOOSE ============== -->
+  <section class="why">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow" data-i18n="why.eyebrow">Why Sonora</span>
+        <h2 class="section-title">
+          <span data-i18n="why.title1">A premium experience —</span>
+          <span class="gradient-text" data-i18n="why.title2">built on trust</span>
+        </h2>
+      </div>
+
+      <div class="why__grid">
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+          <h3 data-i18n="why.c1t">Bilingual English &amp; Spanish</h3>
+          <p data-i18n="why.c1d">Every detail explained clearly in the language you prefer.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h3 data-i18n="why.c2t">Personalized Attention</h3>
+          <p data-i18n="why.c2d">You work directly with Astrid — not a call center.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3 data-i18n="why.c3t">Accurate &amp; Timely Filing</h3>
+          <p data-i18n="why.c3d">Precision-first preparation with strict deadline discipline.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+          <h3 data-i18n="why.c4t">Bookkeeping Expertise</h3>
+          <p data-i18n="why.c4d">Books that stay clean all year — not just in April.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <h3 data-i18n="why.c5t">Local Community Trust</h3>
+          <p data-i18n="why.c5d">Rooted in the community we serve — neighbors helping neighbors.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3 data-i18n="why.c6t">Year-Round Support</h3>
+          <p data-i18n="why.c6d">Guidance and answers 12 months a year, not just tax season.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== REVIEWS ============== -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow" data-i18n="rev.eyebrow">Client Stories</span>
+        <h2 class="section-title">
+          <span data-i18n="rev.title1">Trusted by families</span>
+          <span class="gradient-text" data-i18n="rev.title2">&amp; small businesses</span>
+        </h2>
+      </div>
+
+      <div class="reviews__grid">
+        <figure class="review-card">
+          <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote data-i18n="rev.q1">"Astrid took the time to explain everything in Spanish for my parents and in English for me. We finally feel like our taxes are in expert hands."</blockquote>
+          <figcaption>
+            <strong>María G.</strong>
+            <span data-i18n="rev.r1">Family client</span>
+          </figcaption>
+        </figure>
+
+        <figure class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <blockquote data-i18n="rev.q2">"Our bookkeeping is finally organized. Sonora streamlined everything and saved us hours every month."</blockquote>
+          <figcaption>
+            <strong>James T.</strong>
+            <span data-i18n="rev.r2">Small business owner</span>
+          </figcaption>
+        </figure>
+
+        <figure class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <blockquote data-i18n="rev.q3">"Profesional, clara y siempre disponible. Recomiendo Sonora a toda mi familia y amigos."</blockquote>
+          <figcaption>
+            <strong>Luis R.</strong>
+            <span data-i18n="rev.r3">Cliente local</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CTA BANNER ============== -->
+  <section class="cta-banner">
+    <div class="cta-banner__bg" aria-hidden="true">
+      <div class="orb orb--cyan"></div>
+      <div class="orb orb--purple"></div>
+    </div>
+    <div class="container cta-banner__inner">
+      <h2 class="cta-banner__title">
+        <span data-i18n="cta.title1">Ready for a smarter tax season?</span><br/>
+        <span class="gradient-text" data-i18n="cta.title2">¿Listo para una temporada de impuestos más inteligente?</span>
+      </h2>
+      <p class="cta-banner__sub" data-i18n="cta.sub">Book your free, no-obligation consultation with Astrid today. Bilingual support — every step of the way.</p>
+      <div class="cta-banner__btns">
+        <button class="btn btn--gold btn--glow btn--lg" data-open-modal>
+          <span data-i18n="cta.btn1">Schedule Free Consultation</span>
+        </button>
+        <a class="btn btn--ghost btn--lg" href="tel:+15555551234">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.91.34 1.8.66 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.43a2 2 0 0 1 2.11-.45c.85.32 1.74.54 2.65.66A2 2 0 0 1 22 16.92z"/></svg>
+          (555) 555-1234
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FAQ ============== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow" data-i18n="faq.eyebrow">FAQ</span>
+        <h2 class="section-title">
+          <span data-i18n="faq.title1">Common</span>
+          <span class="gradient-text" data-i18n="faq.title2">questions</span>
+        </h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q1">Do you offer fully bilingual service?</span><span class="faq-item__plus" aria-hidden="true">+</span></summary>
+          <p data-i18n="faq.a1">Yes — every conversation, document review, and explanation is available in English or Español. Bilingual service is at the heart of Sonora.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q2">Do you work with small businesses?</span><span class="faq-item__plus" aria-hidden="true">+</span></summary>
+          <p data-i18n="faq.a2">Absolutely. We support local small businesses with bookkeeping, payroll assistance, quarterly filings, and proactive tax planning.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q3">Is the initial consultation free?</span><span class="faq-item__plus" aria-hidden="true">+</span></summary>
+          <p data-i18n="faq.a3">Yes. Your first consultation is free and confidential — designed to understand your needs and outline a clear plan forward.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q4">Do you provide bookkeeping year-round?</span><span class="faq-item__plus" aria-hidden="true">+</span></summary>
+          <p data-i18n="faq.a4">Yes — bookkeeping is a core service. We keep your books clean every month so your business stays organized and tax-ready.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q5">How do I get started?</span><span class="faq-item__plus" aria-hidden="true">+</span></summary>
+          <p data-i18n="faq.a5">Click "Free Consultation" anywhere on this page or call us directly. We'll find a time that works for you.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer" id="contact">
+    <div class="footer__divider" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__col footer__brand">
+        <div class="footer__logoRow">
+          <img src="assets/brand/logo-black.png" alt="Sonora logo" class="footer__logo" />
+          <div>
+            <div class="footer__name">Sonora</div>
+            <div class="footer__tag">Tax &amp; Bookkeeping</div>
+          </div>
+        </div>
+        <p class="footer__msg" data-i18n="footer.msg">Bilingual tax &amp; bookkeeping built on trust. Servicio bilingüe — clear, careful, community-rooted.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zM8 8h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 7v9.44h-4.56v-8.37c0-2-.04-4.57-2.78-4.57-2.79 0-3.22 2.18-3.22 4.43V22H8V8z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4 data-i18n="footer.h1">Quick Links</h4>
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </div>
+
+      <div class="footer__col">
+        <h4 data-i18n="footer.h2">Contact</h4>
+        <a href="tel:+15555551234">(555) 555-1234</a>
+        <a href="mailto:hello@sonoratax.com">hello@sonoratax.com</a>
+        <span>123 Main Street, Suite 200</span>
+        <span>Local Community, USA</span>
+      </div>
+
+      <div class="footer__col">
+        <h4 data-i18n="footer.h3">Office Hours</h4>
+        <span data-i18n="footer.h3a">Mon–Fri · 9:00 AM – 6:00 PM</span>
+        <span data-i18n="footer.h3b">Sat · By appointment</span>
+        <span data-i18n="footer.h3c">Sun · Closed</span>
+        <span class="footer__chip" data-i18n="footer.chip">Se Habla Español</span>
+      </div>
+    </div>
+
+    <div class="footer__bottom container">
+      <span>© <span id="year"></span> Sonora Tax &amp; Bookkeeping. <span data-i18n="footer.rights">All rights reserved.</span></span>
+      <span data-i18n="footer.tagline">Confianza · Claridad · Resultados</span>
+    </div>
+  </footer>
+
+  <!-- ============== MODAL ============== -->
+  <div class="modal" id="consultModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__card" role="document">
+      <button class="modal__close" aria-label="Close" data-close-modal>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal__glow" aria-hidden="true"></div>
+
+      <div class="modal__header">
+        <span class="section-eyebrow" data-i18n="modal.eyebrow">Free Consultation</span>
+        <h3 id="modalTitle" class="modal__title">
+          <span data-i18n="modal.title1">Let's talk —</span>
+          <span class="gradient-text" data-i18n="modal.title2">Conversemos</span>
+        </h3>
+        <p class="modal__sub" data-i18n="modal.sub">Tell us about your needs and we'll be in touch shortly. Bilingual support — English or Español.</p>
+      </div>
+
+      <form class="modal__form" id="consultForm" novalidate>
+        <div class="field">
+          <label for="f-name" data-i18n="modal.name">Full Name / Nombre Completo</label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-phone" data-i18n="modal.phone">Phone / Teléfono</label>
+            <input id="f-phone" name="phone" type="tel" required autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="f-email" data-i18n="modal.email">Email / Correo</label>
+            <input id="f-email" name="email" type="email" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-service" data-i18n="modal.service">Service Needed / Servicio Necesario</label>
+            <div class="select-wrap">
+              <select id="f-service" name="service" required>
+                <option value="" data-i18n="modal.svc0">Select a service</option>
+                <option value="tax" data-i18n="modal.svc1">Tax Preparation</option>
+                <option value="book" data-i18n="modal.svc2">Bookkeeping</option>
+                <option value="sb" data-i18n="modal.svc3">Small Business Services</option>
+                <option value="pay" data-i18n="modal.svc4">Payroll</option>
+                <option value="other" data-i18n="modal.svc5">Other</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-contact" data-i18n="modal.method">Contact Method / Método</label>
+            <div class="select-wrap">
+              <select id="f-contact" name="contact" required>
+                <option value="" data-i18n="modal.m0">Select preference</option>
+                <option value="phone" data-i18n="modal.m1">Phone Call / Llamada</option>
+                <option value="email" data-i18n="modal.m2">Email / Correo</option>
+                <option value="text" data-i18n="modal.m3">Text / Mensaje</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-message" data-i18n="modal.message">Message / Mensaje</label>
+          <textarea id="f-message" name="message" rows="3" placeholder="How can we help? / ¿En qué podemos ayudar?"></textarea>
+        </div>
+
+        <button class="btn btn--gold btn--glow btn--block btn--lg" type="submit">
+          <span data-i18n="modal.submit">Send Request / Enviar Solicitud</span>
+        </button>
+        <p class="modal__note" data-i18n="modal.note">We respect your privacy. Your information is confidential.</p>
+      </form>
+
+      <div class="modal__success" id="modalSuccess" hidden>
+        <div class="modal__success-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h3 data-i18n="modal.okTitle">Thank you! / ¡Gracias!</h3>
+        <p data-i18n="modal.okSub">We received your request. Astrid will reach out shortly to schedule your free consultation.</p>
+        <button class="btn btn--ghost" data-close-modal data-i18n="modal.okClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
