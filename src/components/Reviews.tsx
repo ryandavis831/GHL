@@ -35,7 +35,7 @@ function initials(name: string) {
 
 export default function Reviews() {
   return (
-    <section id="reviews" className="bg-brand-soft py-20 md:py-28">
+    <section id="reviews" className="bg-brand-soft py-16 md:py-20">
       <div className="container-tight">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-eyebrow">Reviews</span>
@@ -55,43 +55,43 @@ export default function Reviews() {
           </div>
         </div>
 
-        <div className="mt-12 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3 [column-fill:balance]">
           {reviews.map((r, i) => (
             <motion.figure
               key={`${r.name}-${i}`}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.04 }}
-              className="card-soft flex h-full flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-soft"
+              transition={{ duration: 0.35, delay: Math.min(i, 8) * 0.03 }}
+              className="card-soft mb-4 flex flex-col p-4 transition hover:-translate-y-0.5 hover:shadow-soft sm:p-5 [break-inside:avoid]"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-0.5 text-[#FBBC04]" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }).map((_, j) => (
-                    <StarIcon key={j} className="h-4 w-4" />
+                    <StarIcon key={j} className="h-3.5 w-3.5" />
                   ))}
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand-navy/70 ring-1 ring-brand-navy/5">
+                <span className="inline-flex items-center gap-1 rounded-full bg-brand-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-navy/65 ring-1 ring-brand-navy/5">
                   <GoogleMark className="h-3 w-3" />
-                  Google Review
+                  Google
                 </span>
               </div>
 
               {r.text ? (
-                <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-brand-navy/85">
+                <blockquote className="mt-2.5 text-[14px] leading-[1.55] text-brand-navy/85">
                   &ldquo;{r.text}&rdquo;
                 </blockquote>
               ) : (
-                <p className="mt-4 flex-1 text-[15px] italic leading-relaxed text-brand-navy/55">
+                <p className="mt-2.5 text-[13px] italic leading-snug text-brand-navy/55">
                   Rated 5 stars on Google.
                 </p>
               )}
 
-              <figcaption className="mt-5 flex items-center gap-3 border-t border-brand-navy/5 pt-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-teal/15 text-sm font-bold text-brand-teal">
+              <figcaption className="mt-3 flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-teal/15 text-[11px] font-bold text-brand-teal">
                   {initials(r.name) || "G"}
                 </span>
-                <span className="text-sm font-semibold text-brand-navy">{r.name}</span>
+                <span className="text-[13px] font-semibold text-brand-navy">{r.name}</span>
               </figcaption>
             </motion.figure>
           ))}
@@ -102,7 +102,7 @@ export default function Reviews() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4 }}
-          className="mt-12 flex flex-col items-center justify-center gap-3 text-center"
+          className="mt-8 flex flex-col items-center justify-center gap-3 text-center"
         >
           <p className="text-sm text-brand-navy/70">
             Loved your experience with The Perfect Clean LLC?
