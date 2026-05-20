@@ -6,7 +6,8 @@ export const site = {
   phoneTel: "+12526681898",
   domain: "theperfectcleanllc.net",
   rating: 5.0,
-  reviewCount: 13,
+  reviewCount: 13, // matches reviews.length
+
   primaryCity: "Raleigh, NC",
   serviceArea: "Raleigh, NC and surrounding areas",
   serviceAreaLong:
@@ -278,14 +279,60 @@ export const reasons = [
   { title: "Move-In / Move-Out Ready", desc: "Hand back keys with confidence or arrive to a spotless home." },
 ];
 
-export const reviews = [
-  { name: "Church Client", text: "Jessica and her team clean our church and they do an excellent job." },
-  { name: "Homeowner", text: "Very professional… wonderful job cleaning my house." },
-  { name: "Happy Customer", text: "Outstanding service. Book now!" },
-  { name: "Local Client", text: "Awesome customer service and very professional." },
-  { name: "Homeowner", text: "Jessica is amazing… perfectly cleaned my house." },
-  { name: "Repeat Client", text: "Jessica is a very nice person and efficient in her work." },
-  { name: "Local Resident", text: "Very reliable and got the job done!" },
+export const reviews: { name: string; text: string }[] = [
+  {
+    name: "Peggy Blackburn",
+    text:
+      "Rick was great! He was quick and flexible with his schedule and his work was excellent! Great master of all trades!",
+  },
+  {
+    name: "Aliyah N (Umm Ibraheem)",
+    text:
+      "Jessica is a very nice person and efficient in her work. She wants to make sure she does what she can to please the client. The main thing I needed help with was laundry. Jessica was able to fold our clothes, organize my children’s closet and storage closet in a timely manner. I have been a repeat customer of hers and definitely recommend if you need help with cleaning and organizing.",
+  },
+  {
+    name: "Durham Cleaning Pros",
+    text:
+      "Jessica’s team is amazing to work with and has stepped in on commercial opportunities and crushed it every time! I would highly recommend working with the Perfect Clean for residential and commercial jobs.",
+  },
+  {
+    name: "Jonne Boone",
+    text:
+      "Jessica is willing to go way beyond the extra mile. I hired her to clean our house after a huge and messy move and she stayed for hours and did many things we simply could not do because of time restraints. So I hired her to clean my office as well. That was 3 years ago. She recently did the same thing at my office.",
+  },
+  {
+    name: "ραιи fυll",
+    text:
+      "Very professional she did a wonderful job cleaning my house. I would recommend her to anyone. If your looking for someone to clean your house very professionally she is your person you will not regret it.",
+  },
+  {
+    name: "L Cheeks",
+    text:
+      "5 stars!!! Jessica is amazing, I booked her last minute and perfectly cleaned my house!! Highly recommended.",
+  },
+  {
+    name: "Pedro Rosario",
+    text: "Jessica and her team clean our church and they do an excellent job",
+  },
+  {
+    name: "Rob Wright",
+    text:
+      "Awesome Customer Service and very professional. This company is committed to getting the job right and exceeded expectations!",
+  },
+  {
+    name: "Rissa greene",
+    text: "very reliable and got the job done! very much recommend 😁",
+  },
+  {
+    name: "Michael Germaine",
+    text: "Jessica is a really good person with a good heart",
+  },
+  {
+    name: "Craig McDaniel",
+    text: "Outstanding service. Book now!",
+  },
+  { name: "Wilma Gainey", text: "" },
+  { name: "Marchia Jones", text: "" },
 ];
 
 export const servicesNeeded = [

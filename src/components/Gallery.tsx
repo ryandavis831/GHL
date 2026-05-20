@@ -65,8 +65,8 @@ export default function Gallery() {
             Our Cleaning Results
           </h2>
           <p className="mt-3 text-brand-navy/70">
-            Kitchens, hardwood floors, bathrooms, bedrooms, and carpets — grouped so you can see
-            exactly what Jessica and her team deliver across the Raleigh area.
+            Kitchens, hardwood floors, bathrooms, bedrooms, and carpets &mdash; cleaning results
+            from homes and spaces across the Raleigh area.
           </p>
         </div>
 

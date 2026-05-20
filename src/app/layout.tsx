@@ -18,14 +18,14 @@ const display = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} | Raleigh, NC Cleaning Services — Locally Owned by Jessica`,
+  title: `${site.name} | Raleigh, NC Cleaning Services — Locally Owned & Operated`,
   description:
-    "Locally owned by Jessica. Residential, AirBnB, STR, and commercial cleaning serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County.",
+    "Locally owned and operated. Residential, AirBnB, STR, and commercial cleaning serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County.",
   metadataBase: new URL(`https://${site.domain}`),
   openGraph: {
     title: `${site.name} — Raleigh, NC Cleaning`,
     description:
-      "Trusted by Raleigh-area homeowners and businesses. Jessica and her team — free estimates, supplies included.",
+      "Trusted by homeowners and businesses across the Raleigh area. Free estimates, supplies included, detail-focused service.",
     type: "website",
   },
 };

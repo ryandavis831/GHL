@@ -37,7 +37,7 @@ export default function About() {
           <div className="absolute -bottom-5 -right-3 w-52 rounded-2xl bg-white p-4 shadow-soft ring-1 ring-brand-navy/5">
             <p className="text-xs uppercase tracking-widest text-brand-teal">Locally Owned</p>
             <p className="mt-1 text-sm font-semibold text-brand-navy">
-              Jessica &mdash; based in Raleigh, NC
+              Based in Raleigh, NC
             </p>
           </div>
         </motion.div>
@@ -50,18 +50,19 @@ export default function About() {
         >
           <span className="section-eyebrow">About Us</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
-            Locally owned by Jessica &mdash; trusted across the Raleigh area
+            Locally owned and operated by Jessica
           </h2>
           <p className="mt-4 text-brand-navy/75">
-            The Perfect Clean LLC is a Raleigh-based cleaning company owned and led by Jessica.
-            From everyday residential cleans to AirBnB turnovers, move-in / move-out resets, carpet
-            care, and commercial spaces, Jessica and her team bring the supplies, sweat the
-            details, and leave every room feeling fresh.
+            The Perfect Clean LLC is a Raleigh-based cleaning business offering residential,
+            AirBnB, STR, move-in / move-out, carpet, and commercial cleaning services. Every space
+            is cleaned with attention to detail, professionalism, and care.
           </p>
           <p className="mt-3 text-brand-navy/75">
-            Trusted by Raleigh-area homeowners and businesses &mdash; proudly serving Raleigh, NC
-            and surrounding areas including <span className="font-semibold text-brand-navy">Nash County,
-            Durham, Cary, and Johnston County</span>.
+            Proudly serving Raleigh, NC and surrounding areas including{" "}
+            <span className="font-semibold text-brand-navy">
+              Nash County, Durham, Cary, and Johnston County
+            </span>
+            .
           </p>
 
           <ul className="mt-6 grid grid-cols-2 gap-2">
@@ -78,7 +79,7 @@ export default function About() {
           </ul>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <QuoteButton>Call Jessica for a Free Estimate</QuoteButton>
+            <QuoteButton>Get a Free Estimate</QuoteButton>
             <a href={`tel:${site.phoneTel}`} className="btn-outline">Call {site.phone}</a>
           </div>
         </motion.div>

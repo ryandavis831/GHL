@@ -20,12 +20,12 @@ export default function Footer() {
               />
             </div>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-              Locally owned by Jessica. Professional residential, AirBnB, STR, and commercial
+              Locally owned and operated. Professional residential, AirBnB, STR, and commercial
               cleaning proudly serving <span className="font-semibold text-white">Raleigh, NC</span> and
               surrounding areas including Nash County, Durham, Cary, and Johnston County.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <a href={`tel:${site.phoneTel}`} className="btn-primary">Call Jessica · {site.phone}</a>
+              <a href={`tel:${site.phoneTel}`} className="btn-primary">Call Today · {site.phone}</a>
               <a
                 href="#contact"
                 className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"

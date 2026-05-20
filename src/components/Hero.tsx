@@ -29,16 +29,16 @@ export default function Hero() {
             Proudly serving Raleigh, NC &amp; surrounding areas
           </span>
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-brand-navy sm:text-5xl md:text-[3.4rem]">
-            Raleigh&apos;s Trusted Cleaning Team <span className="text-brand-teal">— Locally Owned by Jessica</span>
+            Raleigh&apos;s Trusted <span className="text-brand-teal">Local Cleaning Service</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-brand-navy/70">
-            Jessica and her team deliver residential, AirBnB, STR, and commercial cleaning across
-            Raleigh, Nash County, Durham, Cary, and Johnston County — flexible scheduling, free
-            estimates, and detail-focused results.
+            The Perfect Clean LLC provides residential, AirBnB, STR, and commercial cleaning across
+            Raleigh, Nash County, Durham, Cary, and Johnston County &mdash; with flexible
+            scheduling, free estimates, and detail-focused service.
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <QuoteButton>Call Jessica for a Free Estimate</QuoteButton>
+            <QuoteButton>Get a Free Estimate</QuoteButton>
             <a href={`tel:${site.phoneTel}`} className="btn-outline">
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
@@ -104,7 +104,7 @@ export default function Hero() {
             className="absolute -right-3 top-8 hidden w-48 rounded-2xl bg-brand-navy p-4 text-white shadow-soft sm:block"
           >
             <p className="text-xs uppercase tracking-widest text-brand-mint">Free Estimate</p>
-            <p className="mt-1 text-sm leading-snug">Call Jessica — she&apos;ll quote your space fast.</p>
+            <p className="mt-1 text-sm leading-snug">Tell us about your space and get a fast quote.</p>
           </motion.div>
         </motion.div>
       </div>
