@@ -250,25 +250,15 @@
   <!-- ============== ABOUT ============== -->
   <section class="about" id="about">
     <div class="container about__inner">
-      <div class="about__media">
-        <div class="about__media-glow" aria-hidden="true"></div>
+      <figure class="about__media">
         <div class="about__media-frame">
           <img src="assets/brand/astrid-card.png" alt="Astrid Bollain at her Sonora Tax & Bookkeeping office in Carrboro, NC" />
         </div>
-        <span class="about__media-corner about__media-corner--tl" aria-hidden="true"></span>
-        <span class="about__media-corner about__media-corner--br" aria-hidden="true"></span>
-        <div class="about__badge">
-          <svg class="flag flag--mx" viewBox="0 0 18 12" aria-hidden="true">
-            <rect width="6" height="12" x="0" fill="#006847"/>
-            <rect width="6" height="12" x="6" fill="#F7F5F2"/>
-            <rect width="6" height="12" x="12" fill="#CE1126"/>
-          </svg>
-          <div>
-            <div class="about__badge-title" data-i18n="about.badgeT">Spanish-First Communication</div>
-            <div class="about__badge-sub" data-i18n="about.badgeS">El español es la lengua materna de Astrid</div>
-          </div>
-        </div>
-      </div>
+        <figcaption class="about__caption">
+          <span class="about__caption-name">Astrid Bollain</span>
+          <span class="about__caption-role" data-i18n="about.captionRole">Founder · Sonora Tax &amp; Bookkeeping</span>
+        </figcaption>
+      </figure>
 
       <div class="about__copy">
         <span class="section-eyebrow">
@@ -277,9 +267,8 @@
         </span>
         <h2 class="section-title">
           <span data-i18n="about.title1">Meet Astrid Bollain</span>
-          <span class="section-title__divider" aria-hidden="true"></span>
-          <span class="section-title__sub" data-i18n="about.title2">Your bilingual partner in taxes, payroll, and bookkeeping.</span>
         </h2>
+        <p class="section-title__sub about__subtitle" data-i18n="about.title2">Your bilingual partner in taxes, payroll, and bookkeeping.</p>
 
         <p class="about__lead" data-i18n="about.lead">
           Astrid founded Sonora to bring clarity, confidence, and care to local families and small businesses. Spanish is her first language, and she built Sonora to feel like home for every client — with personal attention, deep bookkeeping &amp; payroll expertise, and long-term relationships you can rely on.
@@ -316,9 +305,28 @@
           </li>
         </ul>
 
+        <!-- Credentials strip (subtle) — drop the Universidad de Sonora logo into
+             assets/brand/unison.png to enable the alma-mater chip below. -->
+        <div class="about__credentials">
+          <span class="about__credentials-label" data-i18n="about.credentialsLabel">Credentials</span>
+          <div class="about__credentials-items">
+            <span class="cred-chip">
+              <svg class="flag flag--mx" viewBox="0 0 18 12" aria-hidden="true">
+                <rect width="6" height="12" x="0" fill="#006847"/>
+                <rect width="6" height="12" x="6" fill="#F7F5F2"/>
+                <rect width="6" height="12" x="12" fill="#CE1126"/>
+              </svg>
+              <span data-i18n="about.credSpanish">Spanish — Native Speaker</span>
+            </span>
+            <span class="cred-chip cred-chip--alma">
+              <img src="assets/brand/unison.png" alt="Universidad de Sonora" class="cred-chip__logo" onerror="this.style.display='none'" />
+              <span data-i18n="about.credAlma">Universidad de Sonora · Alma Mater</span>
+            </span>
+          </div>
+        </div>
+
         <div class="about__cta">
           <button class="btn btn--grad" data-open-modal data-i18n="about.cta">Book a Free Consultation</button>
-          <span class="about__sig">— Astrid Bollain · <em data-i18n="about.sigRole">Founder</em></span>
         </div>
       </div>
     </div>
@@ -774,9 +782,11 @@
           <span data-i18n="footer.flagchip">Bilingual · Bilingüe</span>
         </div>
         <div class="footer__social">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zM8 8h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 7v9.44h-4.56v-8.37c0-2-.04-4.57-2.78-4.57-2.79 0-3.22 2.18-3.22 4.43V22H8V8z"/></svg></a>
+          <!-- TODO: replace href with Astrid's actual LinkedIn profile URL -->
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="Astrid Bollain on LinkedIn" class="footer__linkedin">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zM8 8h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 7v9.44h-4.56v-8.37c0-2-.04-4.57-2.78-4.57-2.79 0-3.22 2.18-3.22 4.43V22H8V8z"/></svg>
+            <span data-i18n="footer.linkedin">Connect on LinkedIn</span>
+          </a>
         </div>
       </div>
 
