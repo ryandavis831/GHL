@@ -1,8 +1,7 @@
 /* ===========================================================
-   Sonora Tax & Bookkeeping — Interactions & i18n (v3)
-   Spanish-first bilingual site. Most copy is rendered
-   bilingually in markup; the language toggle re-emphasizes
-   the longer body strings keyed with data-i18n.
+   Sonora Tax & Bookkeeping — Interactions & i18n (v4)
+   English default · One-click "Español" toggle (button flips
+   to "English" when in Spanish mode).
    =========================================================== */
 
 (function () {
@@ -88,69 +87,402 @@
 
   /* ---------------- i18n ---------------- */
   const I18N = {
-    es: {
-      'hero.titleEs1': 'Impuestos y Contabilidad,',
-      'hero.titleEs2': 'con confianza y claridad.',
-      'hero.titleEn': 'Tax preparation & year-round bookkeeping — done with confidence.',
-      'hero.subEs': 'Servicio profesional para familias hispanohablantes y pequeños negocios. Astrid Bollain habla español como lengua materna — atención completamente bilingüe en cada paso.',
-      'hero.subEn': 'Professional service for Spanish-speaking families and small businesses. Astrid speaks Spanish as her first language — fully bilingual support at every step.',
-      'hero.trustEs': 'La confianza de familias hispanohablantes y pequeños negocios',
-      'hero.trustEn': 'Trusted by Spanish-speaking families & small businesses',
-      'hero.s1es': 'Declaraciones', 'hero.s1en': 'Returns Filed',
-      'hero.s2es': 'Bilingüe',      'hero.s2en': 'Bilingual',
-      'hero.s3es': 'Apoyo Todo el Año', 'hero.s3en': 'Year-Round Support',
-
-      'about.titleEs': 'Conozca a Astrid Bollain',
-      'about.titleEn': 'Meet Astrid Bollain — your bilingual partner in taxes and bookkeeping.',
-      'about.leadEs': 'Astrid fundó Sonora para ofrecer claridad, confianza y cuidado a las familias y pequeños negocios de habla hispana. El español es su lengua materna, y construyó Sonora para que cada cliente se sienta como en casa — con atención personal, experiencia profunda en contabilidad y relaciones duraderas.',
-      'about.leadEn': 'Astrid founded Sonora to bring clarity, confidence, and care to Spanish-speaking families and small businesses. Spanish is her first language — and Sonora was built so every client feels at home, with personal attention, deep bookkeeping expertise, and long-term relationships.',
-    },
     en: {
-      'hero.titleEs1': 'Tax & Bookkeeping,',
-      'hero.titleEs2': 'done with confidence.',
-      'hero.titleEn': 'Impuestos y contabilidad — con confianza y claridad.',
-      'hero.subEs': 'Boutique bilingual firm serving Spanish-speaking families and small businesses with personalized tax preparation and year-round bookkeeping. Astrid speaks Spanish as her first language.',
-      'hero.subEn': 'Firma boutique bilingüe que atiende a familias hispanohablantes y pequeños negocios — preparación de impuestos personalizada y contabilidad todo el año.',
-      'hero.trustEs': 'Trusted by Spanish-speaking families & small businesses',
-      'hero.trustEn': 'La confianza de familias hispanohablantes y pequeños negocios',
-      'hero.s1es': 'Returns Filed', 'hero.s1en': 'Declaraciones',
-      'hero.s2es': 'Bilingual',     'hero.s2en': 'Bilingüe',
-      'hero.s3es': 'Year-Round Support', 'hero.s3en': 'Apoyo Todo el Año',
+      'topbar.habla': 'Se Habla Español · Bilingual Service',
+      'topbar.center': 'Locally owned in Carrboro, NC · Boutique bilingual firm',
 
-      'about.titleEs': 'Meet Astrid Bollain',
-      'about.titleEn': 'Su socia bilingüe en impuestos y contabilidad.',
-      'about.leadEs': 'Astrid founded Sonora to bring clarity, confidence, and care to Spanish-speaking families and small businesses. Spanish is her first language — and Sonora was built so every client feels at home, with personal attention, deep bookkeeping expertise, and long-term relationships.',
-      'about.leadEn': 'Astrid fundó Sonora para ofrecer claridad, confianza y cuidado a las familias y pequeños negocios de habla hispana. El español es su lengua materna — y Sonora fue construido para que cada cliente se sienta como en casa.',
+      'nav.tag':         'Tax & Bookkeeping · Carrboro, NC',
+      'nav.services':    'Services',
+      'nav.about':       'About',
+      'nav.bookkeeping': 'Bookkeeping',
+      'nav.review':      'Reviews',
+      'nav.faq':         'FAQ',
+      'nav.contact':     'Contact',
+      'nav.cta':         'Schedule Consultation',
+
+      'hero.eyebrow': 'Carrboro · Boutique Bilingual Firm',
+      'hero.title1':  'Tax, Payroll &',
+      'hero.title2':  'Bookkeeping, done right.',
+      'hero.sub':     'Sonora is a locally-owned boutique firm in Carrboro, NC — providing professional tax preparation, payroll, and year-round bookkeeping for individuals, families, and small businesses. Bilingual support in English and Español.',
+      'hero.cta1':    'Schedule Consultation',
+      'hero.cta2':    'Call Now',
+      'hero.trustT':  'Trusted by Spanish-speaking families & local small businesses',
+      'hero.trustS':  'Atención completamente bilingüe · Spanish-first support',
+      'hero.s1':      'Returns Filed',
+      'hero.s2':      'Bilingual Support',
+      'hero.s3':      'Year-Round Service',
+      'hero.chip1t':  'Se Habla Español',
+      'hero.chip1s':  'Spanish-first service',
+      'hero.chip2t':  'Locally Owned',
+      'hero.chip2s':  'Carrboro, North Carolina',
+      'hero.namecard':'Founder & Tax Professional',
+
+      'strip.s1t': 'Fully Bilingual Service', 'strip.s1s': 'English & Español',
+      'strip.s2t': 'Payroll Services',        'strip.s2s': 'Setup, processing & compliance',
+      'strip.s3t': 'Year-Round Bookkeeping',  'strip.s3s': 'Monthly books that stay clean',
+      'strip.s4t': 'IRS-Compliant Filing',    'strip.s4s': 'Accurate & timely returns',
+
+      'about.eyebrow': 'About Sonora',
+      'about.title1':  'Meet Astrid Bollain',
+      'about.title2':  'Your bilingual partner in taxes, payroll, and bookkeeping.',
+      'about.badgeT':  'Spanish-First Communication',
+      'about.badgeS':  "Astrid's first language is Spanish",
+      'about.lead':    'Astrid founded Sonora to bring clarity, confidence, and care to local families and small businesses. Spanish is her first language, and she built Sonora to feel like home for every client — with personal attention, deep bookkeeping & payroll expertise, and long-term relationships you can rely on.',
+      'about.li1t': 'Bilingual, Spanish-first communication',
+      'about.li1s': 'Every conversation, document, and answer in your preferred language.',
+      'about.li2t': 'Bookkeeping & payroll expertise',
+      'about.li2s': 'Clean monthly books and reliable payroll for growing small businesses.',
+      'about.li3t': 'Year-round tax planning',
+      'about.li3s': 'Proactive guidance through every season — not just April.',
+      'about.li4t': 'Local, community-rooted trust',
+      'about.li4s': 'Built right here in Carrboro — neighbors helping neighbors.',
+      'about.cta':     'Book a Free Consultation',
+      'about.sigRole': 'Founder',
+
+      'feature.eyebrow': 'Premium Bookkeeping & Payroll',
+      'feature.title1':  'Clear books.',
+      'feature.title2':  'Reliable payroll. Confident finances.',
+      'feature.lead':    'Bookkeeping and payroll are just as important as tax preparation. We keep your books clean every month and run payroll reliably — so your small business stays organized, compliant, and tax-ready all year long.',
+      'feature.li1t': 'Monthly Bookkeeping',     'feature.li1s': '— reconciliations, reports, clean records',
+      'feature.li2t': 'Payroll Services',        'feature.li2s': '— setup, processing, tax filings & compliance',
+      'feature.li3t': 'Financial Organization',  'feature.li3s': '— systems that simplify tax season',
+      'feature.li4t': 'Quarterly Reports',       'feature.li4s': '— clear summaries you can actually use',
+      'feature.li5t': 'Year-Round Partnership',  'feature.li5s': '— always available, in English or Español',
+      'feature.cta':     'Talk About My Business',
+      'feature.floatT':  'Year-Round Partnership',
+      'feature.floatS':  'Monthly support & planning',
+
+      'services.eyebrow':  'Our Services',
+      'services.title1':   'Premium bilingual support',
+      'services.title2':   'for every part of your finances.',
+      'services.lead':     'From personal returns to monthly bookkeeping and payroll — handled with care, in English and Español.',
+      'services.chipCore': 'Core Service',
+      'svc.tax':  'Tax Preparation',
+      'svc.taxD': 'Accurate personal & business returns with maximum legal savings — bilingual review every step.',
+      'svc.pay':  'Payroll Services',
+      'svc.payD': 'Reliable payroll setup, processing, tax filings, and compliance for small businesses and growing teams.',
+      'svc.book': 'Bookkeeping',
+      'svc.bookD':'Clean monthly books, reconciliations, and reports — keeping your business clear all year.',
+      'svc.plan': 'Tax Planning',
+      'svc.planD':'Proactive year-round strategy to minimize liability and prevent surprises.',
+      'svc.biz':  'Business Tax Services',
+      'svc.bizD': 'LLC, S-Corp, partnership and sole-proprietor returns prepared with precision.',
+      'svc.pers': 'Personal Tax Filing',
+      'svc.persD':'Individual and family returns — clear, friendly, and bilingual from start to finish.',
+      'svc.irs':  'IRS Assistance',
+      'svc.irsD': 'Help responding to IRS notices, audits, and back-tax issues — calmly handled.',
+      'svc.sb':   'Small Business Accounting',
+      'svc.sbD':  'Full-service accounting support built for local entrepreneurs and family businesses.',
+
+      'why.eyebrow': 'Why Sonora',
+      'why.title1':  'A boutique firm',
+      'why.title2':  'built on trust.',
+      'why.lead':    "Built on bilingual clarity, long-term relationships, and the kind of personal attention that's hard to find anywhere else.",
+      'why.c1t': 'Bilingual English & Spanish', 'why.c1d': 'Every detail explained clearly in the language you prefer.',
+      'why.c2t': 'Personal Attention',           'why.c2d': 'You work directly with Astrid — not a call center.',
+      'why.c3t': 'Accurate & Timely',            'why.c3d': 'Precision and punctuality on every return, report, and payroll run.',
+      'why.c4t': 'Bookkeeping & Payroll',        'why.c4d': 'Books and payroll handled together — for a complete picture of your business.',
+      'why.c5t': 'Local in Carrboro',            'why.c5d': 'Rooted in the community we serve — neighbors helping neighbors.',
+      'why.c6t': 'Year-Round Support',           'why.c6d': 'Guidance and answers 12 months a year, not just at tax time.',
+
+      'review.support':    'Support Local',
+      'review.title1':     'Help others find',
+      'review.title2':     'Sonora Tax & Bookkeeping.',
+      'review.lead':       "We're a small, locally-owned bilingual firm — and word of mouth means everything. If we've helped you with your taxes, payroll, or bookkeeping, please share your experience on Google. It helps neighbors find us, especially Spanish-speaking families looking for trusted, bilingual support.",
+      'review.cta':        'Leave a Google Review',
+      'review.hint':       'Takes less than a minute · Toma menos de un minuto',
+      'review.visualNote': 'Your review helps Spanish-speaking families and local businesses find a trusted bilingual partner.',
+
+      'cta.eyebrow': 'Free Consultation',
+      'cta.title1':  'Ready for a smarter tax season?',
+      'cta.sub':     'Book your free, no-obligation consultation with Astrid. Bilingual support — every step of the way.',
+      'cta.btn1':    'Schedule Free Consultation',
+
+      'faq.eyebrow': 'FAQ',
+      'faq.title1':  'Common',
+      'faq.title2':  'questions.',
+      'faq.q1': 'Do you offer fully bilingual service?',
+      'faq.a1': "Yes — every conversation, document, and explanation is available in English or Español. Astrid's first language is Spanish, and bilingual service is at the heart of Sonora.",
+      'faq.q2': 'Do you handle payroll for small businesses?',
+      'faq.a2': 'Yes — payroll is a core service. We set up, process, and file payroll taxes for small businesses and growing teams. All bilingual.',
+      'faq.q3': 'Is the initial consultation free?',
+      'faq.a3': 'Yes. Your first consultation is free and confidential — designed to understand your needs and outline a clear plan forward.',
+      'faq.q4': 'Do you provide bookkeeping year-round?',
+      'faq.a4': 'Yes — bookkeeping is a core service. We keep your books clean every month so your business stays organized and tax-ready.',
+      'faq.q5': 'Can you help if I have an IRS notice or back taxes?',
+      'faq.a5': 'Absolutely. We help individuals and small businesses respond to IRS notices, resolve back taxes, and get back on track — calmly and clearly.',
+      'faq.q6': 'Where is your office located?',
+      'faq.a6': "We're at 212 W Main St, Suite A2, Carrboro, NC 27510 — just minutes from Chapel Hill. Walk-ins by appointment, virtual meetings available.",
+
+      'map.eyebrow': 'Visit Our Office',
+      'map.title1':  'Right here in',
+      'map.title2':  'Carrboro, NC.',
+      'map.lead':    "Stop by, schedule a virtual meeting, or give us a call. We're proud to serve local families and small businesses across the Triangle — fully bilingual, always personal.",
+      'map.addrT':   'Address',
+      'map.hoursT':  'Office Hours',
+      'map.hoursV':  'Mon–Fri · 9:00 AM – 6:00 PM<br/>Sat · By appointment<br/>Sun · Closed',
+      'map.phoneT':  'Phone & Email',
+      'map.cta1':    'Get Directions',
+      'map.cta2':    'Schedule a Visit',
+
+      'footer.tag':       'Tax & Bookkeeping · Carrboro, NC',
+      'footer.identity':  'A boutique bilingual firm built for local families and small businesses — tax preparation, payroll, and year-round bookkeeping in English and Español.',
+      'footer.flagchip':  'Bilingual · Bilingüe',
+      'footer.h1':        'Services',
+      'footer.h2':        'Company',
+      'footer.h3':        'Visit & Contact',
+      'footer.directions':'Get Directions →',
+      'footer.rights':    'All rights reserved.',
+      'footer.tagline':   'Confianza · Claridad · Resultados',
+
+      'modal.eyebrow':  'Free Consultation',
+      'modal.title':    "Let's talk.",
+      'modal.sub':      "Tell us about your needs and we'll be in touch shortly. Bilingual support — English or Español.",
+      'modal.name':     'Full Name',
+      'modal.phone':    'Phone',
+      'modal.email':    'Email',
+      'modal.service':  'Service Needed',
+      'modal.method':   'Contact Method',
+      'modal.message':  'Message',
+      'modal.svc0':     'Select a service',
+      'modal.svcOther': 'Other',
+      'modal.m0':       'Select preference',
+      'modal.m1':       'Phone Call',
+      'modal.m2':       'Email',
+      'modal.m3':       'Text Message',
+      'modal.submit':   'Send Request',
+      'modal.note':     'We respect your privacy. Your information is confidential.',
+      'modal.placeholder':'How can we help?',
+      'modal.okTitle':  'Thank you!',
+      'modal.okSub':    'We received your request. Astrid will reach out shortly to schedule your free consultation.',
+      'modal.okClose':  'Close',
     },
+
+    es: {
+      'topbar.habla': 'Se Habla Español · Servicio Bilingüe',
+      'topbar.center': 'Negocio local en Carrboro, NC · Firma boutique bilingüe',
+
+      'nav.tag':         'Impuestos & Contabilidad · Carrboro, NC',
+      'nav.services':    'Servicios',
+      'nav.about':       'Acerca',
+      'nav.bookkeeping': 'Contabilidad',
+      'nav.review':      'Testimonios',
+      'nav.faq':         'Preguntas',
+      'nav.contact':     'Contacto',
+      'nav.cta':         'Agendar Consulta',
+
+      'hero.eyebrow': 'Carrboro · Firma Boutique Bilingüe',
+      'hero.title1':  'Impuestos, Nómina y',
+      'hero.title2':  'Contabilidad, hechos bien.',
+      'hero.sub':     'Sonora es una firma boutique local en Carrboro, NC — preparación de impuestos profesional, nómina y contabilidad todo el año para personas, familias y pequeños negocios. Soporte bilingüe en español e inglés.',
+      'hero.cta1':    'Agendar Consulta',
+      'hero.cta2':    'Llamar Ahora',
+      'hero.trustT':  'La confianza de familias hispanohablantes y pequeños negocios locales',
+      'hero.trustS':  'Atención completamente bilingüe · Servicio en español primero',
+      'hero.s1':      'Declaraciones',
+      'hero.s2':      'Soporte Bilingüe',
+      'hero.s3':      'Servicio Todo el Año',
+      'hero.chip1t':  'Se Habla Español',
+      'hero.chip1s':  'Servicio en español primero',
+      'hero.chip2t':  'Negocio Local',
+      'hero.chip2s':  'Carrboro, Carolina del Norte',
+      'hero.namecard':'Fundadora · Profesional de Impuestos',
+
+      'strip.s1t': 'Servicio Completamente Bilingüe', 'strip.s1s': 'Español & English',
+      'strip.s2t': 'Servicios de Nómina',             'strip.s2s': 'Configuración, procesamiento y cumplimiento',
+      'strip.s3t': 'Contabilidad Todo el Año',         'strip.s3s': 'Libros mensuales siempre claros',
+      'strip.s4t': 'Declaraciones Conforme al IRS',    'strip.s4s': 'Precisas y a tiempo',
+
+      'about.eyebrow': 'Acerca de Sonora',
+      'about.title1':  'Conozca a Astrid Bollain',
+      'about.title2':  'Su socia bilingüe en impuestos, nómina y contabilidad.',
+      'about.badgeT':  'Comunicación en Español Primero',
+      'about.badgeS':  'El español es la lengua materna de Astrid',
+      'about.lead':    'Astrid fundó Sonora para ofrecer claridad, confianza y cuidado a familias y pequeños negocios locales. El español es su lengua materna, y construyó Sonora para que cada cliente se sienta como en casa — con atención personal, profunda experiencia en contabilidad y nómina, y relaciones duraderas.',
+      'about.li1t': 'Comunicación bilingüe, español primero',
+      'about.li1s': 'Cada conversación, documento y respuesta en el idioma que prefiera.',
+      'about.li2t': 'Experiencia en contabilidad y nómina',
+      'about.li2s': 'Libros mensuales claros y nómina confiable para pequeños negocios.',
+      'about.li3t': 'Planificación fiscal todo el año',
+      'about.li3s': 'Asesoría proactiva en cada temporada — no solo en abril.',
+      'about.li4t': 'Confianza local y comunitaria',
+      'about.li4s': 'Construida aquí en Carrboro — vecinos ayudando a vecinos.',
+      'about.cta':     'Agendar Consulta Gratis',
+      'about.sigRole': 'Fundadora',
+
+      'feature.eyebrow': 'Contabilidad y Nómina Premium',
+      'feature.title1':  'Libros claros.',
+      'feature.title2':  'Nómina confiable. Finanzas con confianza.',
+      'feature.lead':    'La contabilidad y la nómina son tan importantes como la preparación de impuestos. Mantenemos sus libros claros cada mes y procesamos la nómina con confianza — para que su pequeño negocio se mantenga organizado, cumplido y listo para impuestos todo el año.',
+      'feature.li1t': 'Contabilidad Mensual',     'feature.li1s': '— conciliaciones, reportes, registros claros',
+      'feature.li2t': 'Servicios de Nómina',      'feature.li2s': '— configuración, procesamiento, declaraciones y cumplimiento',
+      'feature.li3t': 'Organización Financiera',   'feature.li3s': '— sistemas que simplifican la temporada de impuestos',
+      'feature.li4t': 'Reportes Trimestrales',    'feature.li4s': '— resúmenes claros que sí puede usar',
+      'feature.li5t': 'Asociación Todo el Año',   'feature.li5s': '— siempre disponibles, en español o inglés',
+      'feature.cta':     'Hablar de mi negocio',
+      'feature.floatT':  'Asociación Todo el Año',
+      'feature.floatS':  'Apoyo y planificación mensual',
+
+      'services.eyebrow':  'Nuestros Servicios',
+      'services.title1':   'Soporte bilingüe premium',
+      'services.title2':   'para cada parte de sus finanzas.',
+      'services.lead':     'Desde declaraciones personales hasta contabilidad mensual y nómina — atendido con cuidado, en español e inglés.',
+      'services.chipCore': 'Servicio Principal',
+      'svc.tax':  'Preparación de Impuestos',
+      'svc.taxD': 'Declaraciones personales y de negocio precisas, con el máximo ahorro legal — revisión bilingüe en cada paso.',
+      'svc.pay':  'Servicios de Nómina',
+      'svc.payD': 'Configuración, procesamiento, declaraciones e cumplimiento de nómina confiable para pequeños negocios.',
+      'svc.book': 'Contabilidad',
+      'svc.bookD':'Libros mensuales claros, conciliaciones e informes — para que su negocio se mantenga organizado todo el año.',
+      'svc.plan': 'Planificación Fiscal',
+      'svc.planD':'Estrategia proactiva todo el año para minimizar la carga fiscal y evitar sorpresas.',
+      'svc.biz':  'Impuestos de Negocio',
+      'svc.bizD': 'Declaraciones de LLC, S-Corp, sociedades y dueños únicos preparadas con precisión.',
+      'svc.pers': 'Impuestos Personales',
+      'svc.persD':'Declaraciones personales y familiares — claras, amables y bilingües de principio a fin.',
+      'svc.irs':  'Asistencia con el IRS',
+      'svc.irsD': 'Ayuda con avisos del IRS, auditorías e impuestos atrasados — manejado con calma.',
+      'svc.sb':   'Contabilidad para Pequeños Negocios',
+      'svc.sbD':  'Soporte contable completo para emprendedores locales y negocios familiares.',
+
+      'why.eyebrow': 'Por qué Sonora',
+      'why.title1':  'Una firma boutique',
+      'why.title2':  'basada en la confianza.',
+      'why.lead':    'Construida sobre claridad bilingüe, relaciones duraderas y atención personal difícil de encontrar.',
+      'why.c1t': 'Bilingüe Español & Inglés', 'why.c1d': 'Cada detalle explicado claramente en el idioma que prefiera.',
+      'why.c2t': 'Atención Personal',          'why.c2d': 'Trabaje directamente con Astrid — no con un call center.',
+      'why.c3t': 'Preciso y Puntual',          'why.c3d': 'Precisión y puntualidad en cada declaración, reporte y nómina.',
+      'why.c4t': 'Contabilidad y Nómina',      'why.c4d': 'Libros y nómina manejados juntos — para una visión completa de su negocio.',
+      'why.c5t': 'Local en Carrboro',          'why.c5d': 'Arraigados en la comunidad — vecinos ayudando a vecinos.',
+      'why.c6t': 'Apoyo Todo el Año',          'why.c6d': 'Asesoría los 12 meses, no solo en temporada de impuestos.',
+
+      'review.support':    'Apoye lo Local',
+      'review.title1':     'Ayude a otros a encontrar',
+      'review.title2':     'Sonora Tax & Bookkeeping.',
+      'review.lead':       'Somos una firma pequeña, local y bilingüe — y la recomendación de boca en boca lo es todo. Si le hemos ayudado con sus impuestos, nómina o contabilidad, comparta su experiencia en Google. Ayuda a sus vecinos a encontrarnos, especialmente a las familias hispanohablantes que buscan un socio bilingüe de confianza.',
+      'review.cta':        'Deja una reseña en Google',
+      'review.hint':       'Toma menos de un minuto · Takes less than a minute',
+      'review.visualNote': 'Su reseña ayuda a familias hispanohablantes y negocios locales a encontrar un socio bilingüe de confianza.',
+
+      'cta.eyebrow': 'Consulta Gratis',
+      'cta.title1':  '¿Listo para una temporada de impuestos más tranquila?',
+      'cta.sub':     'Agende su consulta gratis y sin compromiso con Astrid. Apoyo bilingüe — en cada paso.',
+      'cta.btn1':    'Agendar Consulta Gratis',
+
+      'faq.eyebrow': 'Preguntas Frecuentes',
+      'faq.title1':  'Preguntas',
+      'faq.title2':  'frecuentes.',
+      'faq.q1': '¿Ofrecen servicio totalmente bilingüe?',
+      'faq.a1': 'Sí — cada conversación, documento y explicación está disponible en español o inglés. El español es la lengua materna de Astrid, y el servicio bilingüe es el corazón de Sonora.',
+      'faq.q2': '¿Manejan la nómina para pequeños negocios?',
+      'faq.a2': 'Sí — la nómina es un servicio principal. Configuramos, procesamos y declaramos los impuestos de nómina para pequeños negocios. Todo bilingüe.',
+      'faq.q3': '¿La consulta inicial es gratis?',
+      'faq.a3': 'Sí. Su primera consulta es gratis y confidencial — diseñada para entender sus necesidades y trazar un plan claro.',
+      'faq.q4': '¿Ofrecen contabilidad todo el año?',
+      'faq.a4': 'Sí — la contabilidad es un servicio principal. Mantenemos sus libros claros cada mes para que su negocio esté listo en cualquier momento.',
+      'faq.q5': '¿Pueden ayudarme con un aviso del IRS o impuestos atrasados?',
+      'faq.a5': 'Por supuesto. Ayudamos a personas y pequeños negocios a responder avisos del IRS, resolver impuestos atrasados y volver al camino — con calma y claridad.',
+      'faq.q6': '¿Dónde está su oficina?',
+      'faq.a6': 'Estamos en 212 W Main St, Suite A2, Carrboro, NC 27510 — a minutos de Chapel Hill. Visitas con cita, reuniones virtuales disponibles.',
+
+      'map.eyebrow': 'Visite Nuestra Oficina',
+      'map.title1':  'Aquí mismo en',
+      'map.title2':  'Carrboro, NC.',
+      'map.lead':    'Pase por la oficina, agende una reunión virtual o llámenos. Servimos con orgullo a familias y pequeños negocios del Triangle — completamente bilingüe, siempre personal.',
+      'map.addrT':   'Dirección',
+      'map.hoursT':  'Horario de Oficina',
+      'map.hoursV':  'Lun–Vie · 9:00 AM – 6:00 PM<br/>Sáb · Con cita<br/>Dom · Cerrado',
+      'map.phoneT':  'Teléfono & Correo',
+      'map.cta1':    'Obtener Direcciones',
+      'map.cta2':    'Agendar Visita',
+
+      'footer.tag':       'Impuestos & Contabilidad · Carrboro, NC',
+      'footer.identity':  'Una firma boutique bilingüe construida para familias y pequeños negocios locales — preparación de impuestos, nómina y contabilidad todo el año en español e inglés.',
+      'footer.flagchip':  'Bilingüe · Bilingual',
+      'footer.h1':        'Servicios',
+      'footer.h2':        'Empresa',
+      'footer.h3':        'Visita & Contacto',
+      'footer.directions':'Obtener Direcciones →',
+      'footer.rights':    'Todos los derechos reservados.',
+      'footer.tagline':   'Confianza · Claridad · Resultados',
+
+      'modal.eyebrow':  'Consulta Gratis',
+      'modal.title':    'Conversemos.',
+      'modal.sub':      'Cuéntenos sus necesidades y nos pondremos en contacto pronto. Apoyo bilingüe — español o inglés.',
+      'modal.name':     'Nombre Completo',
+      'modal.phone':    'Teléfono',
+      'modal.email':    'Correo',
+      'modal.service':  'Servicio Necesario',
+      'modal.method':   'Método de Contacto',
+      'modal.message':  'Mensaje',
+      'modal.svc0':     'Seleccione un servicio',
+      'modal.svcOther': 'Otro',
+      'modal.m0':       'Seleccione preferencia',
+      'modal.m1':       'Llamada',
+      'modal.m2':       'Correo',
+      'modal.m3':       'Mensaje de Texto',
+      'modal.submit':   'Enviar Solicitud',
+      'modal.note':     'Respetamos su privacidad. Su información es confidencial.',
+      'modal.placeholder':'¿En qué podemos ayudar?',
+      'modal.okTitle':  '¡Gracias!',
+      'modal.okSub':    'Recibimos su solicitud. Astrid se comunicará pronto para agendar su consulta gratis.',
+      'modal.okClose':  'Cerrar',
+    },
+  };
+
+  // Map "switch to" labels — shown on the toggle button itself
+  const SWITCH_LABEL = {
+    en: { short: 'Español', long: 'Switch to Español' },
+    es: { short: 'English', long: 'Switch to English' },
   };
 
   function applyLang(lang) {
     document.documentElement.setAttribute('lang', lang);
     document.documentElement.setAttribute('data-lang', lang);
-    const dict = I18N[lang] || I18N.es;
+    const dict = I18N[lang] || I18N.en;
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key] != null) el.textContent = dict[key];
+      if (dict[key] == null) return;
+      const val = dict[key];
+      // Allow simple <br/> in some values (e.g. address, hours)
+      if (val.indexOf('<br') !== -1) el.innerHTML = val;
+      else el.textContent = val;
     });
-    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
-      btn.classList.toggle('is-active', btn.getAttribute('data-lang-btn') === lang);
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (dict[key] != null) el.setAttribute('placeholder', dict[key]);
     });
+
+    // Update language toggle labels — show the OPPOSITE language ("switch to ___")
+    const target = lang === 'en' ? 'es' : 'en';
+    const label = SWITCH_LABEL[lang]; // current = lang → button offers the other
+    document.querySelectorAll('[data-lang-label]').forEach(el => {
+      // long form used in hero/large CTA, short form elsewhere
+      const isHero = el.closest('.btn--ghost');
+      el.textContent = isHero ? label.long : label.short;
+    });
+    document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
+      btn.setAttribute('aria-label', `Switch language to ${label.short}`);
+      btn.setAttribute('data-target-lang', target);
+    });
+
     try { localStorage.setItem('sonora-lang', lang); } catch (_) {}
   }
 
-  document.querySelectorAll('[data-lang-btn]').forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang-btn')));
+  // Single-click toggle: flips between en ↔ es
+  document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-lang') || 'en';
+      applyLang(current === 'en' ? 'es' : 'en');
+    });
   });
 
-  // Default to Spanish — this is a Spanish-first site
-  let initial = 'es';
+  // Default: ENGLISH. Persisted choice wins.
+  let initial = 'en';
   try {
     const stored = localStorage.getItem('sonora-lang');
-    if (stored === 'es' || stored === 'en') initial = stored;
-    else if ((navigator.language || '').toLowerCase().startsWith('en')) {
-      // Even English-first browsers see Spanish lead unless they explicitly switch
-      initial = 'es';
-    }
+    if (stored === 'en' || stored === 'es') initial = stored;
   } catch (_) {}
   applyLang(initial);
 
@@ -166,7 +498,7 @@
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.service-card, .why-card, .review-card, .stat, .faq-item, .about__list li, .feature__list li').forEach(el => {
+    document.querySelectorAll('.service-card, .why-card, .stat, .faq-item, .about__list li, .feature__list li, .map__detail').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(14px)';
       el.style.transition = 'opacity .55s ease, transform .55s ease';
