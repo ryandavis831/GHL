@@ -35,8 +35,10 @@ function initials(name: string) {
 
 export default function Reviews() {
   return (
-    <section id="reviews" className="bg-brand-soft py-16 md:py-20">
-      <div className="container-tight">
+    <section id="reviews" className="relative overflow-hidden bg-reviews-tint py-16 md:py-20">
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-brand-teal/15 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-brand-mint/30 blur-3xl" />
+      <div className="container-tight relative">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-eyebrow">Reviews</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
@@ -56,45 +58,56 @@ export default function Reviews() {
         </div>
 
         <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3 [column-fill:balance]">
-          {reviews.map((r, i) => (
-            <motion.figure
-              key={`${r.name}-${i}`}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.35, delay: Math.min(i, 8) * 0.03 }}
-              className="card-soft mb-4 flex flex-col p-4 transition hover:-translate-y-0.5 hover:shadow-soft sm:p-5 [break-inside:avoid]"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-0.5 text-[#FBBC04]" aria-label="5 out of 5 stars">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <StarIcon key={j} className="h-3.5 w-3.5" />
-                  ))}
+          {reviews.map((r, i) => {
+            const tinted = i % 3 === 1;
+            const hasText = r.text.trim().length > 0;
+            return (
+              <motion.figure
+                key={`${r.name}-${i}`}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.35, delay: Math.min(i, 8) * 0.03 }}
+                className={`relative mb-4 flex flex-col rounded-2xl ring-1 shadow-review transition duration-300 hover:-translate-y-0.5 hover:shadow-reviewHover [break-inside:avoid] ${
+                  tinted
+                    ? "bg-white/70 backdrop-blur ring-brand-teal/15"
+                    : "bg-white ring-brand-navy/[0.07]"
+                } ${hasText ? "p-4 sm:p-5" : "p-3.5 sm:p-4"}`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-[3px] text-[#FBBC04]" aria-label="5 out of 5 stars">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <StarIcon key={j} className="h-4 w-4 drop-shadow-[0_1px_0_rgba(0,0,0,0.04)]" />
+                    ))}
+                  </div>
+                  <span
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white ring-1 ring-brand-navy/10"
+                    aria-label="Google review"
+                    title="Google review"
+                  >
+                    <GoogleMark className="h-3 w-3" />
+                  </span>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full bg-brand-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-navy/65 ring-1 ring-brand-navy/5">
-                  <GoogleMark className="h-3 w-3" />
-                  Google
-                </span>
-              </div>
 
-              {r.text ? (
-                <blockquote className="mt-2.5 text-[14px] leading-[1.55] text-brand-navy/85">
-                  &ldquo;{r.text}&rdquo;
-                </blockquote>
-              ) : (
-                <p className="mt-2.5 text-[13px] italic leading-snug text-brand-navy/55">
-                  Rated 5 stars on Google.
-                </p>
-              )}
+                {hasText && (
+                  <blockquote className="mt-2.5 text-[13.5px] leading-[1.5] text-brand-navy/85">
+                    &ldquo;{r.text}&rdquo;
+                  </blockquote>
+                )}
 
-              <figcaption className="mt-3 flex items-center gap-2.5">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-teal/15 text-[11px] font-bold text-brand-teal">
-                  {initials(r.name) || "G"}
-                </span>
-                <span className="text-[13px] font-semibold text-brand-navy">{r.name}</span>
-              </figcaption>
-            </motion.figure>
-          ))}
+                <figcaption
+                  className={`flex items-center gap-2.5 ${hasText ? "mt-3" : "mt-2"}`}
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-brand-teal/25 to-brand-mint/40 text-[11px] font-bold text-brand-navy ring-1 ring-brand-teal/20">
+                    {initials(r.name) || "G"}
+                  </span>
+                  <span className="text-[13px] font-semibold tracking-tight text-brand-navy">
+                    {r.name}
+                  </span>
+                </figcaption>
+              </motion.figure>
+            );
+          })}
         </div>
 
         <motion.div

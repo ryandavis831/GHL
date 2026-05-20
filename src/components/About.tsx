@@ -16,7 +16,9 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="py-20 md:py-28">
+    <section id="about" className="relative overflow-hidden bg-about-cream py-20 md:py-28">
+      <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-brand-mint/25 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-brand-teal/10 blur-3xl" />
       <div className="container-tight grid items-center gap-12 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -16 }}

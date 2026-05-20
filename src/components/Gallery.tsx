@@ -57,8 +57,9 @@ export default function Gallery() {
   }, [lightboxIndex, next, prev, close]);
 
   return (
-    <section id="gallery" className="py-20 md:py-28">
-      <div className="container-tight">
+    <section id="gallery" className="relative overflow-hidden bg-gallery-depth py-20 md:py-28">
+      <div className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-brand-teal/8 blur-3xl" />
+      <div className="container-tight relative">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-eyebrow">Project Gallery</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">

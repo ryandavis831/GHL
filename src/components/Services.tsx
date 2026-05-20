@@ -5,8 +5,10 @@ import { services } from "@/lib/site";
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 md:py-28">
-      <div className="container-tight">
+    <section id="services" className="relative overflow-hidden bg-white py-20 md:py-28">
+      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-brand-teal/8 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-mint/15 blur-3xl" />
+      <div className="container-tight relative">
         <div className="mx-auto max-w-2xl text-center">
           <span className="section-eyebrow">Our Services</span>
           <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">

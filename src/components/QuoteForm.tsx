@@ -7,8 +7,10 @@ import { site } from "@/lib/site";
 
 export default function QuoteForm() {
   return (
-    <section id="contact" className="bg-brand-soft py-20 md:py-28">
-      <div className="container-tight grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+    <section id="contact" className="relative overflow-hidden bg-contact-tint py-20 md:py-28">
+      <div className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-brand-teal/12 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-brand-mint/30 blur-3xl" />
+      <div className="container-tight relative grid gap-10 lg:grid-cols-[1fr_1.2fr]">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

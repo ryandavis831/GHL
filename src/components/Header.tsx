@@ -25,14 +25,14 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="container-tight flex h-16 items-center justify-between md:h-20">
+      <div className="container-tight flex h-20 items-center justify-between md:h-24">
         <a href="#home" className="flex items-center gap-2">
           <Image
             src="/assets/logo/logo.png"
             alt={`${site.name} logo`}
-            width={140}
-            height={64}
-            className="h-10 w-auto md:h-12"
+            width={220}
+            height={100}
+            className="h-14 w-auto md:h-16"
             priority
           />
           <span className="sr-only">{site.name}</span>
