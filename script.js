@@ -64,10 +64,77 @@
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
+  /* ---------------- Multi-select (Services Needed) ---------------- */
+  const msPlaceholderKey = 'modal.svcPlaceholder';
+  const msSummaryKey = 'modal.svcSummary';
+
+  function initMultiselect(root) {
+    const trigger = root.querySelector('.multiselect__trigger');
+    const panel = root.querySelector('.multiselect__panel');
+    const label = root.querySelector('[data-multiselect-label]');
+    const inputs = root.querySelectorAll('input[type="checkbox"]');
+
+    const updateLabel = () => {
+      const checked = Array.from(inputs).filter(i => i.checked);
+      if (checked.length === 0) {
+        const dict = currentDict();
+        label.textContent = dict[msPlaceholderKey] || 'Select one or more services';
+        root.classList.remove('has-selection');
+        return;
+      }
+      const labels = checked.map(i => {
+        const span = i.parentElement.querySelector('span[data-i18n]');
+        return span ? span.textContent : i.value;
+      });
+      if (labels.length <= 2) {
+        label.textContent = labels.join(', ');
+      } else {
+        const dict = currentDict();
+        const tmpl = dict[msSummaryKey] || '{n} services selected';
+        label.textContent = tmpl.replace('{n}', String(labels.length));
+      }
+      root.classList.add('has-selection');
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = root.classList.toggle('is-open');
+      panel.hidden = !open;
+      trigger.setAttribute('aria-expanded', String(open));
+    });
+
+    inputs.forEach(input => input.addEventListener('change', updateLabel));
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target)) {
+        root.classList.remove('is-open');
+        panel.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && root.classList.contains('is-open')) {
+        root.classList.remove('is-open');
+        panel.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      }
+    });
+
+    // Expose refresh hook for language switches
+    root._refreshLabel = updateLabel;
+  }
+
+  const multiselects = document.querySelectorAll('[data-multiselect]');
+  multiselects.forEach(initMultiselect);
+
   /* ---------------- Form submit ---------------- */
   formEl.addEventListener('submit', (e) => {
     e.preventDefault();
-    const required = formEl.querySelectorAll('[required]');
+    const required = formEl.querySelectorAll('input[required], textarea[required], select[required]');
     let ok = true;
     required.forEach(input => {
       if (!input.value || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
@@ -79,10 +146,28 @@
         });
       }
     });
+    // Validate multi-select: at least one service must be checked
+    multiselects.forEach(ms => {
+      const anyChecked = ms.querySelector('input[type="checkbox"]:checked');
+      const trigger = ms.querySelector('.multiselect__trigger');
+      if (!anyChecked) {
+        ok = false;
+        trigger.style.borderColor = '#c0392b';
+        const clear = () => {
+          trigger.style.borderColor = '';
+          ms.querySelectorAll('input[type="checkbox"]').forEach(c => c.removeEventListener('change', clear));
+        };
+        ms.querySelectorAll('input[type="checkbox"]').forEach(c => c.addEventListener('change', clear, { once: true }));
+      }
+    });
     if (!ok) return;
     formEl.hidden = true;
     successEl.hidden = false;
     formEl.reset();
+    multiselects.forEach(ms => {
+      ms.classList.remove('has-selection');
+      if (ms._refreshLabel) ms._refreshLabel();
+    });
   });
 
   /* ---------------- i18n ---------------- */
@@ -246,8 +331,11 @@
       'modal.service':  'Service Needed',
       'modal.method':   'Contact Method',
       'modal.message':  'Message',
-      'modal.svc0':     'Select a service',
-      'modal.svcOther': 'Other',
+      'modal.service':       'Services Needed',
+      'modal.svcPlaceholder':'Select one or more services',
+      'modal.svcSummary':    '{n} services selected',
+      'modal.svc0':          'Select a service',
+      'modal.svcOther':      'Other',
       'modal.m0':       'Select preference',
       'modal.m1':       'Phone Call',
       'modal.m2':       'Email',
@@ -419,8 +507,11 @@
       'modal.service':  'Servicio Necesario',
       'modal.method':   'Método de Contacto',
       'modal.message':  'Mensaje',
-      'modal.svc0':     'Seleccione un servicio',
-      'modal.svcOther': 'Otro',
+      'modal.service':       'Servicios Necesarios',
+      'modal.svcPlaceholder':'Seleccione uno o más servicios',
+      'modal.svcSummary':    '{n} servicios seleccionados',
+      'modal.svc0':          'Seleccione un servicio',
+      'modal.svcOther':      'Otro',
       'modal.m0':       'Seleccione preferencia',
       'modal.m1':       'Llamada',
       'modal.m2':       'Correo',
@@ -434,11 +525,16 @@
     },
   };
 
-  // Map "switch to" labels — shown on the toggle button itself
+  // Label shown on the toggle = TARGET language (next click destination)
   const SWITCH_LABEL = {
-    en: { short: 'Español', long: 'Switch to Español' },
-    es: { short: 'English', long: 'Switch to English' },
+    en: { short: 'Español', long: 'Switch to Español', aria: 'Switch language to Español' },
+    es: { short: 'English',  long: 'Switch to English',  aria: 'Cambiar idioma a English' },
   };
+
+  function currentDict() {
+    const lang = document.documentElement.getAttribute('data-lang') || 'en';
+    return I18N[lang] || I18N.en;
+  }
 
   function applyLang(lang) {
     document.documentElement.setAttribute('lang', lang);
@@ -449,7 +545,6 @@
       const key = el.getAttribute('data-i18n');
       if (dict[key] == null) return;
       const val = dict[key];
-      // Allow simple <br/> in some values (e.g. address, hours)
       if (val.indexOf('<br') !== -1) el.innerHTML = val;
       else el.textContent = val;
     });
@@ -458,17 +553,20 @@
       if (dict[key] != null) el.setAttribute('placeholder', dict[key]);
     });
 
-    // Update language toggle labels — show the OPPOSITE language ("switch to ___")
-    const target = lang === 'en' ? 'es' : 'en';
-    const label = SWITCH_LABEL[lang]; // current = lang → button offers the other
+    // Toggle button text = the OTHER language (where one click takes you).
+    // The flag swap is handled by CSS using [data-lang] on <html>.
+    const label = SWITCH_LABEL[lang];
     document.querySelectorAll('[data-lang-label]').forEach(el => {
-      // long form used in hero/large CTA, short form elsewhere
       const isHero = el.closest('.btn--ghost');
       el.textContent = isHero ? label.long : label.short;
     });
     document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
-      btn.setAttribute('aria-label', `Switch language to ${label.short}`);
-      btn.setAttribute('data-target-lang', target);
+      btn.setAttribute('aria-label', label.aria);
+    });
+
+    // Refresh any open multi-select labels so placeholder/summary translate too
+    document.querySelectorAll('[data-multiselect]').forEach(ms => {
+      if (typeof ms._refreshLabel === 'function') ms._refreshLabel();
     });
 
     try { localStorage.setItem('sonora-lang', lang); } catch (_) {}
