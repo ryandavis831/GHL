@@ -1,31 +1,29 @@
 /* Takia's Cleaning Services — main.js
-   Vanilla JS (no dependencies). Handles:
+   Vanilla JS. Handles:
    - Nav scroll state + mobile menu
    - Reveal-on-scroll
-   - Before/After sliders (mouse, touch, keyboard)
+   - Before/After sliders
    - Gallery filter + lightbox
    - Reviews carousel
-   - Quote form (client-side validation + success state)
+   - Quote MODAL (open/close, focus, Escape, backdrop, pre-select service)
+   - Multi-select dropdown (services needed)
+   - File upload with drag/drop and selection summary
+   - Quote form submit (client-side validation + success)
    - Sticky mobile CTA visibility
    - Footer year
 */
 (function () {
   'use strict';
 
-  /* ---------- helpers ---------- */
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-  /* =========================================================
-     Footer year
-     ========================================================= */
+  /* ---------- Footer year ---------- */
   const yearEl = $('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* =========================================================
-     Nav: scroll state + mobile toggle + smooth anchor close
-     ========================================================= */
+  /* ---------- Nav: scroll state + mobile toggle ---------- */
   const nav = $('#nav');
   const navToggle = $('#navToggle');
   const navMobile = $('#navMobile');
@@ -44,17 +42,15 @@
       if (open) navMobile.setAttribute('hidden', '');
       else navMobile.removeAttribute('hidden');
     });
-    $$('a', navMobile).forEach(a => {
-      a.addEventListener('click', () => {
+    $$('a, button', navMobile).forEach(el => {
+      el.addEventListener('click', () => {
         navToggle.setAttribute('aria-expanded', 'false');
         navMobile.setAttribute('hidden', '');
       });
     });
   }
 
-  /* =========================================================
-     Reveal on scroll (IntersectionObserver)
-     ========================================================= */
+  /* ---------- Reveal on scroll ---------- */
   const reveals = $$('.reveal');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
@@ -72,21 +68,14 @@
 
   /* =========================================================
      BEFORE / AFTER SLIDERS
-     - data-before, data-after, data-aspect (h/w ratio)
-     - injects two <img> elements + handle + labels
-     - handles mouse, touch, click anywhere on track, and keyboard
      ========================================================= */
   function buildSlider(el) {
     const beforeSrc = el.dataset.before;
     const afterSrc  = el.dataset.after;
     const aspect    = parseFloat(el.dataset.aspect || '1');
 
-    // Apply aspect ratio via style (height / width)
     el.style.aspectRatio = `1 / ${aspect}`;
 
-    // The AFTER image is the base layer (so it's visible by default on the right).
-    // The BEFORE image sits on top, clipped from the right — so dragging the handle
-    // right reveals more BEFORE on the left side.
     el.innerHTML = `
       <img class="ba__img ba__after" src="${afterSrc}" alt="After cleaning" loading="lazy" />
       <div class="ba__clip" aria-hidden="false">
@@ -109,8 +98,6 @@
 
     const setPct = (p) => {
       pct = clamp(p, 0, 100);
-      // BEFORE image (top layer) is clipped so it shows from x=0 to x=pct%.
-      // AFTER image (base) shows on the right of the handle.
       clip.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
       handle.style.left = `${pct}%`;
       handle.setAttribute('aria-valuenow', String(Math.round(pct)));
@@ -139,16 +126,14 @@
     el.addEventListener('mousedown', onDown);
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
-
     el.addEventListener('touchstart', onDown, { passive: false });
     window.addEventListener('touchmove', onMove, { passive: true });
     window.addEventListener('touchend', onUp);
-
     handle.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft')  { setPct(pct - 3); e.preventDefault(); }
       if (e.key === 'ArrowRight') { setPct(pct + 3); e.preventDefault(); }
-      if (e.key === 'Home')       { setPct(0); }
-      if (e.key === 'End')        { setPct(100); }
+      if (e.key === 'Home') { setPct(0); }
+      if (e.key === 'End')  { setPct(100); }
     });
   }
   $$('.ba').forEach(buildSlider);
@@ -157,7 +142,7 @@
      GALLERY: filter + lightbox
      ========================================================= */
   const chips = $$('.gallery__filter .chip');
-  const items = $$('.m-item');
+  const items = $$('.g-item');
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
       chips.forEach(c => c.classList.remove('is-active'));
@@ -171,7 +156,6 @@
     });
   });
 
-  // Lightbox
   const lb = $('#lightbox');
   const lbImg = $('#lightboxImg');
   const lbClose = $('.lightbox__close', lb);
@@ -200,7 +184,8 @@
   function closeLB() {
     lb.classList.remove('is-open');
     setTimeout(() => { lb.setAttribute('hidden', ''); lbImg.src = ''; }, 250);
-    document.body.style.overflow = '';
+    // only restore overflow if modal isn't also open
+    if (!document.body.classList.contains('modal-open')) document.body.style.overflow = '';
   }
   function lbStep(d) { lbIndex = (lbIndex + d + lbList.length) % lbList.length; showLB(); }
 
@@ -219,7 +204,7 @@
   });
 
   /* =========================================================
-     REVIEWS carousel: scroll-snap + dots + nav buttons
+     REVIEWS carousel
      ========================================================= */
   const rTrack = $('#reviews-track');
   const rPrev = $('.reviews__nav--prev');
@@ -229,7 +214,6 @@
   if (rTrack) {
     const cards = $$('.review', rTrack);
 
-    // Build dots based on visible page count
     function rebuildDots() {
       const perView = Math.max(1, Math.round(rTrack.clientWidth / cards[0].clientWidth));
       const pages = Math.max(1, cards.length - perView + 1);
@@ -262,7 +246,6 @@
     rebuildDots();
     window.addEventListener('resize', rebuildDots);
 
-    // Auto-advance (pause on hover)
     let auto = setInterval(() => {
       const nearEnd = rTrack.scrollLeft + rTrack.clientWidth >= rTrack.scrollWidth - 10;
       if (nearEnd) rTrack.scrollTo({ left: 0, behavior: 'smooth' });
@@ -272,7 +255,147 @@
   }
 
   /* =========================================================
-     QUOTE FORM (client-side)
+     QUOTE MODAL — open/close + pre-select service
+     ========================================================= */
+  const modal = $('#quoteModal');
+  const modalDialog = $('.modal__dialog', modal);
+  let lastFocused = null;
+
+  function openModal(preSelectService) {
+    lastFocused = document.activeElement;
+    modal.removeAttribute('hidden');
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+
+    // Pre-select service if provided
+    if (preSelectService) {
+      const cb = $$('#qfServices input[type="checkbox"]')
+        .find(c => c.value === preSelectService);
+      if (cb && !cb.checked) {
+        cb.checked = true;
+        updateMultiButton();
+      }
+    }
+
+    // focus first field
+    setTimeout(() => {
+      const focusable = modalDialog.querySelector('input, select, textarea, button');
+      if (focusable) focusable.focus({ preventScroll: true });
+    }, 150);
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    setTimeout(() => {
+      modal.setAttribute('hidden', '');
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        try { lastFocused.focus({ preventScroll: true }); } catch (e) {}
+      }
+    }, 280);
+  }
+
+  // Any element with data-quote-open opens the modal
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-quote-open]');
+    if (opener) {
+      e.preventDefault();
+      openModal(opener.dataset.service || null);
+      return;
+    }
+    const closer = e.target.closest('[data-quote-close]');
+    if (closer) {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
+  });
+
+  /* =========================================================
+     MULTI-SELECT (services needed)
+     ========================================================= */
+  const multi = $('#qfServices');
+  const multiBtn = multi && $('.multi__btn', multi);
+  const multiPanel = multi && $('.multi__panel', multi);
+  const multiBtnText = multi && $('.multi__btn-text', multi);
+  const hiddenServices = $('#qf-services');
+
+  function updateMultiButton() {
+    const checked = $$('input[type="checkbox"]', multiPanel).filter(c => c.checked);
+    if (checked.length === 0) {
+      multiBtnText.textContent = 'Choose services…';
+      multiBtnText.classList.add('is-placeholder');
+    } else if (checked.length <= 2) {
+      multiBtnText.textContent = checked.map(c => c.value).join(', ');
+      multiBtnText.classList.remove('is-placeholder');
+    } else {
+      multiBtnText.textContent = `${checked.length} services selected`;
+      multiBtnText.classList.remove('is-placeholder');
+    }
+    hiddenServices.value = checked.map(c => c.value).join(', ');
+  }
+
+  if (multi) {
+    updateMultiButton();
+    multiBtn.addEventListener('click', () => {
+      const open = multi.classList.toggle('is-open');
+      multiBtn.setAttribute('aria-expanded', String(open));
+      if (open) multiPanel.removeAttribute('hidden');
+      else multiPanel.setAttribute('hidden', '');
+    });
+    $$('input[type="checkbox"]', multiPanel).forEach(cb => {
+      cb.addEventListener('change', updateMultiButton);
+    });
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!multi.contains(e.target) && multi.classList.contains('is-open')) {
+        multi.classList.remove('is-open');
+        multiBtn.setAttribute('aria-expanded', 'false');
+        multiPanel.setAttribute('hidden', '');
+      }
+    });
+  }
+
+  /* =========================================================
+     FILE UPLOAD UI
+     ========================================================= */
+  const fileInput = $('#qf-photos');
+  const fileBox   = fileInput && fileInput.closest('.filebox');
+  const fileHint  = $('#qfPhotosHint');
+
+  function updateFileHint() {
+    if (!fileInput.files || !fileInput.files.length) {
+      fileHint.textContent = 'JPG, PNG · multiple files allowed';
+      return;
+    }
+    const n = fileInput.files.length;
+    const names = Array.from(fileInput.files).slice(0, 2).map(f => f.name).join(', ');
+    fileHint.textContent = n === 1 ? `${names}` : `${n} files selected — ${names}${n > 2 ? '…' : ''}`;
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener('change', updateFileHint);
+    ['dragenter', 'dragover'].forEach(ev => {
+      fileBox.addEventListener(ev, (e) => { e.preventDefault(); fileBox.classList.add('is-drag'); });
+    });
+    ['dragleave', 'drop'].forEach(ev => {
+      fileBox.addEventListener(ev, (e) => { e.preventDefault(); fileBox.classList.remove('is-drag'); });
+    });
+    fileBox.addEventListener('drop', (e) => {
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        updateFileHint();
+      }
+    });
+  }
+
+  /* =========================================================
+     QUOTE FORM submit
      ========================================================= */
   const form = $('#quoteForm');
   const success = $('#quoteSuccess');
@@ -282,24 +405,36 @@
       const name = $('#qf-name').value.trim();
       const phone = $('#qf-phone').value.trim();
       const email = $('#qf-email').value.trim();
-      if (!name || !phone || !email) {
-        // soft prompt
-        [['#qf-name', name], ['#qf-phone', phone], ['#qf-email', email]].forEach(([sel, val]) => {
-          const f = $(sel);
-          if (!val) { f.style.borderColor = '#ef4444'; f.style.boxShadow = '0 0 0 4px rgba(239,68,68,0.15)'; }
-          else { f.style.borderColor = ''; f.style.boxShadow = ''; }
-        });
-        return;
+      const services = hiddenServices ? hiddenServices.value.trim() : '';
+
+      const required = [
+        ['#qf-name', name],
+        ['#qf-phone', phone],
+        ['#qf-email', email],
+      ];
+      let ok = true;
+      required.forEach(([sel, val]) => {
+        const f = $(sel);
+        if (!val) { f.style.borderColor = '#ef4444'; f.style.boxShadow = '0 0 0 4px rgba(239,68,68,0.15)'; ok = false; }
+        else { f.style.borderColor = ''; f.style.boxShadow = ''; }
+      });
+
+      // services required
+      if (multiBtn) {
+        if (!services) { multiBtn.style.borderColor = '#ef4444'; multiBtn.style.boxShadow = '0 0 0 4px rgba(239,68,68,0.15)'; ok = false; }
+        else { multiBtn.style.borderColor = ''; multiBtn.style.boxShadow = ''; }
       }
+      if (!ok) return;
+
       success.removeAttribute('hidden');
       form.querySelector('button[type="submit"]').setAttribute('disabled', 'true');
       success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // In production: POST to backend / GHL webhook here.
+      // Hook: POST FormData(form) to your GHL webhook here.
     });
   }
 
   /* =========================================================
-     STICKY MOBILE CTA visibility (show after scrolling past hero)
+     STICKY MOBILE CTA visibility
      ========================================================= */
   const stickyCTA = $('.sticky-cta');
   if (stickyCTA) {
