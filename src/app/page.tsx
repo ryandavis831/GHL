@@ -1,27 +1,33 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Transformations from "@/components/Transformations";
-import Gallery from "@/components/Gallery";
-import WhyChooseUs from "@/components/WhyChooseUs";
+import MeetSummer from "@/components/MeetSummer";
+import TrustGrid from "@/components/TrustGrid";
+import ServicesGrid from "@/components/ServicesGrid";
+import PetFriendly from "@/components/PetFriendly";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+import CommercialSection from "@/components/CommercialSection";
+import ServiceAreaSection from "@/components/ServiceAreaSection";
 import Reviews from "@/components/Reviews";
-import About from "@/components/About";
 import QuoteForm from "@/components/QuoteForm";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
+import SchemaOrg from "@/components/SchemaOrg";
 
 export default function Page() {
   return (
     <>
+      <SchemaOrg />
       <Header />
       <main>
         <Hero />
-        <Services />
-        <Transformations />
-        <Gallery />
-        <WhyChooseUs />
+        <MeetSummer />
+        <TrustGrid />
+        <ServicesGrid />
+        <PetFriendly />
+        <BeforeAfterGallery />
+        <CommercialSection />
+        <ServiceAreaSection />
         <Reviews />
-        <About />
         <QuoteForm />
       </main>
       <Footer />

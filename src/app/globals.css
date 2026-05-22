@@ -16,27 +16,65 @@ body {
   font-family: var(--font-inter);
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 .container-tight {
   @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
 }
 
+.container-wide {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-[#0ea295] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2;
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-aqua px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-aquaDeep hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua focus-visible:ring-offset-2;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-6 py-3 text-sm font-semibold text-brand-navy shadow-gold transition hover:bg-amber-400 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2;
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-navy/15 bg-white px-6 py-3 text-sm font-semibold text-brand-navy transition hover:border-brand-teal hover:text-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-navy/15 bg-white px-6 py-3 text-sm font-semibold text-brand-navy transition hover:border-brand-aqua hover:text-brand-aquaDeep focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua focus-visible:ring-offset-2;
 }
 
 .section-eyebrow {
-  @apply inline-flex items-center gap-2 rounded-full bg-brand-teal/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-teal;
+  @apply inline-flex items-center gap-2 rounded-full bg-brand-aqua/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-aquaDeep;
+}
+
+.section-eyebrow-gold {
+  @apply inline-flex items-center gap-2 rounded-full bg-brand-gold/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-700;
 }
 
 .card-soft {
   @apply rounded-2xl bg-white shadow-card ring-1 ring-brand-navy/5;
+}
+
+.prose-summer p {
+  @apply text-brand-slate leading-relaxed mb-4;
+}
+.prose-summer h2 {
+  @apply text-2xl sm:text-3xl font-bold text-brand-navy mt-10 mb-4;
+}
+.prose-summer h3 {
+  @apply text-xl sm:text-2xl font-bold text-brand-navy mt-8 mb-3;
+}
+.prose-summer ul {
+  @apply space-y-2 mb-6 ml-1;
+}
+.prose-summer li {
+  @apply text-brand-slate leading-relaxed pl-6 relative;
+}
+.prose-summer li::before {
+  content: "";
+  @apply absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-brand-aqua;
+}
+.prose-summer a {
+  @apply text-brand-aquaDeep font-semibold hover:text-brand-navy underline-offset-4 hover:underline;
+}
+.prose-summer strong {
+  @apply text-brand-navy font-semibold;
 }

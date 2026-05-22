@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { QuoteModalProvider } from "@/components/QuoteModalContext";
-import QuoteModal from "@/components/QuoteModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,15 +16,25 @@ const display = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} | Raleigh, NC Cleaning Services — Locally Owned & Operated`,
+  title: `${site.name} | All-Natural Cleaning in Charleston, SC — Pet-Friendly`,
   description:
-    "Locally owned and operated. Residential, AirBnB, STR, and commercial cleaning serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County.",
+    "Summers Cleaning LLC, owned by Summer, provides residential and commercial cleaning across Charleston, SC and the Lowcountry. All-natural, pet-friendly products and Clean Fresh Vibes guaranteed.",
   metadataBase: new URL(`https://${site.domain}`),
+  keywords: [
+    "Charleston cleaning service",
+    "all-natural cleaning Charleston SC",
+    "pet-friendly cleaning",
+    "residential cleaning Charleston",
+    "commercial cleaning Charleston",
+    "Summers Cleaning LLC",
+    "house cleaning Lowcountry",
+  ],
   openGraph: {
-    title: `${site.name} — Raleigh, NC Cleaning`,
+    title: `${site.name} — Charleston, SC Cleaning`,
     description:
-      "Trusted by homeowners and businesses across the Raleigh area. Free estimates, supplies included, detail-focused service.",
+      "All-natural, pet-friendly residential and commercial cleaning across Charleston, SC and the Lowcountry. Clean Fresh Vibes by Summer.",
     type: "website",
+    images: ["/assets/brand/hero-cover.png"],
   },
 };
 
@@ -37,12 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
-      <body>
-        <QuoteModalProvider>
-          {children}
-          <QuoteModal />
-        </QuoteModalProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

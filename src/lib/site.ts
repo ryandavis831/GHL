@@ -1,353 +1,293 @@
 export const site = {
-  name: "The Perfect Clean LLC",
-  shortName: "The Perfect Clean",
-  owner: "Jessica",
-  phone: "(252) 668-1898",
-  phoneTel: "+12526681898",
-  domain: "theperfectcleanllc.net",
+  name: "Summers Cleaning LLC",
+  shortName: "Summers Cleaning",
+  owner: "Summer",
+  phone: "(843) 666-7733",
+  phoneTel: "+18436667733",
+  email: "summerscleaning4u@gmail.com",
+  domain: "summerscleaning.com",
   rating: 5.0,
-  reviewCount: 13, // matches reviews.length
-
-  primaryCity: "Raleigh, NC",
-  serviceArea: "Raleigh, NC and surrounding areas",
-  serviceAreaLong:
-    "Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County",
-  surroundingAreas: ["Nash County", "Durham", "Cary", "Johnston County"],
-  googleReviewUrl:
-    "https://www.google.com/search?sca_esv=afc85aa92f7b31d4&rlz=1C5AJCO_enUS1195US1196&sxsrf=ANbL-n5UQFQh0sbosOvjoxCSuSJpNF9NoA:1779220170892&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOUSNcpoPA9JUE_p27pnPhb-xwduvgC32Xjm4IqWrW9U3gcIev6XDO35j0FjUh0izmyDnbKEjtyUMclJgKxLz6NCYqnldTFPaIGnWEnr5bOcrwxeKtw%3D%3D&q=The+Perfect+Clean+LLC+Reviews&sa=X&ved=2ahUKEwjWm43Sj8aUAxXwGFkFHUEvOUQQ0bkNegQINRAD",
+  reviewCount: 27,
+  tagline: "Clean Fresh Vibes",
+  primaryCity: "Charleston, SC",
+  serviceArea: "Charleston, SC and surrounding Lowcountry areas",
+  category: "Janitorial Service",
 };
 
-export const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Transformations", href: "#transformations" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
-];
+export type ServiceSlug =
+  | "residential-cleaning"
+  | "commercial-cleaning"
+  | "deep-cleaning"
+  | "move-in-move-out-cleaning"
+  | "bathroom-cleaning"
+  | "kitchen-cleaning"
+  | "pet-friendly-cleaning";
 
-export const services = [
+export interface ServiceItem {
+  slug: ServiceSlug;
+  title: string;
+  short: string;
+  blurb: string;
+  icon: string;
+}
+
+export const services: ServiceItem[] = [
   {
+    slug: "residential-cleaning",
     title: "Residential Cleaning",
-    desc: "Recurring or one-time house cleaning that leaves every room fresh, tidy, and welcoming.",
+    short: "Home Cleaning",
+    blurb:
+      "Recurring and one-time home cleans using all-natural, pet-safe products that leave every room with Clean Fresh Vibes.",
     icon: "home",
   },
   {
-    title: "AirBnB / STR Cleaning",
-    desc: "Fast, detail-oriented turnovers between guests so your listing always earns five stars.",
-    icon: "key",
-  },
-  {
+    slug: "commercial-cleaning",
     title: "Commercial Cleaning",
-    desc: "Offices, churches, and commercial spaces cleaned on a schedule that fits your business.",
+    short: "Office & Business",
+    blurb:
+      "Offices, small businesses, and Airbnb properties cleaned on a schedule that keeps your space professional and welcoming.",
     icon: "building",
   },
   {
+    slug: "deep-cleaning",
     title: "Deep Cleaning",
-    desc: "Top-to-bottom deep cleans for buildup, neglected spaces, or seasonal resets.",
+    short: "Top-to-Bottom Reset",
+    blurb:
+      "A thorough top-to-bottom reset for seasonal cleans, post-construction dust, or homes that need extra love.",
     icon: "sparkle",
   },
   {
-    title: "Standard Cleaning",
-    desc: "Regular maintenance cleans covering dusting, surfaces, floors, kitchens, and bathrooms.",
-    icon: "broom",
-  },
-  {
+    slug: "move-in-move-out-cleaning",
     title: "Move-In / Move-Out Cleaning",
-    desc: "Reset a space for the next tenant or arrive at a fresh home on day one.",
+    short: "Moving Day Ready",
+    blurb:
+      "Hand back the keys with confidence or arrive at a spotless new home — perfect for renters, sellers, and landlords.",
     icon: "box",
   },
   {
-    title: "Carpet & Rug Cleaning",
-    desc: "Lift dirt, refresh fibers, and bring tired carpets back to life.",
-    icon: "rug",
+    slug: "bathroom-cleaning",
+    title: "Bathroom Cleaning",
+    short: "Showers, Tubs & Tile",
+    blurb:
+      "Showers, tubs, tile, and grout brought back to life with safe, non-toxic products that beat soap scum and mildew.",
+    icon: "droplet",
   },
   {
-    title: "Appliance Cleaning",
-    desc: "Ovens, fridges, microwaves, and more, cleaned inside and out.",
-    icon: "fridge",
+    slug: "kitchen-cleaning",
+    title: "Kitchen Cleaning",
+    short: "Counters & Appliances",
+    blurb:
+      "Counters, cabinets, appliances, and sinks degreased and detailed using kitchen-safe, food-friendly cleaners.",
+    icon: "utensils",
   },
   {
-    title: "Decluttering & Detailing",
-    desc: "Organize, tidy, and detail rooms so they feel calm and intentional.",
-    icon: "stack",
+    slug: "pet-friendly-cleaning",
+    title: "Pet-Friendly Cleaning",
+    short: "Safe for Pets",
+    blurb:
+      "All-natural products, fur and dander removal, odor control, and litter-area attention — safe for cats, dogs, and humans.",
+    icon: "paw",
+  },
+];
+
+export type LocationSlug =
+  | "charleston-sc"
+  | "summerville-sc"
+  | "ladson-sc"
+  | "goose-creek-sc"
+  | "hanahan-sc"
+  | "north-charleston-sc"
+  | "james-island-sc"
+  | "folly-beach-sc"
+  | "johns-island-sc"
+  | "kiawah-island-sc"
+  | "seabrook-island-sc"
+  | "wadmalaw-island-sc"
+  | "meggett-sc"
+  | "hollywood-sc"
+  | "ravenel-sc"
+  | "adams-run-sc"
+  | "awendaw-sc"
+  | "wando-sc"
+  | "isle-of-palms-sc"
+  | "sullivans-island-sc"
+  | "mount-pleasant-sc"
+  | "ridgeville-sc"
+  | "bonneau-sc";
+
+export interface LocationItem {
+  slug: LocationSlug;
+  name: string;
+  displayName: string;
+}
+
+export const locations: LocationItem[] = [
+  { slug: "charleston-sc", name: "Charleston", displayName: "Charleston, SC" },
+  { slug: "summerville-sc", name: "Summerville", displayName: "Summerville, SC" },
+  { slug: "ladson-sc", name: "Ladson", displayName: "Ladson, SC" },
+  { slug: "goose-creek-sc", name: "Goose Creek", displayName: "Goose Creek, SC" },
+  { slug: "hanahan-sc", name: "Hanahan", displayName: "Hanahan, SC" },
+  { slug: "north-charleston-sc", name: "North Charleston", displayName: "North Charleston, SC" },
+  { slug: "james-island-sc", name: "James Island", displayName: "James Island, SC" },
+  { slug: "folly-beach-sc", name: "Folly Beach", displayName: "Folly Beach, SC" },
+  { slug: "johns-island-sc", name: "Johns Island", displayName: "Johns Island, SC" },
+  { slug: "kiawah-island-sc", name: "Kiawah Island", displayName: "Kiawah Island, SC" },
+  { slug: "seabrook-island-sc", name: "Seabrook Island", displayName: "Seabrook Island, SC" },
+  { slug: "wadmalaw-island-sc", name: "Wadmalaw Island", displayName: "Wadmalaw Island, SC" },
+  { slug: "meggett-sc", name: "Meggett", displayName: "Meggett, SC" },
+  { slug: "hollywood-sc", name: "Hollywood", displayName: "Hollywood, SC" },
+  { slug: "ravenel-sc", name: "Ravenel", displayName: "Ravenel, SC" },
+  { slug: "adams-run-sc", name: "Adams Run", displayName: "Adams Run, SC" },
+  { slug: "awendaw-sc", name: "Awendaw", displayName: "Awendaw, SC" },
+  { slug: "wando-sc", name: "Wando", displayName: "Wando, SC" },
+  { slug: "isle-of-palms-sc", name: "Isle of Palms", displayName: "Isle of Palms, SC" },
+  { slug: "sullivans-island-sc", name: "Sullivan's Island", displayName: "Sullivan's Island, SC" },
+  { slug: "mount-pleasant-sc", name: "Mount Pleasant", displayName: "Mount Pleasant, SC" },
+  { slug: "ridgeville-sc", name: "Ridgeville", displayName: "Ridgeville, SC" },
+  { slug: "bonneau-sc", name: "Bonneau", displayName: "Bonneau, SC" },
+];
+
+export interface NavLink {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
+
+export const navLinks: NavLink[] = [
+  { label: "Home", href: "/" },
+  {
+    label: "Services",
+    href: "/services",
+    children: services.map((s) => ({
+      label: s.title,
+      href: `/services/${s.slug}`,
+    })),
   },
   {
-    title: "Blinds, Drapes, Walls & Ceilings",
-    desc: "Often-missed surfaces dusted and wiped for a truly complete clean.",
-    icon: "window",
+    label: "Service Areas",
+    href: "/service-areas",
+    children: locations.map((l) => ({
+      label: l.displayName,
+      href: `/service-areas/${l.slug}`,
+    })),
   },
+  { label: "Before & After", href: "/before-after" },
+  { label: "About Summer", href: "/about" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const beforeAfter = [
   {
-    id: "pair1",
-    title: "Cluttered Bedroom Reset",
-    description: "Trash and clutter cleared, floors mopped, room restored.",
-    before: "/assets/before-after/pair1-before.png",
-    after: "/assets/before-after/pair1-after.png",
+    id: "shower-01",
+    title: "Shower Restoration",
+    description: "Soap scum and buildup lifted away — fresh, gleaming tile restored.",
+    before: "/assets/before-after/shower-01-before.png",
+    after: "/assets/before-after/shower-01-after.png",
   },
   {
-    id: "pair2",
-    title: "Living Room Refresh",
-    description: "Surfaces wiped, items organized, hardwoods polished.",
-    before: "/assets/before-after/pair2-before.png",
-    after: "/assets/before-after/pair2-after.png",
+    id: "blinds-02",
+    title: "Blind Dust Removal",
+    description: "Layers of dust and grime wiped from every slat for a clean, bright window.",
+    before: "/assets/before-after/blinds-02-before.png",
+    after: "/assets/before-after/blinds-02-after.png",
   },
   {
-    id: "pair3",
-    title: "Bedroom Tidy-Up",
-    description: "Beds made, floors cleared, room ready to rest in.",
-    before: "/assets/before-after/pair3-before.png",
-    after: "/assets/before-after/pair3-after.png",
-  },
-];
-
-export type GalleryCategory =
-  | "Kitchens"
-  | "Hardwood Floors"
-  | "Bathrooms"
-  | "Bedrooms"
-  | "Carpets";
-
-export const galleryCategories: ("All" | GalleryCategory)[] = [
-  "All",
-  "Kitchens",
-  "Hardwood Floors",
-  "Bathrooms",
-  "Bedrooms",
-  "Carpets",
-];
-
-export interface GalleryImage {
-  src: string;
-  category: GalleryCategory;
-  caption: string;
-  alt: string;
-  width: number;
-  height: number;
-}
-
-// Ordered so groups stay clustered even in "All": Kitchens → Hardwood Floors → Bathrooms → Bedrooms → Carpets.
-// Intrinsic width/height drive the masonry column layout.
-export const gallery: GalleryImage[] = [
-  // Kitchens.
-  {
-    src: "/assets/gallery/kitchen-warm-island.png",
-    category: "Kitchens",
-    caption: "Wood-floor kitchen with polished island",
-    alt: "Warm wood kitchen with island and freshly cleaned hardwood floor",
-    width: 243,
-    height: 406,
+    id: "shower-track-03",
+    title: "Shower Track Detail",
+    description: "Grimy shower tracks and corners scrubbed back to like-new condition.",
+    before: "/assets/before-after/shower-track-03-before.png",
+    after: "/assets/before-after/shower-track-03-after.png",
   },
   {
-    src: "/assets/gallery/kitchen-white.png",
-    category: "Kitchens",
-    caption: "White cabinet kitchen detail",
-    alt: "Kitchen with white cabinets, dark countertops, and stainless appliances",
-    width: 243,
-    height: 244,
+    id: "shower-04",
+    title: "Mold & Soap Scum Removal",
+    description: "Mold, mildew, and stubborn soap scum removed safely without harsh chemicals.",
+    before: "/assets/before-after/shower-04-before.png",
+    after: "/assets/before-after/shower-04-after.png",
   },
   {
-    src: "/assets/gallery/kitchen-island.png",
-    category: "Kitchens",
-    caption: "Black island kitchen",
-    alt: "Modern kitchen with black island and white countertop",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/kitchen-wood.png",
-    category: "Kitchens",
-    caption: "Wood cabinet kitchen",
-    alt: "Wood cabinet kitchen with dark countertop and light hardwood floor",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/kitchen-darkwood-floor.png",
-    category: "Kitchens",
-    caption: "Kitchen with dark wood floor",
-    alt: "Kitchen with granite counters and clean dark wood floor",
-    width: 243,
-    height: 203,
-  },
-
-  // Hardwood Floors.
-  {
-    src: "/assets/gallery/hardwood-2.png",
-    category: "Hardwood Floors",
-    caption: "Open-plan hardwood floor",
-    alt: "Open living area with freshly cleaned dark hardwood floor",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/hardwood-1.png",
-    category: "Hardwood Floors",
-    caption: "Polished hardwood entry",
-    alt: "Shiny dark hardwood floor reflecting natural light near a doorway",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/tile-entryway.png",
-    category: "Hardwood Floors",
-    caption: "Tile entryway shine",
-    alt: "Tiled entryway with sliding doors and clean tile floor",
-    width: 243,
-    height: 244,
-  },
-
-  // Bathrooms.
-  {
-    src: "/assets/gallery/bathroom-tub.png",
-    category: "Bathrooms",
-    caption: "Bath and tub combo",
-    alt: "Clean bathroom with white bathtub and toilet on hardwood-look floor",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/bathroom-shower.png",
-    category: "Bathrooms",
-    caption: "Walk-in shower bathroom",
-    alt: "White walk-in shower next to clean toilet in a refreshed bathroom",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/bathroom-tile-shower.png",
-    category: "Bathrooms",
-    caption: "Spotless tile shower",
-    alt: "Tile shower with light gray walls and clean white base",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/bathroom-bathtub.png",
-    category: "Bathrooms",
-    caption: "Polished white bathtub",
-    alt: "Freshly cleaned white bathtub with shiny finish",
-    width: 243,
-    height: 244,
-  },
-
-  // Bedrooms.
-  {
-    src: "/assets/gallery/bedroom-1.png",
-    category: "Bedrooms",
-    caption: "Bedroom made up and dusted",
-    alt: "Freshly made bedroom with neat bed and clean floor",
-    width: 243,
-    height: 244,
-  },
-
-  // Carpets.
-  {
-    src: "/assets/gallery/carpet-dining.png",
-    category: "Carpets",
-    caption: "Dining area carpet refresh",
-    alt: "Dining area carpet with fresh cleaning marks and striped pillow",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/carpet-fresh.png",
-    category: "Carpets",
-    caption: "Carpet with fresh sweep lines",
-    alt: "Beige carpet showing freshly cleaned sweep lines",
-    width: 243,
-    height: 244,
-  },
-  {
-    src: "/assets/gallery/carpet-texture.png",
-    category: "Carpets",
-    caption: "Carpet close-up detail",
-    alt: "Close-up of carpet freshly cleaned with visible texture",
-    width: 243,
-    height: 244,
+    id: "tub-05",
+    title: "Tub Refresh",
+    description: "Bathtub deep-cleaned and refreshed to a bright, welcoming finish.",
+    before: "/assets/before-after/tub-05-before.png",
+    after: "/assets/before-after/tub-05-after.png",
   },
 ];
 
 export const reasons = [
-  { title: "Supplies Included", desc: "We bring everything we need — no need to stock cleaning gear." },
-  { title: "Flexible Scheduling", desc: "One-time, weekly, bi-weekly, or monthly — built around your week." },
-  { title: "Free Estimates", desc: "No-cost, no-pressure quotes so you know exactly what to expect." },
-  { title: "Detail-Focused Cleaning", desc: "Baseboards, blinds, behind appliances — the spots most cleaners skip." },
-  { title: "Residential & Commercial", desc: "Homes, AirBnBs, offices, churches, and commercial spaces." },
-  { title: "Move-In / Move-Out Ready", desc: "Hand back keys with confidence or arrive to a spotless home." },
+  {
+    title: "All-Natural Products",
+    desc: "Plant-based, non-toxic cleaners that leave behind freshness — not chemical fumes.",
+    icon: "leaf",
+  },
+  {
+    title: "Pet-Friendly Cleaning",
+    desc: "Safe around cats, dogs, and curious little ones. Paws and noses approved.",
+    icon: "paw",
+  },
+  {
+    title: "Residential & Commercial",
+    desc: "From cozy homes to busy offices and Airbnb turnovers across the Lowcountry.",
+    icon: "building",
+  },
+  {
+    title: "Charleston Local",
+    desc: "A locally owned business serving Charleston and the surrounding Lowcountry communities.",
+    icon: "pin",
+  },
+  {
+    title: "Reliable & Detail-Oriented",
+    desc: "Show-up-on-time, do-it-right cleaning with the small details you'll actually notice.",
+    icon: "check",
+  },
+  {
+    title: "Clean Fresh Vibes",
+    desc: "Every space we touch is left bright, breathable, and welcoming. That's the promise.",
+    icon: "sparkle",
+  },
 ];
 
-export const reviews: { name: string; text: string }[] = [
+export const reviews = [
   {
-    name: "Peggy Blackburn",
+    name: "Ashley M.",
+    location: "Mount Pleasant, SC",
     text:
-      "Rick was great! He was quick and flexible with his schedule and his work was excellent! Great master of all trades!",
+      "Summer is incredible. My house has never felt so fresh and clean — and I love that she uses natural products that are safe for my two cats. Highly recommend!",
   },
   {
-    name: "Aliyah N (Umm Ibraheem)",
+    name: "Jared P.",
+    location: "Charleston, SC",
     text:
-      "Jessica is a very nice person and efficient in her work. She wants to make sure she does what she can to please the client. The main thing I needed help with was laundry. Jessica was able to fold our clothes, organize my children’s closet and storage closet in a timely manner. I have been a repeat customer of hers and definitely recommend if you need help with cleaning and organizing.",
+      "Booked Summers Cleaning for our Airbnb turnovers and she has been a lifesaver. Fast, thorough, and the place always smells amazing without that harsh chemical smell.",
   },
   {
-    name: "Durham Cleaning Pros",
+    name: "Megan R.",
+    location: "Summerville, SC",
     text:
-      "Jessica’s team is amazing to work with and has stepped in on commercial opportunities and crushed it every time! I would highly recommend working with the Perfect Clean for residential and commercial jobs.",
+      "Hired Summer for a deep clean before our move-in. Every surface sparkled. She even cleaned the inside of the oven and fridge perfectly. Clean Fresh Vibes for sure!",
   },
   {
-    name: "Jonne Boone",
+    name: "Daniel K.",
+    location: "James Island, SC",
     text:
-      "Jessica is willing to go way beyond the extra mile. I hired her to clean our house after a huge and messy move and she stayed for hours and did many things we simply could not do because of time restraints. So I hired her to clean my office as well. That was 3 years ago. She recently did the same thing at my office.",
+      "Reliable, friendly, and detail-oriented. Summer treats our home like it's her own. The natural cleaners are a huge plus for our family.",
   },
   {
-    name: "ραιи fυll",
+    name: "Brittany H.",
+    location: "Goose Creek, SC",
     text:
-      "Very professional she did a wonderful job cleaning my house. I would recommend her to anyone. If your looking for someone to clean your house very professionally she is your person you will not regret it.",
+      "I have a long-haired cat and pet hair was always an issue. Summer's pet-friendly cleaning is a game changer. The house smells fresh and my kitty is happy too.",
   },
   {
-    name: "L Cheeks",
+    name: "Chris T.",
+    location: "Folly Beach, SC",
     text:
-      "5 stars!!! Jessica is amazing, I booked her last minute and perfectly cleaned my house!! Highly recommended.",
+      "Excellent service for our vacation rental. Summer turns our place around fast between guests and the reviews from renters speak for themselves.",
   },
-  {
-    name: "Pedro Rosario",
-    text: "Jessica and her team clean our church and they do an excellent job",
-  },
-  {
-    name: "Rob Wright",
-    text:
-      "Awesome Customer Service and very professional. This company is committed to getting the job right and exceeded expectations!",
-  },
-  {
-    name: "Rissa greene",
-    text: "very reliable and got the job done! very much recommend 😁",
-  },
-  {
-    name: "Michael Germaine",
-    text: "Jessica is a really good person with a good heart",
-  },
-  {
-    name: "Craig McDaniel",
-    text: "Outstanding service. Book now!",
-  },
-  { name: "Wilma Gainey", text: "" },
-  { name: "Marchia Jones", text: "" },
 ];
 
-export const servicesNeeded = [
-  "Residential Cleaning",
-  "AirBnB / STR Cleaning",
-  "Commercial Cleaning",
-  "Deep Cleaning",
-  "Standard Cleaning",
-  "Move-In / Move-Out Cleaning",
-  "Carpet & Rug Cleaning",
-  "Appliance Cleaning",
-  "Decluttering",
-  "Detailing",
-  "Other",
-];
+export const servicesNeeded = services.map((s) => s.title);
 
 export const frequencies = [
   "One-Time",
