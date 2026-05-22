@@ -7,11 +7,14 @@ export const site = {
   email: "summerscleaning4u@gmail.com",
   domain: "summerscleaning.com",
   rating: 5.0,
-  reviewCount: 27,
+  reviewCount: 1,
   tagline: "Clean Fresh Vibes",
   primaryCity: "Charleston, SC",
   serviceArea: "Charleston, SC and surrounding Lowcountry areas",
   category: "Janitorial Service",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61559253422413",
+  googleReviewUrl:
+    "https://www.google.com/maps/place/Summers+Cleaning+LLC/@32.8353539,-80.1892377,10.45z/data=!4m18!1m9!3m8!1s0xd5442eee5dedb8f:0x1ce3f91e4fbb203d!2sSummers+Cleaning+LLC!8m2!3d32.8399876!4d-79.9465538!9m1!1b1!16s%2Fg%2F11y4zgfrr6!3m7!1s0xd5442eee5dedb8f:0x1ce3f91e4fbb203d!8m2!3d32.8399876!4d-79.9465538!9m1!1b1!16s%2Fg%2F11y4zgfrr6?entry=ttu&g_ep=EgoyMDI2MDUxNy4wIKXMDSoASAFQAw%3D%3D",
 };
 
 export type ServiceSlug =
@@ -250,40 +253,10 @@ export const reasons = [
 
 export const reviews = [
   {
-    name: "Ashley M.",
-    location: "Mount Pleasant, SC",
+    name: "Matthew Musick",
+    location: "Google Review",
     text:
-      "Summer is incredible. My house has never felt so fresh and clean — and I love that she uses natural products that are safe for my two cats. Highly recommend!",
-  },
-  {
-    name: "Jared P.",
-    location: "Charleston, SC",
-    text:
-      "Booked Summers Cleaning for our Airbnb turnovers and she has been a lifesaver. Fast, thorough, and the place always smells amazing without that harsh chemical smell.",
-  },
-  {
-    name: "Megan R.",
-    location: "Summerville, SC",
-    text:
-      "Hired Summer for a deep clean before our move-in. Every surface sparkled. She even cleaned the inside of the oven and fridge perfectly. Clean Fresh Vibes for sure!",
-  },
-  {
-    name: "Daniel K.",
-    location: "James Island, SC",
-    text:
-      "Reliable, friendly, and detail-oriented. Summer treats our home like it's her own. The natural cleaners are a huge plus for our family.",
-  },
-  {
-    name: "Brittany H.",
-    location: "Goose Creek, SC",
-    text:
-      "I have a long-haired cat and pet hair was always an issue. Summer's pet-friendly cleaning is a game changer. The house smells fresh and my kitty is happy too.",
-  },
-  {
-    name: "Chris T.",
-    location: "Folly Beach, SC",
-    text:
-      "Excellent service for our vacation rental. Summer turns our place around fast between guests and the reviews from renters speak for themselves.",
+      "Summer and her team are TOP NOTCH. We use her for our home cleaning every month or so and it always feels squeaky clean after they've been here. They use all natural products that are dog-friendly which we so appreciate. Fairly priced too.\n\nDon't think twice! Call Summer for your regular cleaning and to clean up for - or from - your next hosting.",
   },
 ];
 

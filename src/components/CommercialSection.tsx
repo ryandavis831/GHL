@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import QuoteCTA from "./QuoteCTA";
 
 const TARGETS = [
   { title: "Offices", desc: "Bright, healthy workspaces your team will love showing up to." },
@@ -62,9 +63,7 @@ export default function CommercialSection() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/contact" className="btn-primary">
-              Book a Cleaning
-            </Link>
+            <QuoteCTA className="btn-primary">Book a Cleaning</QuoteCTA>
             <Link href="/services/commercial-cleaning" className="btn-outline">
               Commercial Details
             </Link>

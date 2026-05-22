@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { services } from "@/lib/site";
+import QuoteCTA from "./QuoteCTA";
 
 const ICONS: Record<string, JSX.Element> = {
   home: (
@@ -67,9 +68,7 @@ export default function ServicesGrid() {
               pet-safe products that deliver Clean Fresh Vibes.
             </p>
           </div>
-          <Link href="/contact" className="btn-gold hidden sm:inline-flex">
-            Refresh My Home
-          </Link>
+          <QuoteCTA className="btn-gold hidden sm:inline-flex">Refresh My Home</QuoteCTA>
         </div>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

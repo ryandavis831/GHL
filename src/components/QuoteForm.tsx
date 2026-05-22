@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { servicesNeeded, site } from "@/lib/site";
+import FacebookIcon from "./FacebookIcon";
 
 export default function QuoteForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -63,6 +64,24 @@ export default function QuoteForm() {
                   {site.email}
                 </div>
                 <div className="text-sm text-brand-slate">Replies usually within a few hours</div>
+              </div>
+            </a>
+
+            <a
+              href={site.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-4 rounded-2xl bg-white p-5 shadow-card ring-1 ring-brand-navy/5 hover:ring-[#1877F2]/40 transition"
+            >
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#1877F2] text-white transition-transform group-hover:scale-110">
+                <FacebookIcon className="h-5 w-5" />
+              </span>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-[#1877F2]">Facebook</div>
+                <div className="mt-1 text-lg font-bold text-brand-navy group-hover:text-[#1877F2] transition">
+                  Follow Summers Cleaning
+                </div>
+                <div className="text-sm text-brand-slate">Transformations, tips &amp; updates</div>
               </div>
             </a>
 

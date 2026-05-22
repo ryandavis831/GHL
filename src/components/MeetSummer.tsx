@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import QuoteCTA from "./QuoteCTA";
 
 export default function MeetSummer() {
   return (
@@ -32,25 +33,27 @@ export default function MeetSummer() {
         </div>
 
         <div className="lg:col-span-7 order-1 lg:order-2">
-          <span className="section-eyebrow-gold">Meet Summer</span>
+          <span className="section-eyebrow-gold">Meet the Owner</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy leading-tight">
-            Hi, I&apos;m Summer — the heart behind every clean.
+            Hi, my name is{" "}
+            <span className="text-brand-aquaDeep">Summer</span> — and yes, that&apos;s really my name.
           </h2>
           <div className="mt-5 space-y-4 text-brand-slate text-base sm:text-lg leading-relaxed">
             <p>
-              I started <strong className="text-brand-navy">Summers Cleaning</strong> with one simple goal: to help
-              Lowcountry families and businesses enjoy cleaner, healthier spaces without the harsh chemicals
-              that come with most cleaning services.
+              I&apos;m the <strong className="text-brand-navy">owner and operator</strong> of Summers Cleaning
+              LLC. &ldquo;Summer&rsquo;s Cleaning&rdquo; isn&apos;t a made-up company name — it&apos;s personal.
+              Every clean has my name on it, which is why I treat every home and business like it&apos;s my own.
             </p>
             <p>
-              My attention to detail, friendly service, and commitment to{" "}
-              <strong className="text-brand-aquaDeep">all-natural, pet-safe products</strong> help create homes that
-              feel fresh, safe, and welcoming — for the whole family, paws included.
+              I started Summers Cleaning to help Lowcountry families and businesses enjoy cleaner, healthier
+              spaces without the harsh chemicals that come with most cleaning services. My commitment to{" "}
+              <strong className="text-brand-aquaDeep">all-natural, pet-friendly products</strong> means safe
+              cleans for cats, dogs, kids, and adults alike.
             </p>
             <p>
-              When you book Summers Cleaning, you&apos;re not hiring a faceless company. You&apos;re inviting
-              someone local who actually cares about your space, your time, and the little details that make your
-              home feel like home.
+              When you book Summers Cleaning, you&apos;re not hiring a faceless company. You&apos;re inviting{" "}
+              <strong className="text-brand-navy">me, Summer</strong> — a Charleston local who genuinely cares
+              about the small details that make your home feel fresh and welcoming.
             </p>
           </div>
 
@@ -71,11 +74,9 @@ export default function MeetSummer() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/about" className="btn-primary">
+            <QuoteCTA className="btn-primary">Schedule My Cleaning</QuoteCTA>
+            <Link href="/about" className="btn-outline">
               Learn More About Summer
-            </Link>
-            <Link href="/contact" className="btn-outline">
-              Schedule My Cleaning
             </Link>
           </div>
         </div>

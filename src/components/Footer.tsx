@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { services, locations, site } from "@/lib/site";
 import Logo from "./Logo";
+import FacebookIcon from "./FacebookIcon";
+import QuoteCTA from "./QuoteCTA";
 
 export default function Footer() {
   return (
@@ -33,6 +35,21 @@ export default function Footer() {
               </svg>
               Charleston, SC &amp; the Lowcountry
             </div>
+          </div>
+
+          <div className="mt-6 flex items-center gap-3">
+            <a
+              href={site.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow Summers Cleaning on Facebook"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/15 transition hover:bg-[#1877F2] hover:ring-[#1877F2] hover:-translate-y-0.5"
+            >
+              <FacebookIcon className="h-4 w-4 transition-transform group-hover:scale-110" />
+            </a>
+            <QuoteCTA className="inline-flex items-center gap-2 rounded-full bg-brand-aqua px-4 py-2 text-xs font-semibold text-white shadow-glow transition hover:bg-brand-aquaDeep">
+              Get a Free Quote
+            </QuoteCTA>
           </div>
         </div>
 
@@ -71,7 +88,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link href="/about" className="hover:text-white transition">About Summer</Link>
             <Link href="/reviews" className="hover:text-white transition">Reviews</Link>
-            <Link href="/contact" className="hover:text-white transition">Contact</Link>
+            <QuoteCTA className="hover:text-white transition">Contact</QuoteCTA>
           </div>
         </div>
       </div>

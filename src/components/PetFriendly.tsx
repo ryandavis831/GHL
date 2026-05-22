@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PawIcon from "./PawIcon";
+import QuoteCTA from "./QuoteCTA";
 
 const POINTS = [
   { title: "Cat-Friendly Homes", desc: "Soft cleaning for litter spaces, scratching posts, and feline-favorite spots." },
@@ -30,9 +31,10 @@ export default function PetFriendly() {
               <span className="text-brand-gold">families &amp; pets</span>
             </h2>
             <p className="mt-5 text-white/80 text-base sm:text-lg leading-relaxed">
-              Summers Cleaning uses <strong className="text-white">all-natural, plant-based products</strong>{" "}
-              that are safer for your pets and family while still delivering professional-level results.
-              No mystery chemicals. No harsh fumes. Just Clean Fresh Vibes.
+              Summer uses <strong className="text-white">all-natural, plant-based products</strong> that are
+              safer for your <strong className="text-white">dogs, cats</strong>, and family while still
+              delivering professional-level results. No mystery chemicals. No harsh fumes. Just Clean Fresh
+              Vibes.
             </p>
 
             <div className="mt-7 rounded-2xl bg-brand-gold p-5 text-brand-navy shadow-gold">
@@ -48,10 +50,11 @@ export default function PetFriendly() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn-gold">
-                Claim Your 10% Pet Owner Discount
-              </Link>
-              <Link href="/services/pet-friendly-cleaning" className="btn-outline bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white">
+              <QuoteCTA className="btn-gold">Claim Your 10% Pet Owner Discount</QuoteCTA>
+              <Link
+                href="/services/pet-friendly-cleaning"
+                className="btn-outline bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white"
+              >
                 Learn More
               </Link>
             </div>

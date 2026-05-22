@@ -8,6 +8,7 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import CommercialSection from "@/components/CommercialSection";
 import ServiceAreaSection from "@/components/ServiceAreaSection";
 import Reviews from "@/components/Reviews";
+import FollowFacebook from "@/components/FollowFacebook";
 import QuoteForm from "@/components/QuoteForm";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
@@ -28,6 +29,7 @@ export default function Page() {
         <CommercialSection />
         <ServiceAreaSection />
         <Reviews />
+        <FollowFacebook />
         <QuoteForm />
       </main>
       <Footer />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { locations } from "@/lib/site";
+import QuoteCTA from "./QuoteCTA";
 
 export default function ServiceAreaSection() {
   return (
@@ -32,9 +33,7 @@ export default function ServiceAreaSection() {
           </div>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/contact" className="btn-primary">
-              Schedule My Cleaning
-            </Link>
+            <QuoteCTA className="btn-primary">Schedule My Cleaning</QuoteCTA>
             <Link href="/service-areas" className="btn-outline">
               View All Service Areas
             </Link>

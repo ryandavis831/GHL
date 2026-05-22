@@ -1,7 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import { site } from "@/lib/site";
+import QuoteCTA from "./QuoteCTA";
 
 export default function StickyCTA() {
   return (
@@ -13,9 +11,7 @@ export default function StickyCTA() {
           </svg>
           Call Summer
         </a>
-        <Link href="/contact" className="btn-primary flex-1 !py-2.5 text-xs">
-          Get Free Quote
-        </Link>
+        <QuoteCTA className="btn-primary flex-1 !py-2.5 text-xs">Get Free Quote</QuoteCTA>
       </div>
     </div>
   );

@@ -1,20 +1,52 @@
 import Image from "next/image";
-import Link from "next/link";
 import { site } from "@/lib/site";
 import PawIcon from "./PawIcon";
+import QuoteCTA from "./QuoteCTA";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-hero-wash pt-28 pb-16 sm:pt-36 sm:pb-24">
-      {/* decorative blobs */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-brand-aqua/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/3 -right-24 h-80 w-80 rounded-full bg-brand-gold/20 blur-3xl" />
+    <section className="relative overflow-hidden pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-24">
+      {/* Background image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/assets/brand/hero-cover.png"
+          alt="Bright, freshly cleaned Charleston home — Summers Cleaning all-natural service"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Soft white + blue wash for readability without darkening */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/70 to-white/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-brand-aquaMist/40 to-white/40 mix-blend-lighten" />
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(63,184,210,0.18),transparent_60%)]" />
+      </div>
 
-      <div className="container-wide relative grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-bold tracking-wider uppercase text-brand-aquaDeep shadow-card ring-1 ring-brand-aqua/20">
+      {/* Watermark logo - integrated, subtle */}
+      <div
+        className="pointer-events-none absolute right-[-5%] sm:right-[2%] lg:right-[6%] top-[55%] sm:top-1/2 -translate-y-1/2 opacity-[0.07] sm:opacity-[0.10] lg:opacity-[0.12]"
+        aria-hidden="true"
+      >
+        <div className="relative h-[280px] w-[280px] sm:h-[420px] sm:w-[420px] lg:h-[540px] lg:w-[540px]">
+          <Image
+            src="/assets/logo/logo.png"
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 540px, (min-width: 640px) 420px, 280px"
+            className="object-contain"
+          />
+        </div>
+      </div>
+
+      {/* Decorative accents */}
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-brand-aqua/15 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 -right-24 h-72 w-72 rounded-full bg-brand-gold/15 blur-3xl" />
+
+      <div className="container-wide relative">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-bold tracking-wider uppercase text-brand-aquaDeep shadow-card ring-1 ring-brand-aqua/20">
             <span className="inline-block h-2 w-2 rounded-full bg-brand-aqua animate-pulse" />
-            Charleston, SC · Locally Owned by Summer
+            Charleston, SC · Owned by Summer
           </div>
 
           <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-brand-navy">
@@ -26,22 +58,24 @@ export default function Hero() {
             in Charleston, SC
           </h1>
 
-          <p className="mt-5 text-lg text-brand-slate max-w-xl leading-relaxed">
-            Professional residential and commercial cleaning by{" "}
-            <strong className="text-brand-navy">Summer</strong>, using pet-friendly,
-            all-natural products that leave your home with{" "}
-            <strong className="text-brand-aquaDeep">Clean Fresh Vibes</strong>.
+          <p className="mt-5 text-lg text-brand-navy/80 max-w-xl leading-relaxed">
+            Hi, I&apos;m{" "}
+            <strong className="text-brand-navy">Summer</strong>
+            <span className="text-brand-slate"> — the owner and cleaner behind every job.</span>{" "}
+            I provide professional residential and commercial cleaning using{" "}
+            <strong className="text-brand-aquaDeep">pet-friendly, all-natural products</strong> that leave
+            your home with <strong className="text-brand-aquaDeep">Clean Fresh Vibes</strong>.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/contact" className="btn-primary">
+            <QuoteCTA className="btn-primary">
               Get a Free Quote
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
-            </Link>
-            <a href={`tel:${site.phoneTel}`} className="btn-outline">
+            </QuoteCTA>
+            <a href={`tel:${site.phoneTel}`} className="btn-outline bg-white/80 backdrop-blur-sm">
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1.05.37 2.08.72 3.06a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l2.02-2.29a2 2 0 0 1 2.11-.45c.98.35 2.01.59 3.06.72A2 2 0 0 1 22 16.92z" />
               </svg>
@@ -49,17 +83,31 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mt-7 inline-flex items-center gap-3 rounded-2xl bg-brand-gold/15 px-4 py-3 ring-1 ring-brand-gold/40">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-gold text-brand-navy">
-              <PawIcon className="h-5 w-5" />
-            </span>
-            <div className="text-sm">
-              <div className="font-bold text-brand-navy">10% Off for Pet Owners</div>
-              <div className="text-brand-slate">Safe for cats, dogs &amp; the whole family.</div>
+          {/* Integrated badges */}
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center gap-3 rounded-full bg-white/90 backdrop-blur-sm px-4 py-2.5 ring-1 ring-brand-aqua/20 shadow-card">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-aquaMist text-brand-aquaDeep">
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 3c-9 0-15 6-15 14 0 1.4.4 2.7 1 4 1.3-.6 2.6-1 4-1 8 0 14-6 14-15-1.3.3-2.7.5-4 .5z" />
+                </svg>
+              </span>
+              <span className="text-sm font-bold text-brand-navy">All-Natural</span>
+            </div>
+
+            <div className="inline-flex items-center gap-3 rounded-full bg-white/90 backdrop-blur-sm px-4 py-2.5 ring-1 ring-brand-gold/30 shadow-card">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-gold/20 text-amber-700">
+                <PawIcon className="h-4 w-4" />
+              </span>
+              <span className="text-sm font-bold text-brand-navy">Pet-Friendly</span>
+            </div>
+
+            <div className="inline-flex items-center gap-3 rounded-full bg-brand-gold/95 backdrop-blur-sm px-4 py-2.5 ring-1 ring-brand-gold shadow-gold">
+              <PawIcon className="h-4 w-4 text-brand-navy" />
+              <span className="text-sm font-bold text-brand-navy">10% Off for Pet Owners</span>
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-6 text-sm">
+          <div className="mt-7 flex flex-wrap items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="flex">
                 {[0, 1, 2, 3, 4].map((i) => (
@@ -70,55 +118,12 @@ export default function Hero() {
               </div>
               <span className="font-semibold text-brand-navy">5.0 Star Rated</span>
             </div>
-            <div className="flex items-center gap-2 text-brand-slate">
+            <div className="flex items-center gap-2 text-brand-navy/80">
               <svg className="h-4 w-4 text-brand-aquaDeep" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
               Lowcountry locally owned
-            </div>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full max-w-lg mx-auto">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-brand-aqua/30 via-transparent to-brand-gold/20 blur-2xl" />
-            <div className="relative h-full w-full rounded-[2rem] overflow-hidden shadow-soft ring-1 ring-white/60">
-              <Image
-                src="/assets/brand/hero-cover.png"
-                alt="Bright, freshly cleaned Charleston home with Summers Cleaning logo"
-                fill
-                sizes="(min-width: 1024px) 520px, 90vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            {/* floating badge */}
-            <div className="absolute -left-4 sm:-left-8 bottom-8 rounded-2xl bg-white/95 backdrop-blur-md px-4 py-3 shadow-soft ring-1 ring-brand-navy/5 animate-floaty">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-aquaMist text-brand-aquaDeep">
-                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2L9 7H4l4 3-1.5 6L12 13l5.5 3L16 10l4-3h-5z" />
-                  </svg>
-                </span>
-                <div className="text-sm leading-tight">
-                  <div className="font-bold text-brand-navy">All-Natural</div>
-                  <div className="text-brand-slate text-xs">Plant-based · Non-toxic</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -right-3 sm:-right-6 top-10 rounded-2xl bg-white/95 backdrop-blur-md px-4 py-3 shadow-soft ring-1 ring-brand-navy/5">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-gold/20 text-amber-700">
-                  <PawIcon className="h-5 w-5" />
-                </span>
-                <div className="text-sm leading-tight">
-                  <div className="font-bold text-brand-navy">Pet Safe</div>
-                  <div className="text-brand-slate text-xs">Cats &amp; dogs approved</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
