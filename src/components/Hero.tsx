@@ -6,24 +6,27 @@ import QuoteCTA from "./QuoteCTA";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Full-bleed kitchen background */}
+      {/* Branded kitchen background (logo already imprinted on the right) */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/assets/brand/hero-kitchen.png"
-          alt="Bright, freshly cleaned Charleston kitchen by Summers Cleaning"
+          src="/assets/brand/hero-branded.png"
+          alt="Branded Summers Cleaning kitchen — bright, freshly cleaned home in Charleston, SC"
           fill
           priority
           sizes="100vw"
           className="object-cover object-center"
         />
-        {/* Soft white fade from the left where the text sits, clear toward the right */}
+        {/* Readability wash: heavy on the left where the headline sits, clear on the right so the logo stays visible */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/70 to-transparent" />
-        {/* Subtle aqua color wash for personality */}
-        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_15%_45%,rgba(255,255,255,0.55),transparent_70%)]" />
+        {/* Subtle cool tint */}
+        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_15%_45%,rgba(226,242,247,0.55),transparent_70%)]" />
+        {/* Very soft blue tint for cohesion */}
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-aquaMist/30 via-transparent to-brand-aquaMist/20" />
       </div>
 
       <div className="container-wide relative grid lg:grid-cols-12 gap-8 items-center py-14 sm:py-20 lg:py-24 min-h-[560px] sm:min-h-[620px]">
-        <div className="lg:col-span-7 xl:col-span-7 relative">
+        {/* Content column — kept narrower so the right side stays clear for the imprinted logo */}
+        <div className="lg:col-span-7 xl:col-span-6 relative">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-sm px-3 py-1.5 text-xs font-bold tracking-wider uppercase text-brand-aquaDeep shadow-card ring-1 ring-brand-aqua/20">
             <span className="inline-block h-2 w-2 rounded-full bg-brand-aqua animate-pulse" />
             Charleston, SC · Owned &amp; Operated
@@ -60,7 +63,6 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Integrated badges */}
           <div className="mt-7 flex flex-wrap items-center gap-2.5">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-sm px-3.5 py-1.5 ring-1 ring-brand-aqua/30 shadow-card">
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand-aquaMist text-brand-aquaDeep">
@@ -105,23 +107,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Floating logo card */}
-        <div className="hidden lg:block lg:col-span-5 xl:col-span-5">
-          <div className="relative ml-auto w-fit">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-aqua/30 via-white/20 to-brand-gold/20 blur-2xl" />
-            <div className="relative bg-white rounded-3xl shadow-soft ring-1 ring-brand-navy/5 p-6 xl:p-7 w-[260px] xl:w-[300px] animate-floaty">
-              <div className="relative h-[180px] xl:h-[210px]">
-                <Image
-                  src="/assets/logo/logo.png"
-                  alt="Summers Cleaning LLC logo"
-                  fill
-                  sizes="300px"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Right side stays empty so the logo imprinted in the image remains visible and unobstructed */}
+        <div className="hidden lg:block lg:col-span-5 xl:col-span-6" aria-hidden="true" />
       </div>
     </section>
   );

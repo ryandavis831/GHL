@@ -1,12 +1,7 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
 import { beforeAfter } from "@/lib/site";
+import BeforeAfterSlider from "./BeforeAfterSlider";
 
 export default function BeforeAfterGallery() {
-  const [hovered, setHovered] = useState<string | null>(null);
-
   return (
     <section id="before-after" className="bg-white py-20 sm:py-24">
       <div className="container-wide">
@@ -14,63 +9,33 @@ export default function BeforeAfterGallery() {
           <span className="section-eyebrow">Before &amp; After</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy">
             The kind of difference{" "}
-            <span className="text-brand-aquaDeep">you can see</span>
+            <span className="text-brand-aquaDeep">you can drag &amp; see</span>
           </h2>
           <p className="mt-4 text-brand-slate text-base sm:text-lg">
-            Real cleans from real Charleston-area homes. Hover or tap each photo to see the transformation.
+            Real cleans from real Charleston-area homes. Drag the slider on each photo to reveal the
+            transformation.
           </p>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-aquaMist px-3.5 py-1.5 text-xs font-semibold text-brand-aquaDeep">
+            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+              <polyline points="9 18 15 12 9 6" transform="translate(6 0)" />
+            </svg>
+            Drag · swipe · or use arrow keys
+          </div>
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {beforeAfter.map((item) => {
-            const isShowingAfter = hovered === item.id;
-            return (
-              <figure
-                key={item.id}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-brand-navy/5"
-                onMouseEnter={() => setHovered(item.id)}
-                onMouseLeave={() => setHovered(null)}
-                onTouchStart={() => setHovered(item.id)}
-                onTouchEnd={() => setHovered(null)}
-              >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={item.before}
-                    alt={`${item.title} — before cleaning`}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className={`object-cover transition-opacity duration-500 ${
-                      isShowingAfter ? "opacity-0" : "opacity-100"
-                    }`}
-                  />
-                  <Image
-                    src={item.after}
-                    alt={`${item.title} — after cleaning by Summers Cleaning`}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className={`object-cover transition-opacity duration-500 ${
-                      isShowingAfter ? "opacity-100" : "opacity-0"
-                    }`}
-                  />
-
-                  <span
-                    className={`absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase shadow-card transition ${
-                      isShowingAfter
-                        ? "bg-brand-aqua text-white"
-                        : "bg-white text-brand-navy"
-                    }`}
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                    {isShowingAfter ? "After" : "Before"}
-                  </span>
-                </div>
-                <figcaption className="p-5">
-                  <h3 className="font-bold text-brand-navy">{item.title}</h3>
-                  <p className="mt-1 text-sm text-brand-slate leading-relaxed">{item.description}</p>
-                </figcaption>
-              </figure>
-            );
-          })}
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {beforeAfter.map((item) => (
+            <BeforeAfterSlider
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              beforeSrc={item.before}
+              afterSrc={item.after}
+              beforeAlt={`${item.title} — before cleaning`}
+              afterAlt={`${item.title} — after cleaning by Summers Cleaning`}
+            />
+          ))}
         </div>
       </div>
     </section>
