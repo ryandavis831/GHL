@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Hero from "@/components/Hero";
 import MeetSummer from "@/components/MeetSummer";
 import TrustGrid from "@/components/TrustGrid";
@@ -18,6 +19,7 @@ export default function Page() {
   return (
     <>
       <SchemaOrg />
+      <AnnouncementBar />
       <Header />
       <main>
         <Hero />
