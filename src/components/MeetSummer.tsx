@@ -16,7 +16,7 @@ export default function MeetSummer() {
             {/* Glow halo */}
             <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-brand-aqua/25 via-white/10 to-brand-gold/25 blur-2xl" />
 
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[5/4] w-full rounded-[2rem] overflow-hidden shadow-soft ring-1 ring-brand-navy/10">
+            <div className="relative aspect-[3/2] w-full rounded-[2rem] overflow-hidden shadow-soft ring-1 ring-brand-navy/10 bg-brand-aquaMist">
               <Image
                 src="/assets/brand/about-branded.png"
                 alt="Bright Lowcountry living space — Summers Cleaning all-natural service"
@@ -24,8 +24,6 @@ export default function MeetSummer() {
                 sizes="(min-width: 1024px) 60vw, 100vw"
                 className="object-cover object-center"
               />
-              {/* Slight bottom-left fade for premium polish */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/15 via-transparent to-transparent" />
             </div>
 
             {/* Floating signature card overlapping the image */}

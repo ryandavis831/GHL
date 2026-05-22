@@ -19,7 +19,6 @@ export const site = {
 
 export type ServiceSlug =
   | "residential-cleaning"
-  | "commercial-cleaning"
   | "deep-cleaning"
   | "move-in-move-out-cleaning"
   | "bathroom-cleaning"
@@ -42,14 +41,6 @@ export const services: ServiceItem[] = [
     blurb:
       "Recurring and one-time home cleans using all-natural, pet-safe products that leave every room with Clean Fresh Vibes.",
     icon: "home",
-  },
-  {
-    slug: "commercial-cleaning",
-    title: "Commercial Cleaning",
-    short: "Office & Business",
-    blurb:
-      "Offices, small businesses, and Airbnb properties cleaned on a schedule that keeps your space professional and welcoming.",
-    icon: "building",
   },
   {
     slug: "deep-cleaning",

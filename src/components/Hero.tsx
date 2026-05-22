@@ -16,12 +16,19 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        {/* Readability wash: heavy on the left where the headline sits, clear on the right so the logo stays visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/70 to-transparent" />
-        {/* Subtle cool tint */}
-        <div className="absolute inset-0 bg-[radial-gradient(70%_55%_at_15%_45%,rgba(226,242,247,0.55),transparent_70%)]" />
-        {/* Very soft blue tint for cohesion */}
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-aquaMist/30 via-transparent to-brand-aquaMist/20" />
+        {/* Strong readability wash on the left where the text sits.
+            The gradient stops well before the logo on the right side. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0) 72%)",
+          }}
+        />
+        {/* Cool aqua text-panel tint behind the headline only */}
+        <div className="absolute inset-0 bg-[radial-gradient(55%_70%_at_22%_45%,rgba(226,242,247,0.85),transparent_75%)]" />
+        {/* Soft top/bottom polish */}
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-aquaMist/20 via-transparent to-brand-aquaMist/15" />
       </div>
 
       <div className="container-wide relative grid lg:grid-cols-12 gap-8 items-center py-14 sm:py-20 lg:py-24 min-h-[560px] sm:min-h-[620px]">
@@ -32,16 +39,22 @@ export default function Hero() {
             Charleston, SC · Owned &amp; Operated
           </div>
 
-          <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-brand-navy">
+          <h1
+            className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-brand-navyDeep"
+            style={{ textShadow: "0 1px 0 rgba(255,255,255,0.85)" }}
+          >
             All-Natural
             <br />
             <span className="text-brand-aquaDeep">Cleaning Services</span>{" "}
-            <span className="text-brand-navy">in</span>
+            <span className="text-brand-navyDeep">in</span>
             <br />
             Charleston, SC
           </h1>
 
-          <p className="mt-5 text-base sm:text-lg text-brand-navy/85 max-w-xl leading-relaxed">
+          <p
+            className="mt-5 text-base sm:text-lg text-brand-navyDeep/90 max-w-xl leading-relaxed font-medium"
+            style={{ textShadow: "0 1px 0 rgba(255,255,255,0.7)" }}
+          >
             Professional residential and commercial cleaning using{" "}
             <strong className="text-brand-aquaDeep">pet-friendly, all-natural products</strong> that leave
             your home with <strong className="text-brand-aquaDeep">Clean Fresh Vibes</strong>.
