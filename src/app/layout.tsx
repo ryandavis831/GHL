@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { QuoteModalProvider } from "@/components/QuoteModalContext";
+import QuoteModal from "@/components/QuoteModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,7 +47,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
-      <body>{children}</body>
+      <body>
+        <QuoteModalProvider>
+          {children}
+          <QuoteModal />
+        </QuoteModalProvider>
+      </body>
     </html>
   );
 }

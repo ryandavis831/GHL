@@ -1,42 +1,30 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode } from "react";
+import { useQuoteModal } from "./QuoteModalContext";
 
 interface QuoteCTAProps {
   children: ReactNode;
   className?: string;
   ariaLabel?: string;
+  defaultService?: string;
 }
 
-/**
- * Smart CTA that scrolls to the #contact form when already on the homepage
- * and navigates to /#contact from any other page. Works correctly on Vercel
- * because the anchor is part of the rendered URL.
- */
-export default function QuoteCTA({ children, className = "btn-primary", ariaLabel }: QuoteCTAProps) {
-  const pathname = usePathname();
-  const onHome = pathname === "/";
-
-  function handleClick(e: MouseEvent<HTMLAnchorElement>) {
-    if (!onHome) return;
-    const el = document.getElementById("contact");
-    if (el) {
-      e.preventDefault();
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", "#contact");
-    }
-  }
-
+export default function QuoteCTA({
+  children,
+  className = "btn-primary",
+  ariaLabel,
+  defaultService,
+}: QuoteCTAProps) {
+  const { open } = useQuoteModal();
   return (
-    <Link
-      href="/#contact"
-      onClick={handleClick}
+    <button
+      type="button"
+      onClick={() => open(defaultService)}
       className={className}
       aria-label={ariaLabel}
     >
       {children}
-    </Link>
+    </button>
   );
 }

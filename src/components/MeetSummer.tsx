@@ -35,25 +35,23 @@ export default function MeetSummer() {
         <div className="lg:col-span-7 order-1 lg:order-2">
           <span className="section-eyebrow-gold">Meet the Owner</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy leading-tight">
-            Hi, my name is{" "}
-            <span className="text-brand-aquaDeep">Summer</span> — and yes, that&apos;s really my name.
+            Hi, I&apos;m <span className="text-brand-aquaDeep">Summer</span>.
           </h2>
           <div className="mt-5 space-y-4 text-brand-slate text-base sm:text-lg leading-relaxed">
             <p>
-              I&apos;m the <strong className="text-brand-navy">owner and operator</strong> of Summers Cleaning
-              LLC. &ldquo;Summer&rsquo;s Cleaning&rdquo; isn&apos;t a made-up company name — it&apos;s personal.
-              Every clean has my name on it, which is why I treat every home and business like it&apos;s my own.
+              I&apos;m the owner of <strong className="text-brand-navy">Summers Cleaning LLC</strong>. I
+              started this business to help Charleston-area homes and businesses feel cleaner, fresher, and
+              more comfortable without relying on harsh cleaning products.
             </p>
             <p>
-              I started Summers Cleaning to help Lowcountry families and businesses enjoy cleaner, healthier
-              spaces without the harsh chemicals that come with most cleaning services. My commitment to{" "}
-              <strong className="text-brand-aquaDeep">all-natural, pet-friendly products</strong> means safe
-              cleans for cats, dogs, kids, and adults alike.
+              Every job is personal to me. Whether it&apos;s a routine home cleaning, a move-in/move-out
+              clean, or a commercial space, I take pride in showing up with{" "}
+              <strong className="text-brand-navy">care, consistency, and attention to detail</strong>.
             </p>
             <p>
-              When you book Summers Cleaning, you&apos;re not hiring a faceless company. You&apos;re inviting{" "}
-              <strong className="text-brand-navy">me, Summer</strong> — a Charleston local who genuinely cares
-              about the small details that make your home feel fresh and welcoming.
+              Summers Cleaning is locally owned and focused on{" "}
+              <strong className="text-brand-aquaDeep">all-natural, pet-friendly cleaning solutions</strong>{" "}
+              that are safe for families, pets, and everyday spaces.
             </p>
           </div>
 
