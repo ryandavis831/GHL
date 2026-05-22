@@ -6,7 +6,6 @@ import TrustGrid from "@/components/TrustGrid";
 import ServicesGrid from "@/components/ServicesGrid";
 import PetFriendly from "@/components/PetFriendly";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import CommercialSection from "@/components/CommercialSection";
 import ServiceAreaSection from "@/components/ServiceAreaSection";
 import Reviews from "@/components/Reviews";
 import FollowFacebook from "@/components/FollowFacebook";
@@ -28,7 +27,6 @@ export default function Page() {
         <ServicesGrid />
         <PetFriendly />
         <BeforeAfterGallery />
-        <CommercialSection />
         <ServiceAreaSection />
         <Reviews />
         <FollowFacebook />
