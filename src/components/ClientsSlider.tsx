@@ -14,19 +14,16 @@ type LogoCard =
   | {
       kind: "logo";
       name: string;
-      /**
-       * SimpleIcons CDN URL — real brand SVG for recognizable companies.
-       * Renders in the brand's official color.
-       */
+      /** Local JPG/PNG fallback path. Paired with a WebP source via <picture>. */
       logoUrl: string;
+      /** Matching WebP path served to capable browsers. */
+      logoWebp?: string;
       logoClassName?: string;
     }
   | {
       kind: "wordmark";
       name: string;
-      /** Brand-colored wordmark for companies without a public mark on the CDN */
       color: string;
-      /** Optional smaller subtitle line under the wordmark (e.g. "Burgers • Shakes • Fries") */
       sublabel?: string;
     }
   | {
@@ -37,33 +34,33 @@ type LogoCard =
     };
 
 /*
-  NOTE on logos:
-  - SimpleIcons (cdn.simpleicons.org) hosts official, freely-usable SVG marks
-    for many recognizable brands (Wendy's, Dunkin', etc).
-  - For Tractor Supply and Hwy 55 the SimpleIcons CDN doesn't host the mark,
-    so we render a clean styled brand-name card on a white background.
-  - For Health Dept., Court House, Schools, Gyms, Military Base Buildings
-    we use Lucide icon cards (per the brief — no fake artwork for orgs that
-    don't have a published brand logo).
+  Logos sourced from the client and stored in /public/assets/clients.
+  Each logo has both PNG (fallback) and WebP (modern) variants. Generic
+  organizations (schools, gyms, courthouse, base buildings) use clean
+  Lucide icon cards per the brief — no fake artwork.
 */
 
 const items: LogoCard[] = [
   {
     kind: "logo",
     name: "Wendy's",
-    logoUrl: "https://cdn.simpleicons.org/wendys/E2231A",
-    logoClassName: "h-9 w-auto",
+    logoUrl: "/assets/clients/wendys.png",
+    logoWebp: "/assets/clients/wendys.webp",
+    logoClassName: "max-h-14 w-auto",
   },
   {
     kind: "logo",
-    name: "Dunkin'",
-    logoUrl: "https://cdn.simpleicons.org/dunkin/FF671F",
-    logoClassName: "h-10 w-auto",
+    name: "Dunkin' Donuts",
+    logoUrl: "/assets/clients/dunkin.png",
+    logoWebp: "/assets/clients/dunkin.webp",
+    logoClassName: "max-h-14 w-auto",
   },
   {
-    kind: "wordmark",
-    name: "Tractor Supply",
-    color: "#D2232A",
+    kind: "logo",
+    name: "Tractor Supply Co.",
+    logoUrl: "/assets/clients/tractor-supply.png",
+    logoWebp: "/assets/clients/tractor-supply.webp",
+    logoClassName: "max-h-12 w-auto",
   },
   {
     kind: "wordmark",
@@ -100,12 +97,17 @@ function Card({ item }: { item: LogoCard }) {
   if (item.kind === "logo") {
     return (
       <div className={baseCard} title={item.name}>
-        <img
-          src={item.logoUrl}
-          alt={`${item.name} logo`}
-          className={item.logoClassName ?? "h-9 w-auto"}
-          loading="lazy"
-        />
+        <picture>
+          {item.logoWebp && (
+            <source srcSet={item.logoWebp} type="image/webp" />
+          )}
+          <img
+            src={item.logoUrl}
+            alt={`${item.name} logo`}
+            className={item.logoClassName ?? "max-h-12 w-auto"}
+            loading="lazy"
+          />
+        </picture>
       </div>
     );
   }
