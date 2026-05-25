@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/seo";
+import { QuoteModalProvider } from "@/components/QuoteModalContext";
+import QuoteModal from "@/components/QuoteModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,10 +67,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
       <body>
-        <Header />
-        <main className="pb-20 sm:pb-0">{children}</main>
-        <Footer />
-        <StickyCTA />
+        <QuoteModalProvider>
+          <Header />
+          <main className="pb-20 sm:pb-0">{children}</main>
+          <Footer />
+          <StickyCTA />
+          <QuoteModal />
+        </QuoteModalProvider>
         <JsonLd data={localBusinessSchema()} />
       </body>
     </html>

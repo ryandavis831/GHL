@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, ChevronRight } from "lucide-react";
 import { site } from "@/lib/site";
+import QuoteButton from "@/components/QuoteButton";
 
 type Crumb = { label: string; href?: string };
 
@@ -9,14 +10,15 @@ export default function PageHero({
   title,
   subtitle,
   crumbs = [],
-  primaryCta = { label: "Book Cleaning Now", href: "/contact" },
+  prefillService,
   secondaryCta,
 }: {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   crumbs?: Crumb[];
-  primaryCta?: { label: string; href: string };
+  /** Service to pre-select when the quote modal opens from this hero. */
+  prefillService?: string;
   secondaryCta?: { label: string; href: string };
 }) {
   return (
@@ -64,9 +66,9 @@ export default function PageHero({
         )}
 
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link href={primaryCta.href} className="btn-secondary">
-            {primaryCta.label}
-          </Link>
+          <QuoteButton variant="secondary" prefillService={prefillService}>
+            Book Cleaning Now
+          </QuoteButton>
           {secondaryCta ? (
             <Link href={secondaryCta.href} className="btn-ghost-light">
               {secondaryCta.label}

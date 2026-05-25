@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CheckCircle2, ArrowRight, MapPin } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import QuoteForm from "@/components/QuoteForm";
+import QuoteButton from "@/components/QuoteButton";
 import FinalCTA from "@/components/FinalCTA";
 import JsonLd from "@/components/JsonLd";
 import {
@@ -26,6 +27,7 @@ export default function ServicePage({
         eyebrow={service.shortName}
         title={`${service.name} in ${cityName}`}
         subtitle={service.blurb}
+        prefillService={service.name}
         crumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
@@ -96,9 +98,12 @@ export default function ServicePage({
                 scheduling.
               </p>
               <div className="mt-5 flex flex-col gap-2">
-                <Link href="/contact" className="btn-primary w-full">
+                <QuoteButton
+                  className="w-full"
+                  prefillService={service.name}
+                >
                   Book Cleaning Now
-                </Link>
+                </QuoteButton>
                 <a
                   href={`tel:${site.phoneRaw}`}
                   className="btn-outline w-full"

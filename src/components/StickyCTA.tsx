@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Phone, CalendarCheck2 } from "lucide-react";
+import QuoteButton from "@/components/QuoteButton";
 import { site } from "@/lib/site";
 
 export default function StickyCTA() {
@@ -16,10 +16,10 @@ export default function StickyCTA() {
           <Phone className="h-4 w-4" />
           Call
         </a>
-        <Link href="/contact" className="btn-primary flex-1 py-2.5">
+        <QuoteButton className="flex-1 py-2.5">
           <CalendarCheck2 className="h-4 w-4" />
           Book Now
-        </Link>
+        </QuoteButton>
       </div>
     </div>
   );

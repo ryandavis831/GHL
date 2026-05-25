@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Phone } from "lucide-react";
 import { site } from "@/lib/site";
+import QuoteButton from "@/components/QuoteButton";
 
 export default function FinalCTA() {
   return (
@@ -26,9 +26,7 @@ export default function FinalCTA() {
             experience to work for you.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/contact" className="btn-secondary">
-              Book Cleaning Now
-            </Link>
+            <QuoteButton variant="secondary">Book Cleaning Now</QuoteButton>
             <a href={`tel:${site.phoneRaw}`} className="btn-ghost-light">
               <Phone className="h-4 w-4" />
               Call {site.phone}

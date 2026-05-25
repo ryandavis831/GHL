@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import QuoteForm from "@/components/QuoteForm";
+import QuoteButton from "@/components/QuoteButton";
 import FinalCTA from "@/components/FinalCTA";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, cleaningServiceSchema } from "@/lib/seo";
@@ -80,9 +81,7 @@ export default function AreaPage({
                 estimate with scheduling options.
               </p>
               <div className="mt-5 flex flex-col gap-2">
-                <Link href="/contact" className="btn-primary w-full">
-                  Book Cleaning Now
-                </Link>
+                <QuoteButton className="w-full">Book Cleaning Now</QuoteButton>
                 <a
                   href={`tel:${site.phoneRaw}`}
                   className="btn-outline w-full"

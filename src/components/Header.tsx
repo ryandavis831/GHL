@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { navigation, site, type NavItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import QuoteButton from "@/components/QuoteButton";
 
 function hasChildren(
   item: NavItem,
@@ -216,9 +217,9 @@ export default function Header() {
             <Phone className="h-4 w-4" />
             {site.phone}
           </a>
-          <Link href="/contact" className="btn-primary hidden sm:inline-flex">
+          <QuoteButton className="hidden sm:inline-flex">
             Book Cleaning Now
-          </Link>
+          </QuoteButton>
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -245,13 +246,12 @@ export default function Header() {
                 <Phone className="h-4 w-4" />
                 {site.phone}
               </a>
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="btn-primary w-full"
+              <QuoteButton
+                className="w-full"
+                onBeforeOpen={() => setOpen(false)}
               >
                 Book Cleaning Now
-              </Link>
+              </QuoteButton>
             </div>
           </nav>
         </div>
