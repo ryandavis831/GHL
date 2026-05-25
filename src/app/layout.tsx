@@ -9,6 +9,7 @@ import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/seo";
 import { QuoteModalProvider } from "@/components/QuoteModalContext";
 import QuoteModal from "@/components/QuoteModal";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({
           <main className="pb-20 sm:pb-0">{children}</main>
           <Footer />
           <StickyCTA />
+          <ChatWidget />
           <QuoteModal />
         </QuoteModalProvider>
         <JsonLd data={localBusinessSchema()} />
