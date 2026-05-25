@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import AboutTeam from "@/components/AboutTeam";
+import LegacyBanner from "@/components/LegacyBanner";
 import ClientsHighlight from "@/components/ClientsHighlight";
 import FinalCTA from "@/components/FinalCTA";
 import JsonLd from "@/components/JsonLd";
@@ -22,6 +23,7 @@ export default function AboutPage() {
         subtitle={`Since ${site.founded}, ${site.name} has grown by doing more than customers expect — one happy client at a time.`}
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
       />
+      <LegacyBanner />
       <AboutTeam />
       <ClientsHighlight />
       <FinalCTA />

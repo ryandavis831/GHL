@@ -275,11 +275,35 @@ export const trustStats = [
   { value: "5", label: "Local Gyms Cleaned" },
 ];
 
-export const navigation = [
+export type NavItem =
+  | { label: string; href: string }
+  | {
+      label: string;
+      href: string;
+      children: { label: string; href: string; description?: string }[];
+    };
+
+export const navigation: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Service Areas", href: "/service-areas" },
+  {
+    label: "Services",
+    href: "/services",
+    children: services.map((s) => ({
+      label: s.name,
+      href: s.url,
+      description: s.tagline,
+    })),
+  },
+  {
+    label: "Service Areas",
+    href: "/service-areas",
+    children: areas.map((a) => ({
+      label: a.name,
+      href: a.url,
+      description: a.blurb,
+    })),
+  },
   { label: "Clients", href: "/clients" },
   { label: "Contact", href: "/contact" },
 ];

@@ -26,19 +26,24 @@ export default function AboutTeam() {
         <div className="lg:col-span-6">
           <div className="relative">
             {/*
-              REAL COMPANY PHOTO:
-              To use the actual team photo, drop the file at:
-                /public/assets/team/team-photo.jpg
-              and change the `src` below to "/assets/team/team-photo.jpg".
-              Until then, we show a neutral stock placeholder so the layout
-              renders cleanly in the demo.
+              Team photo — full image is shown (no awkward face cropping).
+              Source file: /public/assets/team/team-photo.jpg (1800px wide)
+              Also available: /public/assets/team/team-photo.webp
             */}
-            <img
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80"
-              alt={`The ${site.name} team — locally-owned and operated in Eastern North Carolina`}
-              className="aspect-[4/3] w-full rounded-2xl object-cover shadow-cardHover ring-1 ring-navy-900/5"
-              loading="lazy"
-            />
+            <picture>
+              <source
+                srcSet="/assets/team/team-photo.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/team/team-photo.jpg"
+                alt={`The ${site.name} team — locally owned and operated in Richlands, NC since ${site.founded}`}
+                className="w-full rounded-2xl object-contain shadow-cardHover ring-1 ring-navy-900/5"
+                loading="lazy"
+                width={1800}
+                height={1800}
+              />
+            </picture>
             <div className="absolute -bottom-6 left-6 right-6 rounded-xl bg-white p-4 shadow-card ring-1 ring-navy-900/5 sm:right-auto sm:max-w-sm">
               <p className="text-sm font-semibold text-navy-900">
                 The Carolina Commercial Cleaning family
