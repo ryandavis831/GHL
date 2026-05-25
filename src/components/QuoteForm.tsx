@@ -1,77 +1,221 @@
 "use client";
 
-import { motion } from "framer-motion";
-import QuoteFormBody from "./QuoteFormBody";
-import GoogleReviewButton from "./GoogleReviewButton";
-import { site } from "@/lib/site";
+import { useState } from "react";
+import { CalendarCheck2, CheckCircle2, ImagePlus } from "lucide-react";
+import { services } from "@/lib/site";
 
-export default function QuoteForm() {
+const propertyTypes = [
+  "Office / Commercial",
+  "Restaurant",
+  "Retail Store",
+  "Government Building",
+  "School",
+  "Gym",
+  "Hangar / Military Building",
+  "Post-Construction Site",
+  "Single-Family Home",
+  "Apartment / Condo",
+  "Vacation Rental",
+];
+
+export default function QuoteForm({ idHash }: { idHash?: string }) {
+  const [submitted, setSubmitted] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const toggleService = (name: string) => {
+    setSelected((prev) =>
+      prev.includes(name) ? prev.filter((x) => x !== name) : [...prev, name],
+    );
+  };
+
   return (
-    <section id="contact" className="relative overflow-hidden bg-contact-tint py-20 md:py-28">
-      <div className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-brand-teal/12 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-brand-mint/30 blur-3xl" />
-      <div className="container-tight relative grid gap-10 lg:grid-cols-[1fr_1.2fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.45 }}
-        >
-          <span className="section-eyebrow">Get a Free Estimate</span>
-          <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-brand-navy sm:text-4xl">
-            Tell us about your space
+    <section id={idHash ?? "book"} className="section bg-white">
+      <div className="container-wide grid items-start gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <span className="eyebrow">Book Cleaning Now</span>
+          <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">
+            Request your free quote
           </h2>
-          <p className="mt-3 text-brand-navy/70">
-            Proudly serving Raleigh, NC and surrounding areas including Nash County, Durham, Cary,
-            and Johnston County. Share a few details and you&rsquo;ll receive a free, no-pressure
-            estimate.
+          <p className="mt-4 text-base leading-relaxed text-slate1-600 sm:text-lg">
+            Tell us about your space and what you need. We&apos;ll respond
+            quickly with pricing, scheduling, and a custom scope of work.
           </p>
 
-          <div className="mt-7 space-y-4">
-            <a
-              href={`tel:${site.phoneTel}`}
-              className="card-soft flex items-center gap-4 p-4 transition hover:-translate-y-0.5"
+          <ul className="mt-6 space-y-3 text-sm text-navy-800">
+            {[
+              "Free, no-obligation estimates",
+              "Locally owned & operated since 2006",
+              "Insured, supervised, background-checked crews",
+              "Commercial, residential, and post-construction",
+            ].map((b) => (
+              <li key={b} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 text-accent-green" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="lg:col-span-7">
+          {submitted ? (
+            <div className="card flex flex-col items-center gap-3 p-10 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent-greenSoft text-accent-greenDark">
+                <CheckCircle2 className="h-7 w-7" />
+              </span>
+              <h3 className="text-2xl font-bold text-navy-900">
+                Thanks — we&apos;ve got it!
+              </h3>
+              <p className="text-slate1-600">
+                A team member will reach out shortly to confirm your details
+                and scheduling.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                // Demo only — wire to GHL / API later.
+                setSubmitted(true);
+              }}
+              className="card grid gap-4 p-6 sm:p-8"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
-                </svg>
-              </span>
-              <span>
-                <span className="block text-xs uppercase tracking-widest text-brand-navy/60">Call Today</span>
-                <span className="block text-base font-semibold text-brand-navy">{site.phone}</span>
-              </span>
-            </a>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="label" htmlFor="name">
+                    Full name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    required
+                    className="input"
+                    placeholder="Jane Doe"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="phone">
+                    Phone number
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    className="input"
+                    placeholder="(910) 555-0123"
+                  />
+                </div>
+              </div>
 
-            <div className="card-soft flex items-center gap-4 p-4">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </span>
-              <span>
-                <span className="block text-xs uppercase tracking-widest text-brand-navy/60">Service Area</span>
-                <span className="block text-base font-semibold text-brand-navy">
-                  Raleigh, NC &middot; Nash County &middot; Durham &middot; Cary &middot; Johnston County
-                </span>
-              </span>
-            </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="label" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="input"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="address">
+                    Address / Service Location
+                  </label>
+                  <input
+                    id="address"
+                    name="address"
+                    required
+                    className="input"
+                    placeholder="123 Main St, Richlands, NC"
+                  />
+                </div>
+              </div>
 
-            <div className="card-soft flex items-center gap-4 p-4">
-              <GoogleReviewButton variant="ghost" className="w-full justify-center" />
-            </div>
-          </div>
-        </motion.div>
+              <div>
+                <label className="label">Service(s) needed</label>
+                <div className="flex flex-wrap gap-2">
+                  {services.map((s) => {
+                    const active = selected.includes(s.name);
+                    return (
+                      <button
+                        key={s.slug}
+                        type="button"
+                        onClick={() => toggleService(s.name)}
+                        className={
+                          "rounded-full border px-4 py-2 text-xs font-semibold transition " +
+                          (active
+                            ? "border-navy-700 bg-navy-800 text-white"
+                            : "border-navy-200 bg-white text-navy-800 hover:border-navy-400")
+                        }
+                      >
+                        {s.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.45, delay: 0.05 }}
-        >
-          <QuoteFormBody variant="page" />
-        </motion.div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="label" htmlFor="propertyType">
+                    Property type
+                  </label>
+                  <select id="propertyType" name="propertyType" className="select">
+                    <option value="">Select property type…</option>
+                    {propertyTypes.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="label" htmlFor="date">
+                    Preferred cleaning date
+                  </label>
+                  <input id="date" name="date" type="date" className="input" />
+                </div>
+              </div>
+
+              <div>
+                <label className="label" htmlFor="message">
+                  Message / Project details
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  className="textarea"
+                  placeholder="Square footage, frequency, special requests, deadlines…"
+                />
+              </div>
+
+              <div>
+                <label className="label">Photos (optional)</label>
+                <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-navy-200 bg-slate1-50 px-4 py-6 text-center">
+                  <div>
+                    <ImagePlus className="mx-auto h-6 w-6 text-slate1-500" />
+                    <p className="mt-2 text-sm font-medium text-navy-800">
+                      Drag &amp; drop, or click to upload
+                    </p>
+                    <p className="mt-1 text-xs text-slate1-500">
+                      Photos help us prepare an accurate quote (placeholder)
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" className="btn-primary mt-2 w-full sm:w-auto">
+                <CalendarCheck2 className="h-4 w-4" />
+                Book Cleaning Now
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </section>
   );

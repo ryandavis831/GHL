@@ -1,155 +1,104 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
+import { Phone, ShieldCheck, Building2, Home, HardHat, Award } from "lucide-react";
 import { site } from "@/lib/site";
-import QuoteButton from "./QuoteButton";
 
 const badges = [
-  { label: "5.0 Google Rating", icon: "star" },
-  { label: `${site.reviewCount} Five-Star Reviews`, icon: "review" },
-  { label: "Free Estimates", icon: "check" },
-  { label: "Supplies Included", icon: "spray" },
+  { icon: Award, label: `Established ${site.founded}` },
+  { icon: Building2, label: "Commercial & Residential" },
+  { icon: ShieldCheck, label: "Trusted Local Company" },
+  { icon: HardHat, label: "Post-Construction Specialists" },
 ];
 
 export default function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden bg-hero-gradient pt-28 pb-20 md:pt-36 md:pb-28">
-      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-brand-mint/40 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 -left-16 h-72 w-72 rounded-full bg-brand-teal/20 blur-3xl" />
+    <section className="relative overflow-hidden bg-hero-radial text-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.45) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+        }}
+      />
 
-      <div className="container-tight relative grid items-center gap-12 md:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <span className="section-eyebrow">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-teal" />
-            Proudly serving Raleigh, NC &amp; surrounding areas
+      <div className="container-wide relative grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-10 lg:py-32">
+        <div className="lg:col-span-7">
+          <span className="eyebrow-dark">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
+            Serving Eastern NC since {site.founded}
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-brand-navy sm:text-5xl md:text-[3.4rem]">
-            Raleigh&apos;s Trusted <span className="text-brand-teal">Local Cleaning Service</span>
+          <h1 className="mt-5 text-4xl font-bold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+            Professional Commercial &amp; Residential Cleaning in{" "}
+            <span className="text-sky2-300">Richlands, NC</span>
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-brand-navy/70">
-            The Perfect Clean LLC provides residential, AirBnB, STR, and commercial cleaning across
-            Raleigh, Nash County, Durham, Cary, and Johnston County &mdash; with flexible
-            scheduling, free estimates, and detail-focused service.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate1-200 sm:text-lg">
+            Carolina Commercial Cleaning Services Inc has provided dependable
+            janitorial, post-construction, commercial, and residential cleaning
+            services since {site.founded}.
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <QuoteButton>Get a Free Estimate</QuoteButton>
-            <a href={`tel:${site.phoneTel}`} className="btn-outline">
-              <PhoneIcon className="h-4 w-4" />
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/contact" className="btn-secondary">
+              Book Cleaning Now
+            </Link>
+            <a href={`tel:${site.phoneRaw}`} className="btn-ghost-light">
+              <Phone className="h-4 w-4" />
               Call {site.phone}
             </a>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {badges.map((b) => (
-              <motion.div
-                key={b.label}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4 }}
-                className="card-soft flex items-center gap-2 px-3 py-3 text-xs font-semibold text-brand-navy/80"
+          <ul className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+            {badges.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3 text-xs font-medium text-slate1-100 backdrop-blur"
               >
-                <BadgeIcon name={b.icon} />
-                <span>{b.label}</span>
-              </motion.div>
+                <Icon className="h-4 w-4 shrink-0 text-sky2-300" />
+                {label}
+              </li>
             ))}
-          </div>
-        </motion.div>
+          </ul>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative"
-        >
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-white shadow-soft ring-1 ring-brand-navy/5">
-            <Image
-              src="/assets/brand/hero-kitchen.png"
-              alt="The Perfect Clean LLC branded kitchen — granite island and hardwood floor"
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width: 768px) 100vw, 50vw"
+        <div className="relative lg:col-span-5">
+          <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-2 backdrop-blur-sm shadow-card">
+            {/* PLACEHOLDER IMAGE — swap with on-site / crew photography later */}
+            <img
+              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80"
+              alt="Carolina Commercial Cleaning Services crew preparing a commercial space"
+              className="aspect-[4/5] w-full rounded-xl object-cover"
+              loading="eager"
             />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-brand-navy/30 to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-xl bg-white/95 p-3 text-navy-900 shadow-card backdrop-blur">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-green text-white">
+                <ShieldCheck className="h-5 w-5" />
+              </span>
+              <div className="text-xs leading-tight">
+                <p className="font-semibold">Fully insured &amp; locally owned</p>
+                <p className="text-slate1-600">
+                  {site.address.city}, {site.address.region} •{" "}
+                  {site.address.postalCode}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="absolute -left-4 bottom-6 w-44 rounded-2xl bg-white p-4 shadow-soft ring-1 ring-brand-navy/5"
-          >
-            <div className="flex items-center gap-1 text-brand-coral">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <StarIcon key={i} className="h-4 w-4" />
-              ))}
+          <div className="absolute -bottom-6 -left-6 hidden rounded-xl bg-white p-4 text-navy-900 shadow-cardHover sm:block">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky2-100 text-sky2-700">
+                <Home className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-2xl font-bold leading-none">200+</p>
+                <p className="text-xs font-medium text-slate1-600">
+                  Buildings on base
+                </p>
+              </div>
             </div>
-            <p className="mt-1 text-xs text-brand-navy/70">
-              Rated <span className="font-semibold text-brand-navy">5.0</span> on Google
-            </p>
-            <p className="mt-1 text-[11px] text-brand-navy/60">{site.reviewCount} verified reviews</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.5 }}
-            className="absolute -right-3 top-8 hidden w-48 rounded-2xl bg-brand-navy p-4 text-white shadow-soft sm:block"
-          >
-            <p className="text-xs uppercase tracking-widest text-brand-mint">Free Estimate</p>
-            <p className="mt-1 text-sm leading-snug">Tell us about your space and get a fast quote.</p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
-}
-
-function PhoneIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
-    </svg>
-  );
-}
-
-function StarIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M11.48 3.5a.6.6 0 0 1 1.04 0l2.36 4.78 5.28.77a.6.6 0 0 1 .33 1.02l-3.82 3.72.9 5.25a.6.6 0 0 1-.87.63L12 17.27l-4.72 2.48a.6.6 0 0 1-.87-.63l.9-5.25-3.82-3.72a.6.6 0 0 1 .33-1.02l5.28-.77 2.36-4.78Z" />
-    </svg>
-  );
-}
-
-function BadgeIcon({ name }: { name: string }) {
-  const cls = "h-4 w-4 text-brand-teal";
-  switch (name) {
-    case "star":
-      return <StarIcon className="h-4 w-4 text-brand-coral" />;
-    case "review":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={cls}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
-        </svg>
-      );
-    case "spray":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={cls}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6v4H9zM7 9h10v12H7zM5 5h2M5 8h2M5 11h2" />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={cls}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="m5 12 5 5L20 7" />
-        </svg>
-      );
-  }
 }

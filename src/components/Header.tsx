@@ -1,17 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { navLinks, site } from "@/lib/site";
-import QuoteButton from "./QuoteButton";
+import { Menu, Phone, Sparkles, X } from "lucide-react";
+import { navigation, site } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -19,99 +19,94 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={cn(
+        "sticky top-0 z-40 w-full transition-all",
         scrolled
-          ? "bg-white/85 backdrop-blur-md shadow-[0_4px_20px_-12px_rgba(12,42,77,0.18)]"
-          : "bg-transparent"
-      }`}
+          ? "border-b border-navy-100 bg-white/90 backdrop-blur"
+          : "bg-white",
+      )}
     >
-      <div className="container-tight flex h-20 items-center justify-between md:h-24">
-        <a href="#home" className="flex items-center gap-2">
-          <Image
-            src="/assets/logo/logo.png"
-            alt={`${site.name} logo`}
-            width={220}
-            height={100}
-            className="h-14 w-auto md:h-16"
-            priority
-          />
-          <span className="sr-only">{site.name}</span>
-        </a>
+      <div className="container-wide flex h-16 items-center justify-between sm:h-20">
+        <Link href="/" className="flex items-center gap-2.5">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-deep text-white shadow-card">
+            <Sparkles className="h-5 w-5" />
+          </span>
+          <span className="flex flex-col leading-tight">
+            <span className="text-sm font-bold text-navy-900 sm:text-base">
+              Carolina Commercial
+            </span>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-sky2-600">
+              Cleaning Services Inc
+            </span>
+          </span>
+        </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-3 py-2 text-sm font-medium text-brand-navy/80 transition hover:bg-brand-soft hover:text-brand-navy"
+          {navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-md px-3 py-2 text-sm font-medium text-navy-700 transition hover:bg-slate1-50 hover:text-navy-900"
             >
-              {link.label}
-            </a>
+              {item.label}
+            </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a href={`tel:${site.phoneTel}`} className="text-sm font-semibold text-brand-navy">
+        <div className="flex items-center gap-2">
+          <a
+            href={`tel:${site.phoneRaw}`}
+            className="hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-navy-700 hover:text-navy-900 lg:inline-flex"
+          >
+            <Phone className="h-4 w-4" />
             {site.phone}
           </a>
-          <QuoteButton />
+          <Link href="/contact" className="btn-primary hidden sm:inline-flex">
+            Book Cleaning Now
+          </Link>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-navy-100 text-navy-800 lg:hidden"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-
-        <button
-          aria-label="Open menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white ring-1 ring-brand-navy/10 lg:hidden"
-        >
-          <span className="relative block h-3 w-5">
-            <span
-              className={`absolute left-0 top-0 h-0.5 w-5 bg-brand-navy transition-transform duration-200 ${
-                open ? "translate-y-1.5 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-2.5 h-0.5 w-5 bg-brand-navy transition-transform duration-200 ${
-                open ? "-translate-y-1 -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18 }}
-            className="lg:hidden"
-          >
-            <div className="container-tight pb-5">
-              <div className="card-soft p-4">
-                <nav className="flex flex-col">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="rounded-xl px-3 py-3 text-base font-medium text-brand-navy hover:bg-brand-soft"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
-                <div className="mt-3 flex flex-col gap-2">
-                  <a href={`tel:${site.phoneTel}`} className="btn-outline w-full">
-                    Call {site.phone}
-                  </a>
-                  <QuoteButton className="btn-primary w-full" />
-                </div>
-              </div>
+      {open && (
+        <div className="border-t border-navy-100 bg-white lg:hidden">
+          <nav className="container-wide flex flex-col py-3">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="rounded-md px-3 py-3 text-base font-medium text-navy-800 hover:bg-slate1-50"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="mt-2 flex flex-col gap-2 border-t border-navy-100 pt-3">
+              <a
+                href={`tel:${site.phoneRaw}`}
+                className="btn-outline w-full"
+              >
+                <Phone className="h-4 w-4" />
+                {site.phone}
+              </a>
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="btn-primary w-full"
+              >
+                Book Cleaning Now
+              </Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

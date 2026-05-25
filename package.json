@@ -1,5 +1,5 @@
 {
-  "name": "the-perfect-clean",
+  "name": "carolina-commercial-cleaning",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "framer-motion": "^12.39.0",
+    "lucide-react": "^0.460.0",
+    "motion": "^12.39.0",
     "next": "^14.2.33",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-use-measure": "^2.1.7",
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",

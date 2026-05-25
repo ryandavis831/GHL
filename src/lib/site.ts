@@ -1,358 +1,285 @@
 export const site = {
-  name: "The Perfect Clean LLC",
-  shortName: "The Perfect Clean",
-  owner: "Jessica",
-  phone: "(252) 668-1898",
-  phoneTel: "+12526681898",
-  domain: "theperfectcleanllc.net",
-  rating: 5.0,
-  reviewCount: 13, // matches reviews.length
-
-  primaryCity: "Raleigh, NC",
-  serviceArea: "Raleigh, NC and surrounding areas",
-  serviceAreaLong:
-    "Raleigh, NC and surrounding areas including Nash County, Durham, Cary, and Johnston County",
-  surroundingAreas: ["Nash County", "Durham", "Cary", "Johnston County"],
-  googleReviewUrl:
-    "https://www.google.com/search?sca_esv=afc85aa92f7b31d4&rlz=1C5AJCO_enUS1195US1196&sxsrf=ANbL-n5UQFQh0sbosOvjoxCSuSJpNF9NoA:1779220170892&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOUSNcpoPA9JUE_p27pnPhb-xwduvgC32Xjm4IqWrW9U3gcIev6XDO35j0FjUh0izmyDnbKEjtyUMclJgKxLz6NCYqnldTFPaIGnWEnr5bOcrwxeKtw%3D%3D&q=The+Perfect+Clean+LLC+Reviews&sa=X&ved=2ahUKEwjWm43Sj8aUAxXwGFkFHUEvOUQQ0bkNegQINRAD",
+  name: "Carolina Commercial Cleaning Services Inc",
+  shortName: "Carolina Commercial Cleaning",
+  legalName: "Carolina Commercial Cleaning Services Inc",
+  founded: "2006",
+  taglines: [
+    "When the quality matters.",
+    "To Live, Work and Grow",
+  ],
+  primaryTagline: "When the quality matters.",
+  phone: "(910) 467-6357",
+  phoneRaw: "+19104676357",
+  email: "Info@carolinascleaning.com",
+  domain: "carolinascleaning.com",
+  url: "https://carolinascleaning.com",
+  address: {
+    street: "",
+    city: "Richlands",
+    region: "NC",
+    postalCode: "28574",
+    country: "US",
+  },
+  geo: {
+    latitude: 34.8979,
+    longitude: -77.5469,
+  },
+  hours: [
+    { day: "Mon-Fri", time: "7:00 AM – 6:00 PM" },
+    { day: "Saturday", time: "By Appointment" },
+    { day: "Sunday", time: "Closed" },
+  ],
+  social: {
+    facebook: "",
+    google: "",
+  },
+  serviceAreas: [
+    "Richlands, NC",
+    "Jacksonville, NC",
+    "Onslow County, NC",
+    "Sneads Ferry, NC",
+    "Camp Lejeune",
+    "MCAS New River",
+  ],
 };
 
-export const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Transformations", href: "#transformations" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
-];
+export type ServiceSlug =
+  | "commercial-cleaning"
+  | "janitorial-services"
+  | "post-construction-cleaning"
+  | "residential-cleaning"
+  | "deep-cleaning";
 
-export const services = [
+export const services: {
+  slug: ServiceSlug;
+  url: string;
+  name: string;
+  shortName: string;
+  tagline: string;
+  blurb: string;
+  description: string;
+  icon: "Building2" | "Sparkles" | "HardHat" | "Home" | "Droplets";
+  heroImage: string;
+  bullets: string[];
+  audiences: string[];
+}[] = [
   {
-    title: "Residential Cleaning",
-    desc: "Recurring or one-time house cleaning that leaves every room fresh, tidy, and welcoming.",
-    icon: "home",
+    slug: "commercial-cleaning",
+    url: "/commercial-cleaning-richlands-nc",
+    name: "Commercial Cleaning",
+    shortName: "Commercial",
+    tagline: "Commercial-grade cleaning for offices, retail, and facilities.",
+    blurb:
+      "Reliable, fully-insured commercial cleaning for offices, retail spaces, banks, medical facilities, and government buildings across Eastern North Carolina.",
+    description:
+      "Our commercial cleaning crews keep your business looking its best every day. From single-location storefronts to multi-building campuses, we tailor scopes and schedules to match your operations — with consistent quality and on-time performance.",
+    icon: "Building2",
+    heroImage:
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=80",
+    bullets: [
+      "Offices, retail, banks, medical, and government",
+      "Day porter, nightly, weekly, or custom schedules",
+      "Trained, background-checked staff",
+      "OSHA-compliant chemicals and equipment",
+      "On-site supervision and quality audits",
+    ],
+    audiences: ["Restaurants", "Retail", "Medical Offices", "Government"],
   },
   {
-    title: "AirBnB / STR Cleaning",
-    desc: "Fast, detail-oriented turnovers between guests so your listing always earns five stars.",
-    icon: "key",
+    slug: "janitorial-services",
+    url: "/janitorial-services-richlands-nc",
+    name: "Janitorial Services",
+    shortName: "Janitorial",
+    tagline: "Recurring janitorial programs built around your facility.",
+    blurb:
+      "Daily, weekly, and nightly janitorial programs for schools, gyms, hangars, and military base buildings — backed by checklists, audits, and dependable people.",
+    description:
+      "We design recurring janitorial programs around your facility's traffic patterns and compliance requirements. Every job is supervised, documented, and quality-checked so you always know exactly what's being done.",
+    icon: "Sparkles",
+    heroImage:
+      "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=1600&q=80",
+    bullets: [
+      "Customizable nightly or daytime programs",
+      "Restroom sanitation and restocking",
+      "Floor care: VCT, tile, concrete, and carpet",
+      "Trash and recycling management",
+      "Detailed scopes of work and reporting",
+    ],
+    audiences: ["Schools", "Gyms", "Hangars", "Base Buildings"],
   },
   {
-    title: "Commercial Cleaning",
-    desc: "Offices, churches, and commercial spaces cleaned on a schedule that fits your business.",
-    icon: "building",
+    slug: "post-construction-cleaning",
+    url: "/post-construction-cleaning-richlands-nc",
+    name: "Post-Construction Cleaning",
+    shortName: "Post-Construction",
+    tagline: "Punch-list ready, move-in clean — on schedule.",
+    blurb:
+      "Rough, final, and touch-up post-construction cleans that get new builds, remodels, and tenant fit-outs ready for inspections and grand openings.",
+    description:
+      "We've cleaned hundreds of new builds, remodels, and base projects across Eastern North Carolina. From dust extraction and debris haul-off to streak-free glass and detailed final passes — we know exactly what GCs need to hit punch list deadlines.",
+    icon: "HardHat",
+    heroImage:
+      "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1600&q=80",
+    bullets: [
+      "Rough, final, and touch-up cleans",
+      "Drywall dust extraction and debris removal",
+      "Window, glass, and fixture detailing",
+      "Floor scrub, polish, and seal",
+      "Coordinated with GC schedules",
+    ],
+    audiences: ["General Contractors", "Builders", "Property Developers"],
   },
   {
-    title: "Deep Cleaning",
-    desc: "Top-to-bottom deep cleans for buildup, neglected spaces, or seasonal resets.",
-    icon: "sparkle",
+    slug: "residential-cleaning",
+    url: "/residential-cleaning-richlands-nc",
+    name: "Residential Cleaning",
+    shortName: "Residential",
+    tagline: "House cleaning trusted by hundreds of local families.",
+    blurb:
+      "Weekly, bi-weekly, monthly, and one-time house cleaning that treats your home with the same care we've delivered since 2006.",
+    description:
+      "Whether you want a recurring clean to free up your weekends or a deep refresh before family visits, our residential teams bring consistent quality, friendly faces, and the same attention to detail in every room.",
+    icon: "Home",
+    heroImage:
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=80",
+    bullets: [
+      "Weekly, bi-weekly, monthly, or one-time",
+      "Move-in and move-out cleans",
+      "Same-team consistency when possible",
+      "Pet-friendly, family-safe products available",
+      "Custom scopes for your priority areas",
+    ],
+    audiences: ["Homeowners", "Renters", "Realtors", "Property Managers"],
   },
   {
-    title: "Standard Cleaning",
-    desc: "Regular maintenance cleans covering dusting, surfaces, floors, kitchens, and bathrooms.",
-    icon: "broom",
-  },
-  {
-    title: "Move-In / Move-Out Cleaning",
-    desc: "Reset a space for the next tenant or arrive at a fresh home on day one.",
-    icon: "box",
-  },
-  {
-    title: "Carpet & Rug Cleaning",
-    desc: "Lift dirt, refresh fibers, and bring tired carpets back to life.",
-    icon: "rug",
-  },
-  {
-    title: "Appliance Cleaning",
-    desc: "Ovens, fridges, microwaves, and more, cleaned inside and out.",
-    icon: "fridge",
-  },
-  {
-    title: "Decluttering & Detailing",
-    desc: "Organize, tidy, and detail rooms so they feel calm and intentional.",
-    icon: "stack",
-  },
-  {
-    title: "Blinds, Drapes, Walls & Ceilings",
-    desc: "Often-missed surfaces dusted and wiped for a truly complete clean.",
-    icon: "window",
-  },
-];
-
-export const beforeAfter = [
-  {
-    id: "pair1",
-    title: "Cluttered Bedroom Reset",
-    description: "Trash and clutter cleared, floors mopped, room restored.",
-    before: "/assets/before-after/pair1-before.png",
-    after: "/assets/before-after/pair1-after.png",
-  },
-  {
-    id: "pair2",
-    title: "Living Room Refresh",
-    description: "Surfaces wiped, items organized, hardwoods polished.",
-    before: "/assets/before-after/pair2-before.png",
-    after: "/assets/before-after/pair2-after.png",
-  },
-  {
-    id: "pair3",
-    title: "Bedroom Tidy-Up",
-    description: "Beds made, floors cleared, room ready to rest in.",
-    before: "/assets/before-after/pair3-before.png",
-    after: "/assets/before-after/pair3-after.png",
-  },
-];
-
-export type GalleryCategory =
-  | "Kitchens"
-  | "Hardwood Floors"
-  | "Bathrooms"
-  | "Bedrooms"
-  | "Carpets";
-
-export const galleryCategories: ("All" | GalleryCategory)[] = [
-  "All",
-  "Kitchens",
-  "Hardwood Floors",
-  "Bathrooms",
-  "Bedrooms",
-  "Carpets",
-];
-
-export interface GalleryImage {
-  src: string;
-  category: GalleryCategory;
-  caption: string;
-  alt: string;
-  width: number;
-  height: number;
-}
-
-// Ordered so groups stay clustered even in "All": Kitchens → Hardwood Floors → Bathrooms → Bedrooms → Carpets.
-// Intrinsic width/height drive the masonry column layout.
-export const gallery: GalleryImage[] = [
-  // Kitchens.
-  {
-    src: "/assets/gallery/kitchen-warm-island.png",
-    category: "Kitchens",
-    caption: "Wood-floor kitchen with polished island",
-    alt: "Warm wood kitchen with island and freshly cleaned hardwood floor",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/kitchen-white.png",
-    category: "Kitchens",
-    caption: "White cabinet kitchen detail",
-    alt: "Kitchen with white cabinets, dark countertops, and stainless appliances",
-    width: 243,
-    height: 244,
-  },
-  {
-    src: "/assets/gallery/kitchen-island.png",
-    category: "Kitchens",
-    caption: "Black island kitchen",
-    alt: "Modern kitchen with black island and white countertop",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/kitchen-wood.png",
-    category: "Kitchens",
-    caption: "Wood cabinet kitchen",
-    alt: "Wood cabinet kitchen with dark countertop and light hardwood floor",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/kitchen-darkwood-floor.png",
-    category: "Kitchens",
-    caption: "Kitchen with dark wood floor",
-    alt: "Kitchen with granite counters and clean dark wood floor",
-    width: 243,
-    height: 203,
-  },
-
-  // Hardwood Floors.
-  {
-    src: "/assets/gallery/hardwood-2.png",
-    category: "Hardwood Floors",
-    caption: "Open-plan hardwood floor",
-    alt: "Open living area with freshly cleaned dark hardwood floor",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/hardwood-1.png",
-    category: "Hardwood Floors",
-    caption: "Polished hardwood entry",
-    alt: "Shiny dark hardwood floor reflecting natural light near a doorway",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/tile-entryway.png",
-    category: "Hardwood Floors",
-    caption: "Tile entryway shine",
-    alt: "Tiled entryway with sliding doors and clean tile floor",
-    width: 243,
-    height: 244,
-  },
-
-  // Bathrooms.
-  {
-    src: "/assets/gallery/bathroom-tub.png",
-    category: "Bathrooms",
-    caption: "Bath and tub combo",
-    alt: "Clean bathroom with white bathtub and toilet on hardwood-look floor",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/bathroom-shower.png",
-    category: "Bathrooms",
-    caption: "Walk-in shower bathroom",
-    alt: "White walk-in shower next to clean toilet in a refreshed bathroom",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/bathroom-tile-shower.png",
-    category: "Bathrooms",
-    caption: "Spotless tile shower",
-    alt: "Tile shower with light gray walls and clean white base",
-    width: 243,
-    height: 304,
-  },
-  {
-    src: "/assets/gallery/bathroom-bathtub.png",
-    category: "Bathrooms",
-    caption: "Polished white bathtub",
-    alt: "Freshly cleaned white bathtub with shiny finish",
-    width: 243,
-    height: 244,
-  },
-
-  // Bedrooms.
-  {
-    src: "/assets/gallery/bedroom-1.png",
-    category: "Bedrooms",
-    caption: "Bedroom made up and dusted",
-    alt: "Freshly made bedroom with neat bed and clean floor",
-    width: 243,
-    height: 244,
-  },
-
-  // Carpets.
-  {
-    src: "/assets/gallery/carpet-dining.png",
-    category: "Carpets",
-    caption: "Dining area carpet refresh",
-    alt: "Dining area carpet with fresh cleaning marks and striped pillow",
-    width: 243,
-    height: 406,
-  },
-  {
-    src: "/assets/gallery/carpet-fresh.png",
-    category: "Carpets",
-    caption: "Carpet with fresh sweep lines",
-    alt: "Beige carpet showing freshly cleaned sweep lines",
-    width: 243,
-    height: 244,
-  },
-  {
-    src: "/assets/gallery/carpet-texture.png",
-    category: "Carpets",
-    caption: "Carpet close-up detail",
-    alt: "Close-up of carpet freshly cleaned with visible texture",
-    width: 243,
-    height: 244,
+    slug: "deep-cleaning",
+    url: "/deep-cleaning-richlands-nc",
+    name: "Deep Cleaning",
+    shortName: "Deep Clean",
+    tagline: "Top-to-bottom deep cleans that reset every surface.",
+    blurb:
+      "Detailed top-to-bottom deep cleans for homes, restaurants, gyms, and commercial spaces that need a true reset.",
+    description:
+      "Our deep cleans go beyond routine maintenance — hand-detailed baseboards, vents, fixtures, kitchens, and bathrooms. Ideal for seasonal resets, post-event recovery, or preparing for inspections.",
+    icon: "Droplets",
+    heroImage:
+      "https://images.unsplash.com/photo-1556909114-44e3e9399a2c?auto=format&fit=crop&w=1600&q=80",
+    bullets: [
+      "Hand-detailed surfaces and fixtures",
+      "Baseboards, vents, blinds, and trim",
+      "Kitchen degreasing and appliance detailing",
+      "Bathroom descaling and sanitization",
+      "Ideal for seasonal or pre-inspection resets",
+    ],
+    audiences: ["Homeowners", "Restaurants", "Gyms", "Commercial Spaces"],
   },
 ];
 
-export const reasons = [
-  { title: "Supplies Included", desc: "We bring everything we need — no need to stock cleaning gear." },
-  { title: "Flexible Scheduling", desc: "One-time, weekly, bi-weekly, or monthly — built around your week." },
-  { title: "Free Estimates", desc: "No-cost, no-pressure quotes so you know exactly what to expect." },
-  { title: "Detail-Focused Cleaning", desc: "Baseboards, blinds, behind appliances — the spots most cleaners skip." },
-  { title: "Residential & Commercial", desc: "Homes, AirBnBs, offices, churches, and commercial spaces." },
-  { title: "Move-In / Move-Out Ready", desc: "Hand back keys with confidence or arrive to a spotless home." },
+export type AreaSlug =
+  | "richlands-nc"
+  | "jacksonville-nc"
+  | "onslow-county-nc"
+  | "sneads-ferry-nc";
+
+export const areas: {
+  slug: AreaSlug;
+  url: string;
+  name: string;
+  shortName: string;
+  blurb: string;
+  description: string;
+  highlights: string[];
+}[] = [
+  {
+    slug: "richlands-nc",
+    url: "/cleaning-services-richlands-nc",
+    name: "Richlands, NC",
+    shortName: "Richlands",
+    blurb:
+      "Our hometown. Trusted by Richlands businesses and homeowners since 2006.",
+    description:
+      "Carolina Commercial Cleaning Services Inc has called Richlands home for nearly two decades. We clean offices, retail, schools, government buildings, and hundreds of homes across the 28574 zip code and the surrounding communities.",
+    highlights: [
+      "Offices and retail along NC-258 and NC-24",
+      "Schools and town buildings",
+      "Hundreds of residential homes",
+      "Same-day and next-day response across 28574",
+    ],
+  },
+  {
+    slug: "jacksonville-nc",
+    url: "/cleaning-services-jacksonville-nc",
+    name: "Jacksonville, NC",
+    shortName: "Jacksonville",
+    blurb:
+      "Commercial and residential cleaning across Jacksonville and the Camp Lejeune corridor.",
+    description:
+      "We serve businesses, restaurants, gyms, and homes throughout Jacksonville, NC. With hundreds of cleanings completed across Camp Lejeune and MCAS New River base buildings, our crews know how to deliver to military and commercial standards.",
+    highlights: [
+      "Restaurants, retail, and medical offices",
+      "Gyms, schools, and government buildings",
+      "Experience on Camp Lejeune and MCAS New River",
+      "Move-in / move-out for service families",
+    ],
+  },
+  {
+    slug: "onslow-county-nc",
+    url: "/cleaning-services-onslow-county-nc",
+    name: "Onslow County, NC",
+    shortName: "Onslow County",
+    blurb:
+      "County-wide commercial, janitorial, and residential cleaning.",
+    description:
+      "From Holly Ridge to Half Moon, we provide commercial cleaning, janitorial services, post-construction cleaning, and residential cleaning across Onslow County. Local routes, local teams, and dependable scheduling.",
+    highlights: [
+      "Multi-site facility programs",
+      "Commercial, government, and education accounts",
+      "Restaurant chain support across the county",
+      "Established local routes and fast response",
+    ],
+  },
+  {
+    slug: "sneads-ferry-nc",
+    url: "/cleaning-services-sneads-ferry-nc",
+    name: "Sneads Ferry, NC",
+    shortName: "Sneads Ferry",
+    blurb:
+      "Coastal residential and commercial cleaning, including vacation rentals.",
+    description:
+      "Sneads Ferry homeowners, vacation rentals, and small businesses count on us for dependable cleaning year-round. We handle turn cleans, deep cleans, and recurring service across the North Topsail Beach area.",
+    highlights: [
+      "Vacation rental turn cleans",
+      "Coastal residential service",
+      "Small business and retail",
+      "Deep cleans and seasonal resets",
+    ],
+  },
 ];
 
-export const reviews: { name: string; text: string }[] = [
-  {
-    name: "Peggy Blackburn",
-    text:
-      "Rick was great! He was quick and flexible with his schedule and his work was excellent! Great master of all trades!",
-  },
-  {
-    name: "Aliyah N (Umm Ibraheem)",
-    text:
-      "Jessica is a very nice person and efficient in her work. She wants to make sure she does what she can to please the client. The main thing I needed help with was laundry. Jessica was able to fold our clothes, organize my children’s closet and storage closet in a timely manner. I have been a repeat customer of hers and definitely recommend if you need help with cleaning and organizing.",
-  },
-  {
-    name: "Durham Cleaning Pros",
-    text:
-      "Jessica’s team is amazing to work with and has stepped in on commercial opportunities and crushed it every time! I would highly recommend working with the Perfect Clean for residential and commercial jobs.",
-  },
-  {
-    name: "Jonne Boone",
-    text:
-      "Jessica is willing to go way beyond the extra mile. I hired her to clean our house after a huge and messy move and she stayed for hours and did many things we simply could not do because of time restraints. So I hired her to clean my office as well. That was 3 years ago. She recently did the same thing at my office.",
-  },
-  {
-    name: "ραιи fυll",
-    text:
-      "Very professional she did a wonderful job cleaning my house. I would recommend her to anyone. If your looking for someone to clean your house very professionally she is your person you will not regret it.",
-  },
-  {
-    name: "L Cheeks",
-    text:
-      "5 stars!!! Jessica is amazing, I booked her last minute and perfectly cleaned my house!! Highly recommended.",
-  },
-  {
-    name: "Pedro Rosario",
-    text: "Jessica and her team clean our church and they do an excellent job",
-  },
-  {
-    name: "Rob Wright",
-    text:
-      "Awesome Customer Service and very professional. This company is committed to getting the job right and exceeded expectations!",
-  },
-  {
-    name: "Rissa greene",
-    text: "very reliable and got the job done! very much recommend 😁",
-  },
-  {
-    name: "Michael Germaine",
-    text: "Jessica is a really good person with a good heart",
-  },
-  {
-    name: "Craig McDaniel",
-    text: "Outstanding service. Book now!",
-  },
-  { name: "Wilma Gainey", text: "" },
-  { name: "Marchia Jones", text: "" },
+export const clients = [
+  "Tractor Supply",
+  "Wendy's",
+  "Hwy 55",
+  "Dunkin' Donuts",
+  "Health Department",
+  "Court House",
+  "Local Gyms",
+  "Schools",
+  "Military Base Buildings",
 ];
 
-export const servicesNeeded = [
-  "Residential Cleaning",
-  "AirBnB / STR Cleaning",
-  "Commercial Cleaning",
-  "Deep Cleaning",
-  "Standard Cleaning",
-  "Move-In / Move-Out Cleaning",
-  "Carpet & Rug Cleaning",
-  "Appliance Cleaning",
-  "Decluttering",
-  "Detailing",
-  "Other",
+export const trustStats = [
+  { value: "20+", label: "Years in Business" },
+  { value: "200+", label: "Buildings on Base" },
+  { value: "Hundreds", label: "Of Homes Served" },
+  { value: "5", label: "Local Gyms Cleaned" },
 ];
 
-export const frequencies = [
-  "One-Time",
-  "Weekly",
-  "Bi-Weekly",
-  "Monthly",
-  "Not Sure Yet",
+export const navigation = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Service Areas", href: "/service-areas" },
+  { label: "Clients", href: "/clients" },
+  { label: "Contact", href: "/contact" },
 ];
