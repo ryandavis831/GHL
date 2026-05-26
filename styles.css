@@ -2330,3 +2330,85 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .nav__links a   { min-width: 64px; }
   .btn--nav-cta   { min-width: 172px; }
 }
+
+/* ============== PRECISE IMAGE FIT FIXES ============== */
+
+/* NAV LOGO — fill the gradient-bordered square edge-to-edge */
+.nav__logoWrap {
+  width: 68px;
+  height: 68px;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.nav__logo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  border-radius: 12px;
+}
+
+/* ABOUT IMAGE — fits perfectly inside the colorful border, no gaps */
+.about__media-frame {
+  padding: 4px !important;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2EC7E6, #5B7CFA, #7B3FE4);
+  aspect-ratio: auto !important;
+}
+
+.about__media-frame img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 14px;
+}
+
+/* ============== SPANISH NAV FORMATTING ============== */
+[data-lang="es"] .nav__links {
+  gap: 14px;
+}
+
+[data-lang="es"] .nav__links a {
+  min-width: auto;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 13.5px;
+}
+
+[data-lang="es"] .btn--nav-cta {
+  min-width: 190px;
+}
+
+[data-lang="es"] .lang-toggle {
+  min-width: 140px;
+}
+
+/* ============== RESPONSIVE NAV SAFETY (1200–1400px range) ============== */
+@media (max-width: 1300px) {
+  .nav__links {
+    gap: 14px;
+  }
+
+  .nav__links a {
+    min-width: auto;
+    font-size: 13.5px;
+  }
+
+  .nav__brandtxt {
+    max-width: 250px;
+  }
+
+  .btn--nav-cta {
+    min-width: 185px;
+  }
+}
