@@ -928,56 +928,39 @@ function finalCta() {
    ============================================================ */
 function pageHome() {
   const hero = `
-<section class="hero bg-hero">
-  <div class="bg-dots"></div>
-  <div class="container hero-grid">
-    <div>
+<section class="hero">
+  <!--
+    HERO IMAGE — full-bleed background of the entire hero section.
+    Swap by replacing ./assets/brand/hero-commercial.{jpg,webp}.
+  -->
+  <div class="hero-bg" aria-hidden="true">
+    <picture>
+      <source srcset="./assets/brand/hero-commercial.webp" type="image/webp" />
+      <img src="./assets/brand/hero-commercial.jpg"
+           alt=""
+           loading="eager" fetchpriority="high"
+           width="1600" height="1920" />
+    </picture>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-dots" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-content-inner">
       <span class="eyebrow-dark"><span class="dot"></span>Serving Eastern NC since ${SITE.founded}</span>
       <h1>Professional Commercial &amp; Residential Cleaning in <span class="hl">Richlands, NC</span></h1>
       <p class="lead">${SITE.name} has provided dependable janitorial, post-construction, commercial, and residential cleaning services since ${SITE.founded}.</p>
+
       <div class="hero-cta">
         <button class="btn btn-secondary" data-open-quote>Book Cleaning Now</button>
         <a class="btn btn-ghost-light" href="tel:${SITE.phoneRaw}">${iconPhone()} Call ${SITE.phone}</a>
       </div>
-    </div>
-    <div class="hero-visual">
-      <!--
-        HERO IMAGE — commercial cleaning crew + ride-on scrubber in a modern
-        lobby. Naturally integrated with a left-edge dark blend so it melts
-        into the navy hero background. To swap, replace the two files at
-        ./assets/brand/hero-commercial.{jpg,webp}.
-      -->
-      <div class="hero-image-wrap">
-        <picture>
-          <source srcset="./assets/brand/hero-commercial.webp" type="image/webp" />
-          <img class="hero-image"
-               src="./assets/brand/hero-commercial.jpg"
-               alt="${SITE.name} crew operating a ride-on floor scrubber in a modern office lobby"
-               loading="eager" width="1600" height="1856" />
-        </picture>
-        <span class="hero-image-ring"></span>
-      </div>
-      <div class="hero-tag hero-tag-top">
-        <span class="ic">${iconAward()}</span>
-        <div>
-          <div class="lbl">Established</div>
-          <div class="val">Since ${SITE.founded}</div>
-        </div>
-      </div>
-      <div class="hero-tag hero-tag-stat">
-        <span class="ic">${iconBuilding()}</span>
-        <div>
-          <div class="num">200+</div>
-          <div class="lbl">Buildings Maintained</div>
-        </div>
-      </div>
-      <div class="hero-tag hero-tag-bottom">
-        <span class="ic">${iconShieldCheck()}</span>
-        <div>
-          <div class="t">Fully Insured &amp; Locally Owned</div>
-          <div class="s">${SITE.city}, ${SITE.region} • ${SITE.postalCode}</div>
-        </div>
-      </div>
+
+      <ul class="hero-trust">
+        <li class="item">${iconAward()}<span><strong>Established</strong> Since ${SITE.founded}</span></li>
+        <li class="item">${iconBuilding()}<span><strong>200+</strong> Buildings Maintained</span></li>
+        <li class="item">${iconShieldCheck()}<span><strong>Fully Insured</strong> &amp; Locally Owned</span></li>
+      </ul>
     </div>
   </div>
 </section>`;
