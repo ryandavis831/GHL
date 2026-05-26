@@ -2541,3 +2541,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 0 !important;
   border-radius: 12px !important;
 }
+
+/* FINAL ABOUT IMAGE FIX */
+.about__media {
+  width: 100% !important;
+  max-width: 640px !important;
+  margin: 0 !important;
+}
+
+.about .feature__media-frame {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 2px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, #2EC7E6, #5B7CFA, #7B3FE4) !important;
+  overflow: hidden !important;
+  line-height: 0 !important;
+}
+
+.about .feature__media-frame img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 14px !important;
+}
