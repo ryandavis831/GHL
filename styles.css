@@ -2582,3 +2582,23 @@ img, video, iframe { max-width: 100%; }
   .btn--nav-cta .nav-cta__full  { display: none !important; }
   .btn--nav-cta .nav-cta__short { display: inline !important; }
 }
+
+/* ============== DESKTOP NAV POLISH (>=821px) — tighten without redesign ============== */
+@media (min-width: 821px) {
+  .nav__inner   { gap: 14px !important; }
+
+  .nav__links   { gap: clamp(8px, 0.9vw, 18px) !important; }
+  .nav__links a { padding: 6px 2px !important; min-width: 64px !important; }
+
+  .nav__cta     { gap: 10px !important; }
+
+  .btn--nav-cta {
+    min-width: 180px !important;
+    padding: 11px 16px !important;
+    font-size: 12.5px !important;
+  }
+
+  .lang-toggle {
+    padding: 9px 14px !important;
+  }
+}
