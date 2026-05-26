@@ -174,9 +174,10 @@
   const I18N = {
     en: {
       'topbar.habla': 'Se Habla Español · Bilingual Service',
-      'topbar.center': 'Locally owned in Carrboro, NC · Boutique bilingual firm',
+      'topbar.center': 'Locally owned in Carrboro, NC',
 
       'nav.tag':         'Tax & Bookkeeping · Carrboro, NC',
+      'nav.home':        'Home',
       'nav.services':    'Services',
       'nav.about':       'About',
       'nav.bookkeeping': 'Bookkeeping',
@@ -191,8 +192,8 @@
       'hero.sub':     'Sonora is a locally-owned boutique firm in Carrboro, NC — providing professional tax preparation, payroll, and year-round bookkeeping for individuals, families, and small businesses. Bilingual support in English and Español.',
       'hero.cta1':    'Schedule Consultation',
       'hero.cta2':    'Call Now',
-      'hero.trustT':  'Trusted by Spanish-speaking families & local small businesses',
-      'hero.trustS':  'Atención completamente bilingüe · Spanish-first support',
+      'hero.trustT':  'Trusted tax, payroll, and bookkeeping support',
+      'hero.trustS':  'For local families and small businesses across the Triangle.',
       'hero.s1':      'Returns Filed',
       'hero.s2':      'Bilingual Support',
       'hero.s3':      'Year-Round Service',
@@ -208,7 +209,7 @@
       'strip.s4t': 'IRS-Compliant Filing',    'strip.s4s': 'Accurate & timely returns',
 
       'about.eyebrow':        'About Sonora',
-      'about.title1':         'Meet Astrid Bollain',
+      'about.title1':         'Meet Astrid Ramos',
       'about.title2':         'Your bilingual partner in taxes, payroll, and bookkeeping.',
       'about.captionRole':    'Founder · Sonora Tax & Bookkeeping',
       'about.lead':           'Astrid founded Sonora to bring clarity, confidence, and care to local families and small businesses. Spanish is her first language, and she built Sonora to feel like home for every client — with personal attention, deep bookkeeping & payroll expertise, and long-term relationships you can rely on.',
@@ -350,9 +351,10 @@
 
     es: {
       'topbar.habla': 'Se Habla Español · Servicio Bilingüe',
-      'topbar.center': 'Negocio local en Carrboro, NC · Firma boutique bilingüe',
+      'topbar.center': 'Negocio local en Carrboro, NC',
 
       'nav.tag':         'Impuestos & Contabilidad · Carrboro, NC',
+      'nav.home':        'Inicio',
       'nav.services':    'Servicios',
       'nav.about':       'Acerca',
       'nav.bookkeeping': 'Contabilidad',
@@ -367,8 +369,8 @@
       'hero.sub':     'Sonora es una firma boutique local en Carrboro, NC — preparación de impuestos profesional, nómina y contabilidad todo el año para personas, familias y pequeños negocios. Soporte bilingüe en español e inglés.',
       'hero.cta1':    'Agendar Consulta',
       'hero.cta2':    'Llamar Ahora',
-      'hero.trustT':  'La confianza de familias hispanohablantes y pequeños negocios locales',
-      'hero.trustS':  'Atención completamente bilingüe · Servicio en español primero',
+      'hero.trustT':  'Apoyo profesional en impuestos, nómina y contabilidad',
+      'hero.trustS':  'Para familias y pequeños negocios locales en todo el Triangle.',
       'hero.s1':      'Declaraciones',
       'hero.s2':      'Soporte Bilingüe',
       'hero.s3':      'Servicio Todo el Año',
@@ -384,7 +386,7 @@
       'strip.s4t': 'Declaraciones Conforme al IRS',    'strip.s4s': 'Precisas y a tiempo',
 
       'about.eyebrow':        'Acerca de Sonora',
-      'about.title1':         'Conozca a Astrid Bollain',
+      'about.title1':         'Conozca a Astrid Ramos',
       'about.title2':         'Su socia bilingüe en impuestos, nómina y contabilidad.',
       'about.captionRole':    'Fundadora · Sonora Tax & Bookkeeping',
       'about.lead':           'Astrid fundó Sonora para ofrecer claridad, confianza y cuidado a familias y pequeños negocios locales. El español es su lengua materna, y construyó Sonora para que cada cliente se sienta como en casa — con atención personal, profunda experiencia en contabilidad y nómina, y relaciones duraderas.',

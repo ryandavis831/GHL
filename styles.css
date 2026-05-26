@@ -483,7 +483,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-top: 4px;
 }
 
-.nav__links { display: flex; align-items: center; gap: 26px; }
+.nav__links { display: flex; align-items: center; gap: 22px; }
 .nav__links a {
   position: relative;
   font-size: 14px;
@@ -491,6 +491,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--text-soft);
   padding: 6px 0;
   transition: color .2s;
+  /* Stable widths prevent layout shift between EN/ES labels */
+  min-width: 88px;
+  text-align: center;
 }
 .nav__links a::after {
   content: '';
@@ -656,6 +659,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 12px;
   margin-bottom: 30px;
 }
+/* Stable button widths prevent layout shift on EN ↔ ES switch */
+.hero__cta .btn { min-width: 200px; }
 
 .hero__trustline {
   display: flex;
@@ -895,21 +900,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .about__media-frame {
   position: relative;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  padding: 2px;
+  padding: 3px;
   background: var(--grad-1);
   box-shadow: var(--shadow-lg);
-}
-.about__media-frame::before {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background:
-    radial-gradient(ellipse 70% 60% at 30% 30%, rgba(46,199,230,0.08), transparent 60%),
-    linear-gradient(135deg, #FFFFFF 0%, #F4F5FC 100%);
-  border-radius: 6px;
-  z-index: 0;
 }
 .about__media-frame img {
   position: relative;
@@ -917,11 +912,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 100%;
   height: auto;
   display: block;
-  /* Show the full Astrid card graphic — no cropping. */
-  object-fit: contain;
+  /* Match the natural 3:2 proportions of astrid-card.png and fill the
+     gradient frame edge-to-edge — proportional, no awkward crop. */
+  object-fit: cover;
   aspect-ratio: 3 / 2;
-  padding: 14px;
-  border-radius: 6px;
+  border-radius: 7px;
 }
 
 .about__caption {
