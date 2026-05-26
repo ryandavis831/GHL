@@ -2191,3 +2191,79 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     max-width: 680px !important;
   }
 }
+
+/* ============== NEW ST LOGO IN NAV BRAND BOX ============== */
+.nav__brand {
+  cursor: pointer;
+  transition: transform .3s ease;
+}
+.nav__logoWrap {
+  background: #000 !important;
+  padding: 10px !important;
+  border-radius: 12px;
+  position: relative;
+  transition: transform .3s ease, box-shadow .35s ease;
+  box-shadow: 0 12px 26px rgba(91, 124, 250, 0.22);
+}
+.nav__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  background: #000;
+  border-radius: 6px;
+  padding: 0;
+}
+.nav__logoGlow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 16px;
+  background: var(--grad-1);
+  filter: blur(16px);
+  opacity: 0.4;
+  z-index: -1;
+  transition: opacity .35s ease, inset .35s ease;
+}
+/* Hover: subtle scale + glow intensifies */
+.nav__brand:hover .nav__logoWrap {
+  transform: scale(1.05);
+  box-shadow: 0 18px 36px rgba(91, 124, 250, 0.32);
+}
+.nav__brand:hover .nav__logoGlow {
+  inset: -10px;
+  opacity: 0.7;
+}
+
+/* Same treatment for the footer logo box */
+.footer__logo {
+  background: #000 !important;
+  object-fit: contain !important;
+  padding: 8px !important;
+}
+
+/* ============== STABLE LANGUAGE TOGGLE WIDTH ============== */
+.lang-toggle {
+  width: 150px;
+  min-width: 150px;
+  justify-content: center;
+}
+.lang-toggle--block {
+  width: 100%;
+  min-width: 100%;
+}
+
+/* ============== REAL FLAG EMOJI (Mexico + US) ============== */
+.flag-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  /* Force the system emoji fonts so flag glyphs render reliably */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+               "Twemoji Mozilla", "EmojiOne Color", "Android Emoji", sans-serif;
+  letter-spacing: 0;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.18));
+}
+.topbar__flags .flag-emoji { font-size: 17px; }
+.lang-toggle__flag.flag-emoji { font-size: 18px; }
+.lang-toggle__flag svg { display: none; } /* hide any leftover SVG flag inside the toggle */

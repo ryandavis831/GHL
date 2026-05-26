@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="icon" type="image/png" href="assets/brand/logo-black.png" />
+  <link rel="icon" type="image/png" href="assets/brand/sonora-st-logo.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -21,20 +21,8 @@
     <div class="container topbar__inner">
       <div class="topbar__left">
         <span class="topbar__flags" aria-hidden="true">
-          <svg class="flag flag--mx" viewBox="0 0 18 12">
-            <rect width="6" height="12" x="0" fill="#006847"/>
-            <rect width="6" height="12" x="6" fill="#F7F5F2"/>
-            <rect width="6" height="12" x="12" fill="#CE1126"/>
-          </svg>
-          <svg class="flag flag--us" viewBox="0 0 18 12">
-            <rect width="18" height="12" fill="#F7F5F2"/>
-            <rect width="18" height="1.2" y="0" fill="#B22234"/>
-            <rect width="18" height="1.2" y="2.4" fill="#B22234"/>
-            <rect width="18" height="1.2" y="4.8" fill="#B22234"/>
-            <rect width="18" height="1.2" y="7.2" fill="#B22234"/>
-            <rect width="18" height="1.2" y="9.6" fill="#B22234"/>
-            <rect width="8" height="6" fill="#3C3B6E"/>
-          </svg>
+          <span class="flag-emoji" role="img" aria-label="Bandera de México">🇲🇽</span>
+          <span class="flag-emoji" role="img" aria-label="United States flag">🇺🇸</span>
         </span>
         <span class="topbar__habla" data-i18n="topbar.habla">Se Habla Español · Bilingual Service</span>
       </div>
@@ -60,10 +48,10 @@
   <!-- ============== NAV ============== -->
   <header class="nav" id="nav">
     <div class="container nav__inner">
-      <a href="#home" class="nav__brand" aria-label="Sonora Tax and Bookkeeping — Home">
+      <a href="https://www.linkedin.com/in/astrid-bollain-6491b0b2/" target="_blank" rel="noopener noreferrer" class="nav__brand" aria-label="Astrid Ramos on LinkedIn">
         <span class="nav__logoWrap" aria-hidden="true">
           <span class="nav__logoGlow"></span>
-          <img src="assets/brand/logo-black.png" alt="" class="nav__logo" />
+          <img src="assets/brand/sonora-st-logo.png" alt="" class="nav__logo" />
         </span>
         <div class="nav__brandtxt">
           <span class="nav__name">Sonora</span>
@@ -83,24 +71,8 @@
 
       <div class="nav__cta">
         <button class="lang-toggle" data-lang-toggle type="button" aria-label="Switch language">
-          <span class="lang-toggle__flag lang-toggle__flag--mx" aria-hidden="true">
-            <svg viewBox="0 0 18 12">
-              <rect width="6" height="12" x="0" fill="#006847"/>
-              <rect width="6" height="12" x="6" fill="#F7F5F2"/>
-              <rect width="6" height="12" x="12" fill="#CE1126"/>
-            </svg>
-          </span>
-          <span class="lang-toggle__flag lang-toggle__flag--us" aria-hidden="true">
-            <svg viewBox="0 0 18 12">
-              <rect width="18" height="12" fill="#F7F5F2"/>
-              <rect width="18" height="1.2" y="0" fill="#B22234"/>
-              <rect width="18" height="1.2" y="2.4" fill="#B22234"/>
-              <rect width="18" height="1.2" y="4.8" fill="#B22234"/>
-              <rect width="18" height="1.2" y="7.2" fill="#B22234"/>
-              <rect width="18" height="1.2" y="9.6" fill="#B22234"/>
-              <rect width="8" height="6" fill="#3C3B6E"/>
-            </svg>
-          </span>
+          <span class="lang-toggle__flag lang-toggle__flag--mx flag-emoji" aria-hidden="true">🇲🇽</span>
+          <span class="lang-toggle__flag lang-toggle__flag--us flag-emoji" aria-hidden="true">🇺🇸</span>
           <span class="lang-toggle__txt" data-lang-label>Español</span>
         </button>
         <button class="btn btn--grad btn--nav-cta" data-open-modal data-i18n="nav.cta">Schedule Consultation</button>
@@ -120,12 +92,8 @@
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
       <button class="lang-toggle lang-toggle--block" data-lang-toggle type="button">
-        <span class="lang-toggle__flag lang-toggle__flag--mx" aria-hidden="true">
-          <svg viewBox="0 0 18 12"><rect width="6" height="12" x="0" fill="#006847"/><rect width="6" height="12" x="6" fill="#F7F5F2"/><rect width="6" height="12" x="12" fill="#CE1126"/></svg>
-        </span>
-        <span class="lang-toggle__flag lang-toggle__flag--us" aria-hidden="true">
-          <svg viewBox="0 0 18 12"><rect width="18" height="12" fill="#F7F5F2"/><rect width="18" height="1.2" y="0" fill="#B22234"/><rect width="18" height="1.2" y="2.4" fill="#B22234"/><rect width="18" height="1.2" y="4.8" fill="#B22234"/><rect width="18" height="1.2" y="7.2" fill="#B22234"/><rect width="18" height="1.2" y="9.6" fill="#B22234"/><rect width="8" height="6" fill="#3C3B6E"/></svg>
-        </span>
+        <span class="lang-toggle__flag lang-toggle__flag--mx flag-emoji" aria-hidden="true">🇲🇽</span>
+        <span class="lang-toggle__flag lang-toggle__flag--us flag-emoji" aria-hidden="true">🇺🇸</span>
         <span class="lang-toggle__txt" data-lang-label>Español</span>
       </button>
       <button class="btn btn--grad btn--block" data-open-modal data-i18n="nav.cta">Schedule Consultation</button>
@@ -774,7 +742,7 @@
         <div class="footer__logoRow">
           <span class="footer__logoWrap" aria-hidden="true">
             <span class="footer__logoGlow"></span>
-            <img src="assets/brand/logo-black.png" alt="" class="footer__logo" />
+            <img src="assets/brand/sonora-st-logo.png" alt="" class="footer__logo" />
           </span>
           <div>
             <div class="footer__name">Sonora</div>
