@@ -2462,3 +2462,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: transparent !important;
   border-radius: 6px !important;
 }
+
+/* ============== ABOUT IMAGE — 1:1 match with feature/bookkeeping image ============== */
+/* Markup swap: the About image now uses .feature__media-frame directly,
+   so it inherits the same wrapper, border, overflow, image sizing, and
+   aspect logic as the lower section image. Drop the legacy max-width
+   constraint so it fills its grid cell exactly like the feature one. */
+.about__media {
+  max-width: none !important;
+  width: 100%;
+}
+@media (max-width: 1100px) {
+  .about__media { max-width: 520px !important; margin: 0 auto; }
+}
