@@ -175,11 +175,10 @@
     });
   }
 
-  /* ---------- 7. Clients infinite slider -------------------------------- */
+  /* ---------- 7. Infinite sliders (clients + hero logo strip) ----------- */
   // Duplicate the track contents once so the CSS keyframes can loop seamlessly.
-  document.querySelectorAll(".slider-track").forEach(function (track) {
+  document.querySelectorAll(".slider-track, .logo-strip-track").forEach(function (track) {
     var clone = track.cloneNode(true);
-    // Move the cloned children into the same track so we have 2x content
     while (clone.firstChild) track.appendChild(clone.firstChild);
   });
 })();

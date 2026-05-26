@@ -4,7 +4,7 @@ import QuoteButton from "@/components/QuoteButton";
 
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-navy-950 text-white min-h-[560px] sm:min-h-[620px] lg:min-h-[720px]">
+    <section className="relative isolate overflow-hidden bg-navy-950 text-white min-h-[520px] sm:min-h-[600px] lg:min-h-[700px]">
       {/* Background image layer */}
       <div aria-hidden className="absolute inset-0 z-0 overflow-hidden">
         <picture>
@@ -24,26 +24,24 @@ export default function Hero() {
         </picture>
       </div>
 
-      {/* Navy gradient overlay — strong on the left, transparent on the right */}
+      {/* Navy gradient overlay — slightly lighter so photo detail breathes */}
       <div
         aria-hidden
         className="absolute inset-0 z-[1] hidden lg:block"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,0.55) 100%), linear-gradient(90deg, rgba(5,18,40,0.92) 0%, rgba(5,18,40,0.85) 30%, rgba(5,18,40,0.65) 55%, rgba(5,18,40,0.35) 80%, rgba(5,18,40,0.15) 100%)",
+            "linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,0.45) 100%), linear-gradient(90deg, rgba(5,18,40,0.82) 0%, rgba(5,18,40,0.72) 30%, rgba(5,18,40,0.52) 55%, rgba(5,18,40,0.25) 80%, rgba(5,18,40,0.08) 100%)",
         }}
       />
-      {/* Mobile / tablet overlay — darker overall for readability */}
       <div
         aria-hidden
         className="absolute inset-0 z-[1] lg:hidden"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,18,40,0) 50%, rgba(5,18,40,0.6) 100%), linear-gradient(90deg, rgba(5,18,40,0.92) 0%, rgba(5,18,40,0.88) 50%, rgba(5,18,40,0.62) 100%)",
+            "linear-gradient(180deg, rgba(5,18,40,0) 50%, rgba(5,18,40,0.5) 100%), linear-gradient(90deg, rgba(5,18,40,0.84) 0%, rgba(5,18,40,0.78) 50%, rgba(5,18,40,0.55) 100%)",
         }}
       />
 
-      {/* Dot pattern */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[2] opacity-[0.05]"
@@ -54,23 +52,22 @@ export default function Hero() {
         }}
       />
 
-      {/* Content */}
-      <div className="container-wide relative z-[3] flex min-h-[inherit] items-center py-24 sm:py-28 lg:py-36">
-        <div className="max-w-[620px]">
+      <div className="container-wide relative z-[3] flex min-h-[inherit] items-center py-24 sm:py-28 lg:py-32">
+        <div className="max-w-[720px]">
           <span className="eyebrow-dark">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
             Serving Eastern NC since {site.founded}
           </span>
-          <h1 className="mt-4 text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[3.625rem]">
+          <h1 className="mt-3.5 text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[3.75rem]">
             Professional Commercial &amp; Residential Cleaning in{" "}
             <span className="text-sky2-300">Richlands, NC</span>
           </h1>
-          <p className="mt-4 max-w-[520px] text-base leading-relaxed text-slate1-200 sm:text-lg">
+          <p className="mt-3 max-w-[560px] text-base leading-relaxed text-slate1-200 sm:text-lg">
             {site.name} has provided dependable janitorial, post-construction,
             commercial, and residential cleaning services since {site.founded}.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-[22px] flex flex-wrap gap-3">
             <QuoteButton variant="secondary">Book Cleaning Now</QuoteButton>
             <a href={`tel:${site.phoneRaw}`} className="btn-ghost-light">
               <Phone className="h-4 w-4" />
@@ -78,7 +75,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <ul className="mt-8 flex flex-wrap gap-2.5">
+          <ul className="mt-6 flex flex-wrap gap-2.5">
             {[
               { icon: Award, strong: "Established", rest: `Since ${site.founded}` },
               { icon: Building2, strong: "200+", rest: "Buildings Maintained" },
@@ -90,7 +87,7 @@ export default function Hero() {
             ].map(({ icon: Icon, strong, rest }) => (
               <li
                 key={strong}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-slate1-200 backdrop-blur"
+                className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-[12.5px] font-semibold text-slate1-200 shadow-[0_6px_20px_-10px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md backdrop-saturate-150 transition hover:border-white/[0.15] hover:bg-white/[0.07]"
               >
                 <Icon className="h-3.5 w-3.5 shrink-0 text-sky2-300" />
                 <span>

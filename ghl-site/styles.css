@@ -94,15 +94,33 @@ p{margin:0}
 .btn:focus-visible{outline:2px solid var(--navy-500);outline-offset:2px}
 .btn-primary{background:var(--navy-800);color:#fff;box-shadow:var(--shadow-card)}
 .btn-primary:hover{background:var(--navy-700);transform:translateY(-1px)}
-.btn-secondary{background:var(--blue-500);color:#fff;box-shadow:var(--shadow-card)}
-.btn-secondary:hover{background:var(--blue-600);transform:translateY(-1px)}
-.btn-outline{background:#fff;color:var(--navy-800);border-color:var(--navy-200)}
-.btn-outline:hover{border-color:var(--navy-400);color:var(--navy-900)}
-.btn-ghost-light{
-  background:rgba(255,255,255,.05);color:#fff;
-  border-color:rgba(255,255,255,.3);backdrop-filter:blur(6px);
+.btn-secondary{
+  color:#fff;letter-spacing:-.005em;
+  background:linear-gradient(135deg, #5b8df5 0%, #3b6fe6 50%, #2b56c8 100%);
+  box-shadow:
+    0 8px 22px -8px rgba(59,111,230,.55),
+    0 1px 0 rgba(255,255,255,.16) inset;
 }
-.btn-ghost-light:hover{background:rgba(255,255,255,.1)}
+.btn-secondary:hover{
+  transform:translateY(-1px);
+  background:linear-gradient(135deg, #6f9cff 0%, #4a7bef 50%, #2f5cd2 100%);
+  box-shadow:
+    0 14px 32px -10px rgba(59,111,230,.7),
+    0 1px 0 rgba(255,255,255,.2) inset;
+}
+.btn-outline{background:#fff;color:var(--navy-800);border-color:var(--navy-200)}
+.btn-outline:hover{border-color:var(--navy-400);color:var(--navy-900);background:var(--slate-50)}
+.btn-ghost-light{
+  background:rgba(255,255,255,.04);color:#fff;
+  border-color:rgba(255,255,255,.22);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  letter-spacing:-.005em;
+}
+.btn-ghost-light:hover{
+  background:rgba(255,255,255,.10);
+  border-color:rgba(255,255,255,.35);
+  transform:translateY(-1px);
+}
 .btn-block{width:100%}
 
 /* ---------- 6. Cards ----------------------------------------------------- */
@@ -249,28 +267,29 @@ p{margin:0}
 }
 @media (prefers-reduced-motion:reduce){.hero-bg img{animation:none}}
 
-/* Navy gradient overlay — left dark, right light, plus a bottom vignette */
+/* Navy gradient overlay — left dark, right light, plus a bottom vignette.
+   Slightly lighter than v1 so more of the photograph's detail comes through. */
 .hero-overlay{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,.55) 100%),
+    linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,.45) 100%),
     linear-gradient(90deg,
-      rgba(5,18,40,.92) 0%,
-      rgba(5,18,40,.85) 30%,
-      rgba(5,18,40,.65) 55%,
-      rgba(5,18,40,.35) 80%,
-      rgba(5,18,40,.15) 100%);
+      rgba(5,18,40,.82) 0%,
+      rgba(5,18,40,.72) 30%,
+      rgba(5,18,40,.52) 55%,
+      rgba(5,18,40,.25) 80%,
+      rgba(5,18,40,.08) 100%);
 }
 @media (max-width:1023px){
   /* On smaller screens push more darkness across so left-aligned text stays
      readable against any part of the photo the viewport happens to show. */
   .hero-overlay{
     background:
-      linear-gradient(180deg, rgba(5,18,40,0) 50%, rgba(5,18,40,.6) 100%),
+      linear-gradient(180deg, rgba(5,18,40,0) 50%, rgba(5,18,40,.5) 100%),
       linear-gradient(90deg,
-        rgba(5,18,40,.92) 0%,
-        rgba(5,18,40,.88) 50%,
-        rgba(5,18,40,.62) 100%);
+        rgba(5,18,40,.84) 0%,
+        rgba(5,18,40,.78) 50%,
+        rgba(5,18,40,.55) 100%);
   }
 }
 
@@ -283,28 +302,37 @@ p{margin:0}
 /* Content layer */
 .hero-content{position:relative;z-index:3;max-width:1200px;margin:0 auto;padding:0 20px}
 @media (min-width:640px){.hero-content{padding:0 32px}}
-.hero-content-inner{max-width:620px}
+.hero-content-inner{max-width:720px}
 .hero h1{
-  font-size:clamp(34px, 5.2vw, 58px);line-height:1.04;font-weight:800;color:#fff;
-  margin-top:16px;letter-spacing:-.02em;
+  font-size:clamp(34px, 5.3vw, 60px);line-height:1.04;font-weight:800;color:#fff;
+  margin-top:14px;letter-spacing:-.02em;
 }
 .hero h1 .hl{color:var(--blue-300)}
 .hero p.lead{
-  margin-top:16px;max-width:520px;font-size:17px;line-height:1.6;color:#cad6e6;
+  margin-top:12px;max-width:560px;font-size:17px;line-height:1.6;color:#cad6e6;
 }
 @media (min-width:640px){.hero p.lead{font-size:18px}}
-.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+.hero-cta{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px}
 
-/* Inline trust row under CTAs — no floating cards over the photo */
+/* Inline trust row under CTAs — premium glass pills */
 .hero-trust{
-  margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;
 }
 .hero-trust .item{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 12px;border-radius:999px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  font-size:12px;font-weight:600;color:#dbe5f3;
+  display:inline-flex;align-items:center;gap:9px;
+  padding:9px 16px;border-radius:999px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.10);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:0 6px 20px -10px rgba(0,0,0,.4),
+             inset 0 1px 0 rgba(255,255,255,.06);
+  font-size:12.5px;font-weight:600;color:#dbe5f3;
+  transition:background .2s ease, border-color .2s ease;
+}
+.hero-trust .item:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.15);
 }
 .hero-trust .item svg{width:14px;height:14px;color:var(--blue-300);flex-shrink:0}
 .hero-trust .item strong{color:#fff;font-weight:700}
@@ -423,6 +451,56 @@ p{margin:0}
 .legacy-mini dt{font-size:10px;color:var(--blue-300);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
 .legacy-mini dd{margin:6px 0 0;font-size:14px;font-weight:800;line-height:1.15}
 .legacy-mini dd.big{font-size:22px}
+
+/* ---------- 13b. Hero logo strip (immediately under the hero) -------- */
+.logo-strip{
+  position:relative;background:#fff;border-bottom:1px solid var(--navy-100);
+  padding:36px 0 40px;
+}
+.logo-strip .head{
+  text-align:center;font-size:11px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--slate-500);margin-bottom:20px;
+}
+.logo-strip-wrap{position:relative;overflow:hidden}
+.logo-strip-track{
+  display:flex;gap:20px;width:max-content;align-items:center;
+  animation:slide 36s linear infinite;
+  will-change:transform;
+}
+.logo-strip-wrap:hover .logo-strip-track{animation-duration:90s}
+.logo-strip-card{
+  display:flex;align-items:center;justify-content:center;
+  min-width:200px;height:84px;background:#fff;border-radius:14px;padding:0 28px;
+  box-shadow:0 1px 2px rgba(11,29,56,.04), 0 8px 20px -10px rgba(11,29,56,.12);
+  border:1px solid rgba(11,29,56,.06);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.logo-strip-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 4px 10px rgba(11,29,56,.06), 0 18px 38px -14px rgba(11,29,56,.22);
+}
+.logo-strip-card img{
+  max-height:48px;width:auto;
+  filter:grayscale(1) contrast(.95);opacity:.62;
+  transition:filter .3s ease, opacity .3s ease;
+}
+.logo-strip-card:hover img{filter:grayscale(0);opacity:1}
+.logo-strip-card.wordmark{flex-direction:column;text-align:center;gap:2px}
+.logo-strip-card.wordmark .w{
+  font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.01em;
+  color:#525e72;transition:color .3s ease;
+}
+.logo-strip-card.wordmark span{font-size:9px;font-weight:700;color:var(--slate-400);text-transform:uppercase;letter-spacing:.16em}
+.logo-strip-card.wordmark:hover .w{color:#D72027}
+.logo-strip-wrap .fade{
+  position:absolute;top:0;bottom:0;width:120px;pointer-events:none;z-index:2;
+}
+.logo-strip-wrap .fade.l{
+  left:0;background:linear-gradient(to right, #fff 30%, rgba(255,255,255,0) 100%);
+}
+.logo-strip-wrap .fade.r{
+  right:0;background:linear-gradient(to left, #fff 30%, rgba(255,255,255,0) 100%);
+}
 
 /* ---------- 14. Clients slider (infinite scroll) ---------------------- */
 .clients{position:relative;overflow:hidden;background:linear-gradient(135deg,#0b1d38,#13294b);color:#fff;padding:64px 0}

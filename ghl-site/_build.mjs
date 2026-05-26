@@ -684,6 +684,42 @@ function servicesPreview() {
 </section>`;
 }
 
+function heroLogoStrip() {
+  const items = [
+    { kind: "logo", name: "Tractor Supply Co.", png: "./assets/clients/tractor-supply.png", webp: "./assets/clients/tractor-supply.webp" },
+    { kind: "logo", name: "Wendy's",            png: "./assets/clients/wendys.png",         webp: "./assets/clients/wendys.webp" },
+    { kind: "logo", name: "Dunkin' Donuts",     png: "./assets/clients/dunkin.png",         webp: "./assets/clients/dunkin.webp" },
+    { kind: "wordmark", name: "Hwy 55", sub: "Burgers · Shakes · Fries" },
+  ];
+  const cards = items.map((it) => {
+    if (it.kind === "logo") {
+      return `<div class="logo-strip-card" title="${it.name}">
+        <picture>
+          <source srcset="${it.webp}" type="image/webp" />
+          <img src="${it.png}" alt="${it.name} logo" loading="lazy" />
+        </picture>
+      </div>`;
+    }
+    return `<div class="logo-strip-card wordmark" title="${it.name}">
+      <span class="w">${it.name}</span>
+      <span>${it.sub}</span>
+    </div>`;
+  }).join("");
+  return `
+<section class="logo-strip" aria-label="Featured clients">
+  <div class="container">
+    <p class="head">Trusted by businesses across Eastern North Carolina</p>
+  </div>
+  <div class="logo-strip-wrap">
+    <div class="logo-strip-track">
+      ${cards}
+    </div>
+    <div class="fade l"></div>
+    <div class="fade r"></div>
+  </div>
+</section>`;
+}
+
 function clientsSlider() {
   const items = [
     { kind: "logo", name: "Wendy's", png: "./assets/clients/wendys.png", webp: "./assets/clients/wendys.webp" },
@@ -973,6 +1009,7 @@ function pageHome() {
     }) +
     header() +
     hero +
+    heroLogoStrip() +
     servicesPreview() +
     clientsSlider() +
     aboutTeam() +
