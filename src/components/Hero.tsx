@@ -1,4 +1,4 @@
-import { Phone, ShieldCheck, Award } from "lucide-react";
+import { Phone, ShieldCheck, Award, Building2 } from "lucide-react";
 import { site } from "@/lib/site";
 import QuoteButton from "@/components/QuoteButton";
 
@@ -15,17 +15,17 @@ export default function Hero() {
         }}
       />
 
-      <div className="container-wide relative grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-12 lg:gap-12 lg:py-28">
-        <div className="lg:col-span-6 xl:col-span-5">
+      <div className="container-wide relative grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-12 lg:gap-14 lg:py-28">
+        <div className="lg:col-span-5">
           <span className="eyebrow-dark">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
             Serving Eastern NC since {site.founded}
           </span>
-          <h1 className="mt-4 text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-[3.5rem]">
+          <h1 className="mt-3.5 max-w-[560px] text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[3.375rem]">
             Professional Commercial &amp; Residential Cleaning in{" "}
             <span className="text-sky2-300">Richlands, NC</span>
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-slate1-200 sm:text-lg">
+          <p className="mt-3.5 max-w-[460px] text-base leading-relaxed text-slate1-200 sm:text-lg">
             {site.name} has provided dependable janitorial, post-construction,
             commercial, and residential cleaning services since {site.founded}.
           </p>
@@ -39,15 +39,23 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative lg:col-span-6 xl:col-span-7">
+        <div className="relative lg:col-span-7">
+          {/* Soft blue depth glow behind the image */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-x-[6%] -inset-y-[8%] z-0 blur-2xl"
+            style={{
+              background:
+                "radial-gradient(55% 55% at 70% 45%, rgba(59,111,230,0.28) 0%, rgba(59,111,230,0) 70%), radial-gradient(55% 55% at 30% 65%, rgba(133,168,210,0.18) 0%, rgba(133,168,210,0) 70%)",
+            }}
+          />
+
           {/*
             HERO IMAGE — commercial cleaning crew + ride-on floor scrubber
-            in a modern office lobby. Naturally integrated (no boxed frame),
-            with a subtle dark gradient on the LEFT edge to blend into the
-            navy hero background and improve text readability on mobile.
-            Source: /public/assets/brand/hero-commercial.jpg (+ .webp)
+            in a modern office lobby. Reduced corner radius and a left-edge
+            navy blend so it feels integrated rather than framed.
           */}
-          <div className="relative overflow-hidden rounded-3xl ring-1 ring-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
+          <div className="relative z-[1] overflow-hidden rounded-[20px] ring-1 ring-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
             <picture>
               <source
                 srcSet="/assets/brand/hero-commercial.webp"
@@ -56,14 +64,13 @@ export default function Hero() {
               <img
                 src="/assets/brand/hero-commercial.jpg"
                 alt="Carolina Commercial Cleaning Services Inc crew operating a ride-on floor scrubber in a modern office lobby"
-                className="hero-image aspect-[5/6] w-full object-cover sm:aspect-[4/5] lg:aspect-[6/7]"
+                className="hero-image aspect-[4/5] w-full object-cover lg:aspect-[5/6]"
                 loading="eager"
                 width={1600}
-                height={1856}
+                height={1920}
               />
             </picture>
 
-            {/* Left-edge blend overlay (desktop only — keeps mobile image clean) */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/3 lg:block"
@@ -72,7 +79,6 @@ export default function Hero() {
                   "linear-gradient(to right, rgba(6,17,42,0.55) 0%, rgba(6,17,42,0) 100%)",
               }}
             />
-            {/* Bottom subtle vignette for depth */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
@@ -81,37 +87,56 @@ export default function Hero() {
                   "linear-gradient(to top, rgba(6,17,42,0.4) 0%, rgba(6,17,42,0) 100%)",
               }}
             />
-            {/* Soft inner highlight ring */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/[0.08]"
+              className="pointer-events-none absolute inset-0 rounded-[20px] ring-1 ring-inset ring-white/[0.08]"
             />
           </div>
 
-          {/* Floating trust cards — only the strongest two, glassmorphic */}
+          {/* Top-left: small "Established" glass badge */}
           <div
-            className="absolute left-3 top-4 hidden items-center gap-2.5 rounded-xl border border-white/20 bg-navy-950/85 px-3.5 py-2.5 text-white shadow-lg backdrop-blur-md sm:flex lg:left-5 lg:top-6"
+            className="absolute left-3 top-3.5 z-[4] hidden items-center gap-2.5 rounded-[10px] border border-white/20 bg-navy-950/55 px-3 py-2 text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] backdrop-blur-md backdrop-saturate-150 sm:flex sm:left-4.5 sm:top-4.5"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky2-500 text-white">
-              <Award className="h-[18px] w-[18px]" strokeWidth={2.25} />
+            <span className="flex h-[30px] w-[30px] items-center justify-center rounded-[7px] bg-sky2-500/85 text-white">
+              <Award className="h-[15px] w-[15px]" strokeWidth={2.25} />
             </span>
             <div className="leading-tight">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-sky2-200">
+              <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-sky2-200">
                 Established
               </p>
-              <p className="text-sm font-bold">Since {site.founded}</p>
+              <p className="mt-0.5 text-[12.5px] font-extrabold">
+                Since {site.founded}
+              </p>
             </div>
           </div>
 
-          <div className="absolute bottom-4 left-3 right-3 flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/95 px-3.5 py-2.5 text-navy-900 shadow-cardHover backdrop-blur-md sm:right-auto sm:max-w-xs lg:bottom-6 lg:left-5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-green text-white">
-              <ShieldCheck className="h-5 w-5" />
+          {/* Top-right: "200+ Buildings Maintained" stat pill */}
+          <div
+            className="absolute right-3 top-3.5 z-[4] hidden items-center gap-2.5 rounded-[10px] border border-white/20 bg-navy-950/55 px-3 py-2 text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] backdrop-blur-md backdrop-saturate-150 sm:flex sm:right-4.5 sm:top-4.5"
+          >
+            <span className="flex h-[30px] w-[30px] items-center justify-center rounded-[7px] bg-accent-green/85 text-white">
+              <Building2 className="h-[15px] w-[15px]" strokeWidth={2.25} />
             </span>
             <div className="leading-tight">
-              <p className="text-sm font-bold">
+              <p className="text-base font-extrabold leading-none tracking-tight">
+                200+
+              </p>
+              <p className="mt-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-sky2-200">
+                Buildings Maintained
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom-left: white anchor card */}
+          <div className="absolute bottom-3.5 left-3 right-3 z-[4] flex items-center gap-2.5 rounded-[12px] border border-white/40 bg-white/95 px-3.5 py-2.5 text-navy-900 shadow-cardHover backdrop-blur-md sm:bottom-4.5 sm:left-4.5 sm:right-auto sm:max-w-[310px]">
+            <span className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-lg bg-accent-green text-white">
+              <ShieldCheck className="h-[17px] w-[17px]" />
+            </span>
+            <div className="leading-tight">
+              <p className="text-[13px] font-extrabold">
                 Fully Insured &amp; Locally Owned
               </p>
-              <p className="text-xs font-medium text-slate1-600">
+              <p className="text-[11px] font-medium text-slate1-600">
                 {site.address.city}, {site.address.region} •{" "}
                 {site.address.postalCode}
               </p>

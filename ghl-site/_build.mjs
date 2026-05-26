@@ -964,6 +964,13 @@ function pageHome() {
           <div class="val">Since ${SITE.founded}</div>
         </div>
       </div>
+      <div class="hero-tag hero-tag-stat">
+        <span class="ic">${iconBuilding()}</span>
+        <div>
+          <div class="num">200+</div>
+          <div class="lbl">Buildings Maintained</div>
+        </div>
+      </div>
       <div class="hero-tag hero-tag-bottom">
         <span class="ic">${iconShieldCheck()}</span>
         <div>
