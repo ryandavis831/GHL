@@ -185,6 +185,7 @@
       'nav.faq':         'FAQ',
       'nav.contact':     'Contact',
       'nav.cta':         'Schedule Consultation',
+      'nav.ctaShort':    'Book',
 
       'hero.eyebrow': 'Carrboro · Boutique Bilingual Firm',
       'hero.title1':  'Tax, Payroll &',
@@ -362,6 +363,7 @@
       'nav.faq':         'Preguntas',
       'nav.contact':     'Contacto',
       'nav.cta':         'Agendar Consulta',
+      'nav.ctaShort':    'Agendar',
 
       'hero.eyebrow': 'Carrboro · Firma Boutique Bilingüe',
       'hero.title1':  'Impuestos, Nómina y',

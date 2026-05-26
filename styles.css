@@ -2569,3 +2569,16 @@ img, video, iframe { max-width: 100%; }
     min-width: 0 !important;
   }
 }
+
+/* ============== CTA label swap — long on desktop, short on mobile ============== */
+.btn--nav-cta .nav-cta__short { display: none; }
+.btn--nav-cta .nav-cta__full  { display: inline; }
+
+@media (max-width: 540px) {
+  /* Hide the Sonora wordmark on phones — keep just the logo, lang toggle, CTA */
+  .nav__brandtxt { display: none !important; }
+
+  /* Shorten the CTA label */
+  .btn--nav-cta .nav-cta__full  { display: none !important; }
+  .btn--nav-cta .nav-cta__short { display: inline !important; }
+}
