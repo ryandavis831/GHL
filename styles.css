@@ -2389,3 +2389,124 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .about__caption {
   margin-top: 18px;
 }
+
+/* ============== MOBILE AUDIT FIXES ============== */
+
+/* 1. ABOUT — stack image above text below 1100px */
+@media (max-width: 1100px) {
+  .about__inner {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .about__media {
+    max-width: 560px !important;
+    margin: 0 auto !important;
+    justify-self: center !important;
+  }
+}
+
+/* 2. NAV — prevent brand tag from pushing the burger off-screen on small phones */
+@media (max-width: 540px) {
+  .nav__tag { display: none; }
+  .nav__name { font-size: 22px; }
+  .nav__logoWrap { width: 50px; height: 50px; }
+  .nav__inner { padding: 12px 18px; gap: 12px; }
+  .nav__brand { gap: 12px; }
+  .nav__burger { width: 42px; height: 42px; }
+}
+
+/* 3. HERO — stack CTAs full-width on small phones for clean tap targets */
+@media (max-width: 540px) {
+  .hero { padding: 48px 0 64px; }
+  .hero__cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .hero__cta .btn {
+    min-width: 0;
+    width: 100%;
+  }
+  .hero__title-line { font-size: 28px; }
+  .hero__sub { font-size: 15px; }
+  .hero__trustline { padding: 12px 14px; }
+  .hero__trustline strong { font-size: 14.5px; }
+}
+
+/* 4. HERO portrait floating chips — keep inside frame on narrow widths */
+@media (max-width: 540px) {
+  .hero__portraitWrap { max-width: 320px; }
+  .hero__chip {
+    padding: 8px 12px;
+    font-size: 11.5px;
+    max-width: calc(100% - 8px);
+  }
+  .hero__chip--top    { left: 4px; top: 12px; }
+  .hero__chip--bottom { right: 4px; bottom: 60px; }
+  .hero__chip svg     { width: 18px; height: 18px; }
+  .hero__chip strong  { font-size: 12px; }
+  .hero__chip span    { font-size: 10.5px; }
+}
+
+/* 5. TOPBAR — keep phone visible, stack flag + habla + phone neatly */
+@media (max-width: 540px) {
+  .topbar__inner {
+    padding: 10px 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .topbar__habla { font-size: 12.5px; }
+  .topbar__phone { font-size: 12.5px; }
+}
+
+/* 6. SERVICES / WHY — keep card text/icons from clipping at narrow widths */
+@media (max-width: 540px) {
+  .service-card { padding: 26px 22px 22px; }
+  .service-card h3 { font-size: 20px; }
+  .why-card { padding: 26px 22px; }
+  .why-card h3 { font-size: 19px; }
+}
+
+/* 7. MODAL — guarantee internal scroll + tappable fields on short screens */
+@media (max-width: 540px), (max-height: 760px) {
+  .modal { padding: 12px; }
+  .modal__card {
+    max-height: calc(100vh - 24px);
+    padding: 32px 20px 24px;
+    border-radius: 10px;
+  }
+  .modal__title { font-size: 22px; }
+  .field input,
+  .field textarea,
+  .field select,
+  .multiselect__trigger {
+    font-size: 16px;          /* prevent iOS auto-zoom on focus */
+    min-height: 46px;
+  }
+  .multiselect__option { min-height: 44px; padding: 12px; }
+}
+.multiselect__panel {
+  max-height: min(280px, 50vh);
+}
+
+/* 8. FOOTER — single column, larger tap targets at small widths */
+@media (max-width: 540px) {
+  .footer__inner { gap: 28px; padding-bottom: 32px; }
+  .footer__col a,
+  .footer__col span { font-size: 14.5px; padding: 2px 0; }
+  .footer__bottom { padding: 18px 18px; font-size: 11.5px; }
+}
+
+/* 9. GLOBAL — kill any horizontal scroll lurking on small viewports */
+html, body { overflow-x: hidden; }
+img, video, iframe { max-width: 100%; }
+
+/* 10. SPANISH labels at small width — let them wrap instead of pushing layout */
+@media (max-width: 540px) {
+  [data-lang="es"] .stat__lbl,
+  [data-lang="es"] .why-card h3,
+  [data-lang="es"] .service-card h3 { word-break: normal; overflow-wrap: anywhere; }
+}
