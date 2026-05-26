@@ -268,6 +268,10 @@ function head({ title, description, path }) {
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" href="./favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
 <link rel="stylesheet" href="./styles.css" />
 ${localBusinessSchema()}
 </head>
@@ -345,7 +349,12 @@ function header() {
 <header class="site-header">
   <div class="container header-row">
     <a class="brand" href="./index.html" aria-label="${SITE.name} home">
-      <span class="brand-mark">${iconSparkle()}</span>
+      <picture>
+        <source srcset="./assets/logo/cccsi-logo.webp" type="image/webp" />
+        <img class="brand-logo" src="./assets/logo/cccsi-logo.png"
+             alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+             width="600" height="641" />
+      </picture>
       <span class="brand-text">
         <strong>Carolina Commercial</strong>
         <small>Cleaning Services Inc</small>
@@ -427,14 +436,17 @@ function footer() {
 <footer class="site-footer">
   <div class="container foot-grid">
     <div class="foot-brand">
-      <a class="brand" href="./index.html">
-        <span class="brand-mark">${iconSparkle()}</span>
-        <span class="brand-text">
-          <strong>Carolina Commercial</strong>
-          <small>Cleaning Services Inc</small>
-        </span>
+      <a class="brand foot-brand-link" href="./index.html" aria-label="${SITE.name} home">
+        <picture>
+          <source srcset="./assets/logo/cccsi-logo.webp" type="image/webp" />
+          <img class="foot-logo" src="./assets/logo/cccsi-logo.png"
+               alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+               width="600" height="641" />
+        </picture>
       </a>
-      <p>Family-rooted, locally-owned cleaning company serving Eastern North Carolina since ${SITE.founded}. ${SITE.primaryTagline}</p>
+      <p class="foot-name">Carolina Commercial Cleaning Services Inc</p>
+      <p class="foot-tag">When Quality Matters</p>
+      <p>Family-rooted, locally-owned cleaning company serving Eastern North Carolina since ${SITE.founded}.</p>
       <ul>
         <li>${iconMapPin()}<span>${SITE.city}, ${SITE.region} ${SITE.postalCode}</span></li>
         <li>${iconPhone()}<a href="tel:${SITE.phoneRaw}">${SITE.phone}</a></li>

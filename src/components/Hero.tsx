@@ -30,7 +30,7 @@ export default function Hero() {
         className="absolute inset-0 z-[1] hidden lg:block"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,0.45) 100%), linear-gradient(90deg, rgba(5,18,40,0.82) 0%, rgba(5,18,40,0.72) 30%, rgba(5,18,40,0.52) 55%, rgba(5,18,40,0.25) 80%, rgba(5,18,40,0.08) 100%)",
+            "radial-gradient(40% 30% at 8% 90%, rgba(91,42,140,0.28) 0%, rgba(91,42,140,0) 70%), radial-gradient(35% 25% at 92% 8%, rgba(12,168,232,0.22) 0%, rgba(12,168,232,0) 70%), linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,0.45) 100%), linear-gradient(90deg, rgba(5,18,40,0.82) 0%, rgba(5,18,40,0.72) 30%, rgba(5,18,40,0.52) 55%, rgba(5,18,40,0.25) 80%, rgba(5,18,40,0.08) 100%)",
         }}
       />
       <div

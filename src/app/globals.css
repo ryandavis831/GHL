@@ -60,7 +60,7 @@ h4 {
 }
 
 .eyebrow {
-  @apply inline-flex items-center gap-2 rounded-full bg-sky2-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-sky2-700 ring-1 ring-sky2-100;
+  @apply inline-flex items-center gap-2 rounded-full bg-brand-purple-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand-purple-600 ring-1 ring-brand-purple-100;
 }
 
 .eyebrow-dark {

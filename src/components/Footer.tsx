@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { areas, services, site } from "@/lib/site";
 
 export default function Footer() {
@@ -7,22 +7,27 @@ export default function Footer() {
     <footer className="bg-navy-950 text-slate1-200">
       <div className="container-wide grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky2-500 text-white">
-              <Sparkles className="h-5 w-5" />
-            </span>
-            <span className="flex flex-col leading-tight">
-              <span className="text-base font-bold text-white">
-                Carolina Commercial
-              </span>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-sky2-300">
-                Cleaning Services Inc
-              </span>
-            </span>
+          <Link href="/" className="inline-flex items-start" aria-label={`${site.name} home`}>
+            <picture>
+              <source srcSet="/assets/logo/cccsi-logo.webp" type="image/webp" />
+              <img
+                src="/assets/logo/cccsi-logo.png"
+                alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+                className="h-20 w-auto"
+                width={600}
+                height={641}
+              />
+            </picture>
           </Link>
+          <p className="mt-3 text-base font-bold text-white">
+            Carolina Commercial Cleaning Services Inc
+          </p>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-purple-300">
+            When Quality Matters
+          </p>
           <p className="mt-4 text-sm leading-relaxed text-slate1-300">
             Family-rooted, locally-owned cleaning company serving Eastern North
-            Carolina since {site.founded}. {site.primaryTagline}
+            Carolina since {site.founded}.
           </p>
           <ul className="mt-5 space-y-2 text-sm">
             <li className="flex items-start gap-2">

@@ -17,6 +17,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" href="./favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
 <link rel="stylesheet" href="./styles.css" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Carolina Commercial Cleaning Services Inc","url":"https://carolinascleaning.com","telephone":"(910) 467-6357","email":"Info@carolinascleaning.com","foundingDate":"2006","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Richlands","addressRegion":"NC","postalCode":"28574","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":34.8979,"longitude":-77.5469},"areaServed":[{"@type":"Place","name":"Richlands, NC"},{"@type":"Place","name":"Jacksonville, NC"},{"@type":"Place","name":"Onslow County, NC"},{"@type":"Place","name":"Sneads Ferry, NC"},{"@type":"Place","name":"Camp Lejeune"},{"@type":"Place","name":"MCAS New River"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"18:00"}]}</script>
 </head>
@@ -24,7 +28,12 @@
 <header class="site-header">
   <div class="container header-row">
     <a class="brand" href="./index.html" aria-label="Carolina Commercial Cleaning Services Inc home">
-      <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></span>
+      <picture>
+        <source srcset="./assets/logo/cccsi-logo.webp" type="image/webp" />
+        <img class="brand-logo" src="./assets/logo/cccsi-logo.png"
+             alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+             width="600" height="641" />
+      </picture>
       <span class="brand-text">
         <strong>Carolina Commercial</strong>
         <small>Cleaning Services Inc</small>
@@ -300,14 +309,17 @@
 <footer class="site-footer">
   <div class="container foot-grid">
     <div class="foot-brand">
-      <a class="brand" href="./index.html">
-        <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></span>
-        <span class="brand-text">
-          <strong>Carolina Commercial</strong>
-          <small>Cleaning Services Inc</small>
-        </span>
+      <a class="brand foot-brand-link" href="./index.html" aria-label="Carolina Commercial Cleaning Services Inc home">
+        <picture>
+          <source srcset="./assets/logo/cccsi-logo.webp" type="image/webp" />
+          <img class="foot-logo" src="./assets/logo/cccsi-logo.png"
+               alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+               width="600" height="641" />
+        </picture>
       </a>
-      <p>Family-rooted, locally-owned cleaning company serving Eastern North Carolina since 2006. When the quality matters.</p>
+      <p class="foot-name">Carolina Commercial Cleaning Services Inc</p>
+      <p class="foot-tag">When Quality Matters</p>
+      <p>Family-rooted, locally-owned cleaning company serving Eastern North Carolina since 2006.</p>
       <ul>
         <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Richlands, NC 28574</span></li>
         <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+19104676357">(910) 467-6357</a></li>

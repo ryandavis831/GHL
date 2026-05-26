@@ -2,14 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-  Menu,
-  Phone,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Phone, X } from "lucide-react";
 import { navigation, site, type NavItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import QuoteButton from "@/components/QuoteButton";
@@ -189,15 +182,22 @@ export default function Header() {
       )}
     >
       <div className="container-wide flex h-16 items-center justify-between sm:h-20">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-deep text-white shadow-card">
-            <Sparkles className="h-5 w-5" />
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="text-sm font-bold text-navy-900 sm:text-base">
+        <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
+          <picture>
+            <source srcSet="/assets/logo/cccsi-logo.webp" type="image/webp" />
+            <img
+              src="/assets/logo/cccsi-logo.png"
+              alt="CCCSI — Carolina Commercial Cleaning Services Inc"
+              className="h-11 w-auto sm:h-12"
+              width={600}
+              height={641}
+            />
+          </picture>
+          <span className="hidden flex-col leading-tight sm:flex">
+            <span className="text-sm font-bold text-navy-900 sm:text-[15px]">
               Carolina Commercial
             </span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-sky2-600">
+            <span className="text-[10.5px] font-semibold uppercase tracking-wider text-brand-purple-600">
               Cleaning Services Inc
             </span>
           </span>

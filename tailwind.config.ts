@@ -40,6 +40,31 @@ const config: Config = {
           600: "#525e72",
           700: "#3e4759",
         },
+        // CCCSI logo brand palette — purple + electric blue
+        brand: {
+          purple: {
+            50: "#f5edfb",
+            100: "#ead8f5",
+            200: "#d4b4ec",
+            300: "#b585dc",
+            400: "#8e54c4",
+            500: "#5b2a8c", // primary purple from the logo
+            600: "#4a1f75",
+            700: "#3c195f",
+            800: "#2f1349",
+            900: "#1e0c30",
+          },
+          blue: {
+            50: "#e6f6fd",
+            100: "#c4ebfa",
+            200: "#8dd6f5",
+            300: "#4abfee",
+            400: "#1eafe8",
+            500: "#0ca8e8", // electric blue from the logo
+            600: "#0a8cc4",
+            700: "#0a719c",
+          },
+        },
         accent: {
           green: "#16a34a",
           greenDark: "#15803d",
@@ -61,6 +86,11 @@ const config: Config = {
           "radial-gradient(60% 50% at 70% 0%, rgba(47, 96, 160, 0.30) 0%, rgba(11, 29, 56, 0) 60%), linear-gradient(135deg, #06112a 0%, #0b1d38 55%, #13294b 100%)",
         "soft-blue": "linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%)",
         "navy-deep": "linear-gradient(135deg, #0b1d38 0%, #13294b 100%)",
+        // Subtle brand-accent gradient — for hover states and small highlights
+        "brand-gradient":
+          "linear-gradient(135deg, #5b2a8c 0%, #0ca8e8 100%)",
+        "brand-gradient-soft":
+          "linear-gradient(135deg, rgba(91,42,140,0.12) 0%, rgba(12,168,232,0.12) 100%)",
       },
     },
   },

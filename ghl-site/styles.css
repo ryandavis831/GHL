@@ -21,6 +21,12 @@
 
   --green-soft:#dcfce7; --green:#16a34a; --green-dark:#15803d;
 
+  /* CCCSI logo brand palette — purple + electric blue */
+  --purple-50:#f5edfb; --purple-100:#ead8f5; --purple-200:#d4b4ec;
+  --purple-300:#b585dc; --purple-400:#8e54c4; --purple-500:#5b2a8c;
+  --purple-600:#4a1f75; --purple-700:#3c195f;
+  --logo-blue-400:#1eafe8; --logo-blue-500:#0ca8e8; --logo-blue-600:#0a8cc4;
+
   --shadow-card: 0 1px 2px rgba(11,29,56,.04), 0 12px 32px -12px rgba(11,29,56,.18);
   --shadow-hover:0 4px 12px rgba(11,29,56,.06), 0 20px 44px -16px rgba(11,29,56,.28);
 
@@ -70,9 +76,9 @@ p{margin:0}
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   padding:4px 12px;border-radius:999px;
-  background:var(--blue-50);color:var(--blue-700);
+  background:var(--purple-50);color:var(--purple-600);
   font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--blue-100);
+  border:1px solid var(--purple-100);
 }
 .eyebrow-dark{
   display:inline-flex;align-items:center;gap:8px;
@@ -145,17 +151,17 @@ p{margin:0}
 }
 .header-row{display:flex;align-items:center;justify-content:space-between;height:64px}
 @media (min-width:640px){.header-row{height:80px}}
-.brand{display:flex;align-items:center;gap:10px;color:var(--navy-900)}
-.brand-mark{
-  width:40px;height:40px;border-radius:10px;
-  background:linear-gradient(135deg,#0b1d38,#13294b);
-  display:flex;align-items:center;justify-content:center;color:#fff;
-  box-shadow:var(--shadow-card);
+.brand{display:flex;align-items:center;gap:12px;color:var(--navy-900);text-decoration:none}
+.brand-logo{
+  height:44px;width:auto;display:block;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.04));
 }
-.brand-text{display:flex;flex-direction:column;line-height:1.05}
+@media (min-width:640px){.brand-logo{height:48px}}
+.brand-text{display:none;flex-direction:column;line-height:1.05}
+@media (min-width:640px){.brand-text{display:flex}}
 .brand-text strong{font-size:15px;color:var(--navy-900);font-weight:800}
 .brand-text small{
-  font-size:10.5px;color:var(--blue-600);font-weight:700;
+  font-size:10.5px;color:var(--purple-600);font-weight:700;
   text-transform:uppercase;letter-spacing:.08em;
 }
 
@@ -272,6 +278,9 @@ p{margin:0}
 .hero-overlay{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
+    /* Subtle CCCSI-brand ambient glows — purple bottom-left, blue top-right */
+    radial-gradient(40% 30% at 8% 90%, rgba(91,42,140,.28) 0%, rgba(91,42,140,0) 70%),
+    radial-gradient(35% 25% at 92% 8%, rgba(12,168,232,.22) 0%, rgba(12,168,232,0) 70%),
     linear-gradient(180deg, rgba(5,18,40,0) 60%, rgba(5,18,40,.45) 100%),
     linear-gradient(90deg,
       rgba(5,18,40,.82) 0%,
@@ -715,7 +724,17 @@ p{margin:0}
 .foot-grid ul{margin-top:16px;display:flex;flex-direction:column;gap:8px;font-size:14px}
 .foot-grid ul a:hover{color:#fff}
 .foot-brand .brand-text strong{color:#fff}
-.foot-brand p{margin:16px 0;font-size:14px;line-height:1.6;color:#c1cbd8}
+.foot-brand-link{display:inline-block}
+.foot-logo{
+  height:84px;width:auto;display:block;
+  filter:drop-shadow(0 4px 14px rgba(91,42,140,.25));
+}
+.foot-name{margin:14px 0 2px;font-size:15px;font-weight:800;color:#fff}
+.foot-tag{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#b585dc;margin-bottom:14px;
+}
+.foot-brand p{margin:0 0 16px;font-size:14px;line-height:1.6;color:#c1cbd8}
 .foot-brand ul{margin-top:0;gap:8px;font-size:14px}
 .foot-brand ul li{display:flex;gap:8px;align-items:flex-start}
 .foot-brand ul li svg{color:var(--blue-400);flex-shrink:0;margin-top:2px;width:16px;height:16px}
