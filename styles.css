@@ -2412,3 +2412,53 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     min-width: 185px;
   }
 }
+
+/* ============== FOOTER LOGO — match the nav logo exactly ============== */
+.footer__logoWrap {
+  width: 66px;
+  height: 66px;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--grad-1);
+  position: relative;
+  flex-shrink: 0;
+}
+.footer__logoGlow { display: none !important; }
+.footer__logo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  background: transparent !important;
+  border-radius: 12px;
+}
+
+/* ============== ABOUT IMAGE — copy the feature/bookkeeping image structure ============== */
+/* The .feature__media-frame works because the frame and image share the same
+   3:2 aspect and use object-fit: cover. Mirroring that approach here. */
+.about__media-frame {
+  position: relative;
+  border-radius: 8px !important;
+  overflow: hidden;
+  padding: 2px !important;
+  background: var(--grad-1);
+  box-shadow: var(--shadow-grad);
+  aspect-ratio: auto !important;
+}
+.about__media-frame::before { display: none !important; }
+.about__media-frame img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  aspect-ratio: 3 / 2 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+}
