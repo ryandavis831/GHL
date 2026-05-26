@@ -243,6 +243,8 @@ function iconClose()    { return svg(`<path d="M18 6 6 18"/><path d="m6 6 12 12"
 function iconMenu()     { return svg(`<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>`); }
 function iconCalendar() { return svg(`<rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/>`); }
 function iconImg()      { return svg(`<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><path d="M16 5h6"/><path d="M19 2v6"/>`); }
+function iconLock()     { return svg(`<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`); }
+function iconStethoscope(){ return svg(`<path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/>`); }
 
 /* ============================================================
    Shared HTML fragments
@@ -734,15 +736,22 @@ function heroLogoStrip() {
 
 function clientsSlider() {
   const items = [
-    { kind: "logo", name: "Wendy's", png: "./assets/clients/wendys.png", webp: "./assets/clients/wendys.webp" },
-    { kind: "logo", name: "Dunkin' Donuts", png: "./assets/clients/dunkin.png", webp: "./assets/clients/dunkin.webp" },
+    // Real brand logos
     { kind: "logo", name: "Tractor Supply Co.", png: "./assets/clients/tractor-supply.png", webp: "./assets/clients/tractor-supply.webp" },
+    { kind: "logo", name: "Wendy's",            png: "./assets/clients/wendys.png",         webp: "./assets/clients/wendys.webp" },
+    { kind: "logo", name: "Dunkin' Donuts",     png: "./assets/clients/dunkin.png",         webp: "./assets/clients/dunkin.webp" },
     { kind: "wordmark", name: "Hwy 55", sub: "Burgers · Shakes · Fries", color: "#D72027" },
-    { kind: "icon", name: "Health Department", sub: "Government", icon: iconLandmark() },
-    { kind: "icon", name: "Court House", sub: "Government", icon: iconLandmark() },
-    { kind: "icon", name: "Local Schools", sub: "Education", icon: iconGradCap() },
-    { kind: "icon", name: "Local Gyms", sub: "Fitness", icon: iconDumbbell() },
-    { kind: "icon", name: "Military Base Buildings", sub: "200+ on Lejeune & MCAS", icon: iconShield() },
+    // Text + icon experience cards (no fabricated logos)
+    { kind: "icon", name: "Health Department",        sub: "Government Facility",   icon: iconStethoscope(), accent: "blue"   },
+    { kind: "icon", name: "Court House",              sub: "Government Facility",   icon: iconLandmark(),    accent: "blue"   },
+    { kind: "icon", name: "Jail",                     sub: "Government Facility",   icon: iconLock(),        accent: "blue"   },
+    { kind: "icon", name: "3 Hangars",                sub: "Aviation",              icon: iconPlane(),       accent: "blue"   },
+    { kind: "icon", name: "5 Gyms",                   sub: "Fitness",               icon: iconDumbbell(),    accent: "purple" },
+    { kind: "icon", name: "3 Schools",                sub: "Education",             icon: iconGradCap(),     accent: "purple" },
+    { kind: "icon", name: "Hundreds of Houses",       sub: "Residential",           icon: iconHome(),        accent: "purple" },
+    { kind: "icon", name: "200+ Buildings on Bases",  sub: "Camp Lejeune & MCAS",   icon: iconShield(),      accent: "purple" },
+    { kind: "icon", name: "Government Facilities",    sub: "Multi-site",            icon: iconLandmark(),    accent: "blue"   },
+    { kind: "icon", name: "Commercial Properties",    sub: "Offices & Retail",      icon: iconBuilding(),    accent: "blue"   },
   ];
   const cards = items.map((it) => {
     if (it.kind === "logo") {
@@ -760,7 +769,7 @@ function clientsSlider() {
       </div>`;
     }
     return `<div class="client-card with-icon" title="${it.name}">
-      <span class="ic">${it.icon}</span>
+      <span class="ic accent-${it.accent}">${it.icon}</span>
       <span class="meta"><strong>${it.name}</strong><span>${it.sub}</span></span>
     </div>`;
   }).join("");
@@ -771,8 +780,8 @@ function clientsSlider() {
   <div class="container">
     <div class="sec-head">
       <span class="eyebrow-dark">Trusted Partners</span>
-      <h2 style="color:#fff">Trusted By Businesses &amp; Facilities Across Eastern North Carolina</h2>
-      <p style="color:#cad6e6">From national restaurant brands to government, schools, gyms, and over 200 buildings on local military bases — we&rsquo;ve cleaned them all.</p>
+      <h2 style="color:#fff">Trusted by Businesses, Facilities &amp; Homeowners Across Eastern North Carolina</h2>
+      <p style="color:#cad6e6">From national restaurant brands to government buildings, hangars, schools, gyms, and hundreds of homes — we&rsquo;ve cleaned them all.</p>
     </div>
   </div>
   <div class="slider-wrap">

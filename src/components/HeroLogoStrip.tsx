@@ -41,7 +41,7 @@ function Card({ item }: { item: Item }) {
           <img
             src={item.png}
             alt={`${item.name} logo`}
-            className="max-h-12 w-auto opacity-60 transition duration-300 group-hover:opacity-100 grayscale group-hover:grayscale-0 contrast-95 group-hover:contrast-100"
+            className="max-h-12 w-auto transition duration-300 group-hover:scale-[1.04]"
             loading="lazy"
           />
         </picture>
@@ -54,7 +54,7 @@ function Card({ item }: { item: Item }) {
       className={`${base} flex-col gap-0.5 text-center`}
       title={item.name}
     >
-      <span className="font-display text-2xl font-extrabold tracking-tight text-slate1-600 transition-colors duration-300 group-hover:text-[#D72027]">
+      <span className="font-display text-2xl font-extrabold tracking-tight text-[#D72027] transition group-hover:scale-[1.04]">
         {item.name}
       </span>
       <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate1-400">

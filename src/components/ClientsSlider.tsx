@@ -6,17 +6,19 @@ import {
   Building2,
   Dumbbell,
   GraduationCap,
+  Home,
   Landmark,
+  Lock,
+  Plane,
   Shield,
+  Stethoscope,
 } from "lucide-react";
 
 type LogoCard =
   | {
       kind: "logo";
       name: string;
-      /** Local JPG/PNG fallback path. Paired with a WebP source via <picture>. */
       logoUrl: string;
-      /** Matching WebP path served to capable browsers. */
       logoWebp?: string;
       logoClassName?: string;
     }
@@ -28,19 +30,25 @@ type LogoCard =
     }
   | {
       kind: "icon";
-      name: string;
-      sublabel?: string;
+      label: string;
+      sublabel: string;
       Icon: typeof Building2;
+      accent: "blue" | "purple";
     };
 
 /*
-  Logos sourced from the client and stored in /public/assets/clients.
-  Each logo has both PNG (fallback) and WebP (modern) variants. Generic
-  organizations (schools, gyms, courthouse, base buildings) use clean
-  Lucide icon cards per the brief — no fake artwork.
+  Mixed deck: real client logos + experience-point text cards.
+  Per the brief, only real brand logos are used as logos; everything
+  else renders as a uniform icon card so we don't fabricate artwork.
 */
-
 const items: LogoCard[] = [
+  {
+    kind: "logo",
+    name: "Tractor Supply Co.",
+    logoUrl: "/assets/clients/tractor-supply.png",
+    logoWebp: "/assets/clients/tractor-supply.webp",
+    logoClassName: "max-h-14 w-auto",
+  },
   {
     kind: "logo",
     name: "Wendy's",
@@ -56,47 +64,34 @@ const items: LogoCard[] = [
     logoClassName: "max-h-14 w-auto",
   },
   {
-    kind: "logo",
-    name: "Tractor Supply Co.",
-    logoUrl: "/assets/clients/tractor-supply.png",
-    logoWebp: "/assets/clients/tractor-supply.webp",
-    logoClassName: "max-h-12 w-auto",
-  },
-  {
     kind: "wordmark",
     name: "Hwy 55",
     color: "#D72027",
     sublabel: "Burgers · Shakes · Fries",
   },
-  {
-    kind: "icon",
-    name: "Health Department",
-    sublabel: "Government",
-    Icon: Landmark,
-  },
-  { kind: "icon", name: "Court House", sublabel: "Government", Icon: Landmark },
-  {
-    kind: "icon",
-    name: "Local Schools",
-    sublabel: "Education",
-    Icon: GraduationCap,
-  },
-  { kind: "icon", name: "Local Gyms", sublabel: "Fitness", Icon: Dumbbell },
-  {
-    kind: "icon",
-    name: "Military Base Buildings",
-    sublabel: "200+ on Lejeune & MCAS",
-    Icon: Shield,
-  },
+  { kind: "icon", label: "Health Department", sublabel: "Government Facility", Icon: Stethoscope, accent: "blue" },
+  { kind: "icon", label: "Court House",       sublabel: "Government Facility", Icon: Landmark,    accent: "blue" },
+  { kind: "icon", label: "Jail",              sublabel: "Government Facility", Icon: Lock,        accent: "blue" },
+  { kind: "icon", label: "3 Hangars",         sublabel: "Aviation",            Icon: Plane,       accent: "blue" },
+  { kind: "icon", label: "5 Gyms",            sublabel: "Fitness",             Icon: Dumbbell,    accent: "purple" },
+  { kind: "icon", label: "3 Schools",         sublabel: "Education",           Icon: GraduationCap, accent: "purple" },
+  { kind: "icon", label: "Hundreds of Houses", sublabel: "Residential",        Icon: Home,        accent: "purple" },
+  { kind: "icon", label: "200+ Buildings on Bases", sublabel: "Camp Lejeune & MCAS", Icon: Shield, accent: "purple" },
+  { kind: "icon", label: "Government Facilities", sublabel: "Multi-site",      Icon: Landmark,    accent: "blue" },
+  { kind: "icon", label: "Commercial Properties", sublabel: "Offices & Retail", Icon: Building2,  accent: "blue" },
 ];
 
 function Card({ item }: { item: LogoCard }) {
-  const baseCard =
-    "group flex h-20 min-w-[210px] items-center justify-center rounded-xl bg-white px-6 shadow-card ring-1 ring-navy-900/5 transition hover:-translate-y-1 hover:shadow-cardHover sm:min-w-[230px]";
+  // Uniform: 88px tall, ~240px wide white card so the rhythm stays consistent.
+  const base =
+    "group flex h-[88px] w-[240px] shrink-0 rounded-xl bg-white shadow-card ring-1 ring-navy-900/5 transition hover:-translate-y-1 hover:shadow-cardHover";
 
   if (item.kind === "logo") {
     return (
-      <div className={baseCard} title={item.name}>
+      <div
+        className={`${base} items-center justify-center px-6`}
+        title={item.name}
+      >
         <picture>
           {item.logoWebp && (
             <source srcSet={item.logoWebp} type="image/webp" />
@@ -104,7 +99,7 @@ function Card({ item }: { item: LogoCard }) {
           <img
             src={item.logoUrl}
             alt={`${item.name} logo`}
-            className={item.logoClassName ?? "max-h-12 w-auto"}
+            className={`${item.logoClassName ?? "max-h-14 w-auto"} transition duration-300`}
             loading="lazy"
           />
         </picture>
@@ -114,10 +109,13 @@ function Card({ item }: { item: LogoCard }) {
 
   if (item.kind === "wordmark") {
     return (
-      <div className={baseCard} title={item.name}>
+      <div
+        className={`${base} items-center justify-center px-6`}
+        title={item.name}
+      >
         <div className="flex flex-col items-center text-center">
           <span
-            className="font-display text-xl font-extrabold tracking-tight sm:text-2xl"
+            className="font-display text-2xl font-extrabold tracking-tight"
             style={{ color: item.color }}
           >
             {item.name}
@@ -133,21 +131,28 @@ function Card({ item }: { item: LogoCard }) {
   }
 
   const Icon = item.Icon;
+  const accentClass =
+    item.accent === "purple"
+      ? "bg-brand-purple-50 text-brand-purple-600 ring-1 ring-brand-purple-100"
+      : "bg-brand-blue-50 text-brand-blue-600 ring-1 ring-brand-blue-100";
+
   return (
     <div
-      className="group flex h-20 min-w-[210px] items-center gap-3 rounded-xl bg-white px-5 shadow-card ring-1 ring-navy-900/5 transition hover:-translate-y-1 hover:shadow-cardHover sm:min-w-[230px]"
-      title={item.name}
+      className={`${base} items-center gap-3 px-4`}
+      title={item.label}
     >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-navy-deep text-white transition group-hover:bg-sky2-600">
-        <Icon className="h-5 w-5" />
+      <span
+        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${accentClass}`}
+      >
+        <Icon className="h-5 w-5" strokeWidth={2.2} />
       </span>
       <div className="min-w-0">
-        <p className="truncate text-sm font-bold text-navy-900">{item.name}</p>
-        {item.sublabel && (
-          <p className="truncate text-[11px] font-medium uppercase tracking-wider text-slate1-500">
-            {item.sublabel}
-          </p>
-        )}
+        <p className="truncate text-[13px] font-bold leading-tight text-navy-900">
+          {item.label}
+        </p>
+        <p className="mt-1 truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-slate1-500">
+          {item.sublabel}
+        </p>
       </div>
     </div>
   );
@@ -170,13 +175,13 @@ export default function ClientsSlider() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="eyebrow-dark">Trusted Partners</span>
           <h2 className="mt-4 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
-            Trusted By Businesses &amp; Facilities Across Eastern North
-            Carolina
+            Trusted by Businesses, Facilities &amp; Homeowners Across Eastern
+            North Carolina
           </h2>
           <p className="mt-3 text-sm text-slate1-300 sm:text-base">
-            From national restaurant brands to government, schools, gyms, and
-            over 200 buildings on local military bases &mdash; we&apos;ve
-            cleaned them all.
+            From national restaurant brands to government buildings, hangars,
+            schools, gyms, and hundreds of homes &mdash; we&apos;ve cleaned
+            them all.
           </p>
         </div>
       </div>
@@ -184,16 +189,18 @@ export default function ClientsSlider() {
       <div className="relative mt-12 h-[120px] w-full">
         <InfiniteSlider
           className="flex h-full w-full items-center"
-          duration={42}
-          durationOnHover={120}
+          duration={60}
+          durationOnHover={140}
           gap={20}
         >
           {items.map((item) => (
-            <Card key={item.name} item={item} />
+            <Card
+              key={item.kind === "icon" ? item.label : item.name}
+              item={item}
+            />
           ))}
         </InfiniteSlider>
 
-        {/* Edge fades — progressive blur + solid navy gradient for a clean blend */}
         <ProgressiveBlur
           className="pointer-events-none absolute left-0 top-0 h-full w-[180px]"
           direction="left"
