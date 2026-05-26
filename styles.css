@@ -2464,14 +2464,57 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ============== ABOUT IMAGE — 1:1 match with feature/bookkeeping image ============== */
-/* Markup swap: the About image now uses .feature__media-frame directly,
-   so it inherits the same wrapper, border, overflow, image sizing, and
-   aspect logic as the lower section image. Drop the legacy max-width
-   constraint so it fills its grid cell exactly like the feature one. */
-.about__media {
-  max-width: none !important;
-  width: 100%;
+/* The About grid was giving the media column minmax(360px, 0.9fr) while the
+   Feature grid gives its media column 1fr. That alone made the About image
+   narrower than the bookkeeping image even after the class swap. Forcing the
+   About grid + figure + frame to render with the same computed layout. */
+
+.about__inner {
+  grid-template-columns: 1fr 1.1fr !important;  /* media : copy — same ratio as feature media column (1fr) */
+  gap: 70px !important;                           /* match feature gap */
+  align-items: center !important;
 }
+
+/* Strip every About-specific constraint from the media wrapper so the frame
+   inside fills the column edge-to-edge — identical computed box to .feature__media. */
+.about__media {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  align-self: stretch !important;
+  justify-self: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+/* The inner frame uses .feature__media-frame (markup-level class swap), so it
+   inherits the feature CSS directly. Just make sure no leftover About rule
+   pulls it back. */
+.about__media .feature__media-frame {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+.about__media .feature__media-frame img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 2 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 5px !important;
+  background: transparent !important;
+}
+
+/* Caption sits below the frame without affecting frame width */
+.about__caption { margin-top: 14px; }
+
 @media (max-width: 1100px) {
-  .about__media { max-width: 520px !important; margin: 0 auto; }
+  .about__inner { grid-template-columns: 1fr !important; gap: 60px !important; max-width: 760px; margin: 0 auto; }
+  .about__media { max-width: 600px !important; margin: 0 auto !important; }
 }
