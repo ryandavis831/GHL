@@ -939,24 +939,36 @@ function pageHome() {
         <button class="btn btn-secondary" data-open-quote>Book Cleaning Now</button>
         <a class="btn btn-ghost-light" href="tel:${SITE.phoneRaw}">${iconPhone()} Call ${SITE.phone}</a>
       </div>
-      <ul class="hero-badges">
-        <li class="badge">${iconAward()}<span>Established ${SITE.founded}</span></li>
-        <li class="badge">${iconBuilding()}<span>Commercial &amp; Residential</span></li>
-        <li class="badge">${iconShieldCheck()}<span>Trusted Local Company</span></li>
-        <li class="badge">${iconHardHat()}<span>Post-Construction Specialists</span></li>
-      </ul>
     </div>
-    <div>
-      <div class="hero-photo">
-        <!-- PLACEHOLDER: swap with on-site / crew photography. -->
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80"
-             alt="Commercial cleaning crew preparing a space in Richlands, NC" loading="eager" />
-        <div class="hero-photo-callout">
-          <span class="ic">${iconShieldCheck()}</span>
-          <div>
-            <div class="t">Fully insured &amp; locally owned</div>
-            <div class="s">${SITE.city}, ${SITE.region} • ${SITE.postalCode}</div>
-          </div>
+    <div class="hero-visual">
+      <!--
+        HERO IMAGE — commercial cleaning crew + ride-on scrubber in a modern
+        lobby. Naturally integrated with a left-edge dark blend so it melts
+        into the navy hero background. To swap, replace the two files at
+        ./assets/brand/hero-commercial.{jpg,webp}.
+      -->
+      <div class="hero-image-wrap">
+        <picture>
+          <source srcset="./assets/brand/hero-commercial.webp" type="image/webp" />
+          <img class="hero-image"
+               src="./assets/brand/hero-commercial.jpg"
+               alt="${SITE.name} crew operating a ride-on floor scrubber in a modern office lobby"
+               loading="eager" width="1600" height="1856" />
+        </picture>
+        <span class="hero-image-ring"></span>
+      </div>
+      <div class="hero-tag hero-tag-top">
+        <span class="ic">${iconAward()}</span>
+        <div>
+          <div class="lbl">Established</div>
+          <div class="val">Since ${SITE.founded}</div>
+        </div>
+      </div>
+      <div class="hero-tag hero-tag-bottom">
+        <span class="ic">${iconShieldCheck()}</span>
+        <div>
+          <div class="t">Fully Insured &amp; Locally Owned</div>
+          <div class="s">${SITE.city}, ${SITE.region} • ${SITE.postalCode}</div>
         </div>
       </div>
     </div>

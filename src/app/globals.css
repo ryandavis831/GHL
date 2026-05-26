@@ -87,3 +87,16 @@ h4 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Subtle hero image ambient motion — slow zoom + drift */
+@keyframes hero-zoom {
+  0%   { transform: scale(1)   translate3d(0, 0, 0); }
+  100% { transform: scale(1.06) translate3d(-0.5%, -0.5%, 0); }
+}
+.hero-image {
+  animation: hero-zoom 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-image { animation: none; }
+}
