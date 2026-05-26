@@ -835,6 +835,12 @@
       </div>
 
       <form class="modal__form" id="consultForm" novalidate>
+        <!-- Honeypot — bots fill this; humans can't see it. Submissions are silently dropped if non-empty. -->
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+          <label for="f-company-website">Company Website (leave blank)</label>
+          <input id="f-company-website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
         <div class="field">
           <label for="f-name" data-i18n="modal.name">Full Name</label>
           <input id="f-name" name="name" type="text" required autocomplete="name" />
@@ -924,7 +930,12 @@
           <textarea id="f-message" name="message" rows="3" data-i18n-placeholder="modal.placeholder" placeholder="How can we help?"></textarea>
         </div>
 
-        <button class="btn btn--grad btn--block btn--lg" type="submit" data-i18n="modal.submit">Send Request</button>
+        <button class="btn btn--grad btn--block btn--lg" type="submit" id="consultSubmit">
+          <span data-i18n="modal.submit">Send Request</span>
+        </button>
+        <p class="modal__error" id="consultError" role="alert" hidden style="margin: 12px 0 0; padding: 12px 14px; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.35); border-radius: 6px; color: #c0392b; font-size: 13.5px; text-align: center;">
+          <span data-i18n="modal.error">Something went wrong sending your request. Please try again or call us at (919) 923-0394.</span>
+        </p>
         <p class="modal__note" data-i18n="modal.note">We respect your privacy. Your information is confidential.</p>
       </form>
 

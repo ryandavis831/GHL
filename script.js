@@ -7,6 +7,13 @@
 (function () {
   'use strict';
 
+  /* ===========================================================
+     GHL Inbound Webhook integration
+     Paste the GHL Inbound Webhook URL from the workflow:
+       "Sonora Website Consultation Lead"
+     =========================================================== */
+  const GHL_WEBHOOK_URL = "PASTE_GHL_WEBHOOK_URL_HERE";
+
   /* ---------------- Sticky nav ---------------- */
   const nav = document.getElementById('nav');
   const onScroll = () => {
@@ -40,6 +47,9 @@
   const successEl = document.getElementById('modalSuccess');
   let lastFocus = null;
 
+  // Tracks when the modal was opened — used for the 3s minimum-time spam check
+  let modalOpenedAt = 0;
+
   function openModal() {
     lastFocus = document.activeElement;
     modal.classList.add('is-open');
@@ -47,6 +57,9 @@
     document.body.style.overflow = 'hidden';
     formEl.hidden = false;
     successEl.hidden = true;
+    const errEl = document.getElementById('consultError');
+    if (errEl) errEl.hidden = true;
+    modalOpenedAt = Date.now();
     setTimeout(() => {
       const first = modal.querySelector('input,select,textarea,button');
       if (first) first.focus();
@@ -131,9 +144,42 @@
   const multiselects = document.querySelectorAll('[data-multiselect]');
   multiselects.forEach(initMultiselect);
 
-  /* ---------------- Form submit ---------------- */
-  formEl.addEventListener('submit', (e) => {
+  /* ---------------- Form submit (GHL Inbound Webhook) ---------------- */
+  const submitBtn = document.getElementById('consultSubmit');
+  const errorEl   = document.getElementById('consultError');
+
+  // Service codes ↔ human labels (in EN — kept stable for backend even when ES is active)
+  const SERVICE_LABELS_EN = {
+    tax:   'Tax Preparation',
+    pay:   'Payroll Services',
+    book:  'Bookkeeping',
+    plan:  'Tax Planning',
+    biz:   'Business Tax Services',
+    pers:  'Personal Tax Filing',
+    irs:   'IRS Assistance',
+    sb:    'Small Business Accounting',
+    other: 'Other',
+  };
+
+  formEl.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // ----- Spam: honeypot -----
+    const honeypot = formEl.querySelector('[name="company_website"]');
+    if (honeypot && honeypot.value.trim() !== '') {
+      // Bot detected — pretend we succeeded but don't actually send.
+      formEl.hidden = true;
+      successEl.hidden = false;
+      return;
+    }
+
+    // ----- Spam: minimum time check (3 seconds) -----
+    if (Date.now() - modalOpenedAt < 3000) {
+      // Treat as bot — silently swallow.
+      return;
+    }
+
+    // ----- Validation (unchanged behavior) -----
     const required = formEl.querySelectorAll('input[required], textarea[required], select[required]');
     let ok = true;
     required.forEach(input => {
@@ -146,7 +192,6 @@
         });
       }
     });
-    // Validate multi-select: at least one service must be checked
     multiselects.forEach(ms => {
       const anyChecked = ms.querySelector('input[type="checkbox"]:checked');
       const trigger = ms.querySelector('.multiselect__trigger');
@@ -161,13 +206,72 @@
       }
     });
     if (!ok) return;
-    formEl.hidden = true;
-    successEl.hidden = false;
-    formEl.reset();
-    multiselects.forEach(ms => {
-      ms.classList.remove('has-selection');
-      if (ms._refreshLabel) ms._refreshLabel();
-    });
+
+    // ----- Collect payload -----
+    const selectedCodes = Array.from(formEl.querySelectorAll('input[name="services"]:checked'))
+      .map(i => i.value);
+    const selectedLabels = selectedCodes.map(c => SERVICE_LABELS_EN[c] || c);
+
+    const lang = document.documentElement.getAttribute('data-lang') || 'en';
+    const tags = ['website-lead', 'sonora-website', 'consultation-request',
+                  lang === 'es' ? 'spanish-lead' : 'english-lead'];
+
+    const payload = {
+      full_name:      (formEl.querySelector('#f-name')    || {}).value || '',
+      phone:          (formEl.querySelector('#f-phone')   || {}).value || '',
+      email:          (formEl.querySelector('#f-email')   || {}).value || '',
+      services:       selectedLabels.join(', '),
+      services_array: selectedLabels,
+      contact_method: (formEl.querySelector('#f-contact') || {}).value || '',
+      message:        (formEl.querySelector('#f-message') || {}).value || '',
+      page_language:  lang,
+      source:         'sonora-website',
+      tags:           tags,
+      submitted_at:   new Date().toISOString(),
+    };
+
+    // ----- Disable submit, hide any prior error -----
+    if (errorEl) errorEl.hidden = true;
+    const originalBtnLabel = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.cursor = 'wait';
+    const sendingLabel = lang === 'es' ? 'Enviando…' : 'Sending…';
+    submitBtn.innerHTML = '<span>' + sendingLabel + '</span>';
+
+    // ----- POST to GHL webhook -----
+    try {
+      if (!GHL_WEBHOOK_URL || GHL_WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
+        throw new Error('GHL_WEBHOOK_URL is not configured');
+      }
+      const res = await fetch(GHL_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+
+      // Success: show the existing success screen, reset the form
+      formEl.hidden = true;
+      successEl.hidden = false;
+      formEl.reset();
+      multiselects.forEach(ms => {
+        ms.classList.remove('has-selection');
+        if (ms._refreshLabel) ms._refreshLabel();
+      });
+    } catch (err) {
+      // Surface the inline error, keep the form values intact
+      if (errorEl) errorEl.hidden = false;
+      console.error('Consultation submit failed:', err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '';
+      submitBtn.style.cursor = '';
+      submitBtn.innerHTML = originalBtnLabel;
+      // Re-apply i18n in case the button label uses a translation key
+      applyLang(document.documentElement.getAttribute('data-lang') || 'en');
+    }
   });
 
   /* ---------------- i18n ---------------- */
@@ -348,6 +452,7 @@
       'modal.okTitle':  'Thank you!',
       'modal.okSub':    'We received your request. Astrid will reach out shortly to schedule your free consultation.',
       'modal.okClose':  'Close',
+      'modal.error':    'Something went wrong sending your request. Please try again or call us at (919) 923-0394.',
     },
 
     es: {
@@ -526,6 +631,7 @@
       'modal.okTitle':  '¡Gracias!',
       'modal.okSub':    'Recibimos su solicitud. Astrid se comunicará pronto para agendar su consulta gratis.',
       'modal.okClose':  'Cerrar',
+      'modal.error':    'Algo salió mal al enviar su solicitud. Por favor intente de nuevo o llámenos al (919) 923-0394.',
     },
   };
 
