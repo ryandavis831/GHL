@@ -2122,3 +2122,72 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   html { scroll-behavior: auto; }
 }
+
+/* FIX: nav cropping on desktop */
+.nav {
+  overflow: visible !important;
+}
+
+.nav__inner {
+  max-width: 1440px;
+  overflow: visible !important;
+  gap: 18px;
+}
+
+.nav__links {
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: clamp(14px, 1.5vw, 26px);
+  min-width: 0;
+}
+
+.nav__cta {
+  flex-shrink: 0;
+}
+
+.nav__brand {
+  flex-shrink: 0;
+}
+
+@media (min-width: 821px) and (max-width: 1280px) {
+  .nav__brandtxt {
+    display: none;
+  }
+
+  .btn--nav-cta {
+    min-width: 176px;
+  }
+
+  .lang-toggle {
+    min-width: 118px;
+  }
+}
+
+/* FIX: about image should fill colorful frame better */
+.about__media-frame {
+  padding: 3px !important;
+}
+
+.about__media-frame::before {
+  display: none !important;
+}
+
+.about__media-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  padding: 0 !important;
+  border-radius: 6px !important;
+}
+
+.about__media {
+  max-width: 620px;
+}
+
+@media (max-width: 1100px) {
+  .about__media {
+    max-width: 680px !important;
+  }
+}
