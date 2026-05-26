@@ -1,11 +1,16 @@
 /* ===========================================================
-   Sonora Tax & Bookkeeping — Interactions & i18n (v4)
-   English default · One-click "Español" toggle (button flips
-   to "English" when in Spanish mode).
+   Sonora Tax & Bookkeeping — GHL-safe build
+   - Wrapped in DOMContentLoaded so it works inside GHL Footer
+     Tracking Code regardless of where GHL injects the snippet.
+   - All selectors run after DOM is ready.
+   - Logs "Sonora script loaded" on init.
    =========================================================== */
 
 (function () {
   'use strict';
+
+  function bootSonora() {
+    console.log('Sonora script loaded');
 
   /* ===========================================================
      GHL Inbound Webhook integration
@@ -16,6 +21,7 @@
 
   /* ---------------- Sticky nav ---------------- */
   const nav = document.getElementById('nav');
+  if (!nav) { console.warn('Sonora: #nav not found'); return; }
   const onScroll = () => {
     if (window.scrollY > 8) nav.classList.add('is-scrolled');
     else nav.classList.remove('is-scrolled');
@@ -26,31 +32,33 @@
   /* ---------------- Mobile menu ---------------- */
   const burger = document.getElementById('navBurger');
   const mobile = document.getElementById('navMobile');
-  burger.addEventListener('click', () => {
-    const isOpen = mobile.classList.toggle('is-open');
-    burger.classList.toggle('is-open', isOpen);
-    burger.setAttribute('aria-expanded', String(isOpen));
-    mobile.setAttribute('aria-hidden', String(!isOpen));
-  });
-  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mobile.classList.remove('is-open');
-    burger.classList.remove('is-open');
-    burger.setAttribute('aria-expanded', 'false');
-  }));
+  if (burger && mobile) {
+    burger.addEventListener('click', () => {
+      const isOpen = mobile.classList.toggle('is-open');
+      burger.classList.toggle('is-open', isOpen);
+      burger.setAttribute('aria-expanded', String(isOpen));
+      mobile.setAttribute('aria-hidden', String(!isOpen));
+    });
+    mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobile.classList.remove('is-open');
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+    }));
+  }
 
   /* ---------------- Year ---------------- */
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---------------- Modal ---------------- */
   const modal = document.getElementById('consultModal');
   const formEl = document.getElementById('consultForm');
   const successEl = document.getElementById('modalSuccess');
   let lastFocus = null;
-
-  // Tracks when the modal was opened — used for the 3s minimum-time spam check
   let modalOpenedAt = 0;
 
   function openModal() {
+    if (!modal || !formEl || !successEl) return;
     lastFocus = document.activeElement;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
@@ -66,6 +74,7 @@
     }, 80);
   }
   function closeModal() {
+    if (!modal) return;
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -74,7 +83,7 @@
   document.querySelectorAll('[data-open-modal]').forEach(el => el.addEventListener('click', openModal));
   document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closeModal();
   });
 
   /* ---------------- Multi-select (Services Needed) ---------------- */
@@ -86,6 +95,7 @@
     const panel = root.querySelector('.multiselect__panel');
     const label = root.querySelector('[data-multiselect-label]');
     const inputs = root.querySelectorAll('input[type="checkbox"]');
+    if (!trigger || !panel || !label) return;
 
     const updateLabel = () => {
       const checked = Array.from(inputs).filter(i => i.checked);
@@ -118,7 +128,6 @@
 
     inputs.forEach(input => input.addEventListener('change', updateLabel));
 
-    // Close when clicking outside
     document.addEventListener('click', (e) => {
       if (!root.contains(e.target)) {
         root.classList.remove('is-open');
@@ -127,7 +136,6 @@
       }
     });
 
-    // Close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && root.classList.contains('is-open')) {
         root.classList.remove('is-open');
@@ -137,7 +145,6 @@
       }
     });
 
-    // Expose refresh hook for language switches
     root._refreshLabel = updateLabel;
   }
 
@@ -148,7 +155,6 @@
   const submitBtn = document.getElementById('consultSubmit');
   const errorEl   = document.getElementById('consultError');
 
-  // Service codes ↔ human labels (in EN — kept stable for backend even when ES is active)
   const SERVICE_LABELS_EN = {
     tax:   'Tax Preparation',
     pay:   'Payroll Services',
@@ -161,25 +167,20 @@
     other: 'Other',
   };
 
-  formEl.addEventListener('submit', async (e) => {
+  if (formEl) formEl.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // ----- Spam: honeypot -----
     const honeypot = formEl.querySelector('[name="company_website"]');
     if (honeypot && honeypot.value.trim() !== '') {
-      // Bot detected — pretend we succeeded but don't actually send.
       formEl.hidden = true;
       successEl.hidden = false;
       return;
     }
 
-    // ----- Spam: minimum time check (3 seconds) -----
     if (Date.now() - modalOpenedAt < 3000) {
-      // Treat as bot — silently swallow.
       return;
     }
 
-    // ----- Validation (unchanged behavior) -----
     const required = formEl.querySelectorAll('input[required], textarea[required], select[required]');
     let ok = true;
     required.forEach(input => {
@@ -207,9 +208,7 @@
     });
     if (!ok) return;
 
-    // ----- Collect payload -----
-    const selectedCodes = Array.from(formEl.querySelectorAll('input[name="services"]:checked'))
-      .map(i => i.value);
+    const selectedCodes = Array.from(formEl.querySelectorAll('input[name="services"]:checked')).map(i => i.value);
     const selectedLabels = selectedCodes.map(c => SERVICE_LABELS_EN[c] || c);
 
     const lang = document.documentElement.getAttribute('data-lang') || 'en';
@@ -230,16 +229,16 @@
       submitted_at:   new Date().toISOString(),
     };
 
-    // ----- Disable submit, hide any prior error -----
     if (errorEl) errorEl.hidden = true;
-    const originalBtnLabel = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = '0.7';
-    submitBtn.style.cursor = 'wait';
-    const sendingLabel = lang === 'es' ? 'Enviando…' : 'Sending…';
-    submitBtn.innerHTML = '<span>' + sendingLabel + '</span>';
+    const originalBtnLabel = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+      submitBtn.style.cursor = 'wait';
+      const sendingLabel = lang === 'es' ? 'Enviando…' : 'Sending…';
+      submitBtn.innerHTML = '<span>' + sendingLabel + '</span>';
+    }
 
-    // ----- POST to GHL webhook -----
     try {
       if (!GHL_WEBHOOK_URL || GHL_WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
         throw new Error('GHL_WEBHOOK_URL is not configured');
@@ -252,7 +251,6 @@
       });
       if (!res.ok) throw new Error('Webhook returned ' + res.status);
 
-      // Success: show the existing success screen, reset the form
       formEl.hidden = true;
       successEl.hidden = false;
       formEl.reset();
@@ -261,16 +259,16 @@
         if (ms._refreshLabel) ms._refreshLabel();
       });
     } catch (err) {
-      // Surface the inline error, keep the form values intact
       if (errorEl) errorEl.hidden = false;
       console.error('Consultation submit failed:', err);
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = '';
-      submitBtn.style.cursor = '';
-      submitBtn.innerHTML = originalBtnLabel;
-      // Re-apply i18n in case the button label uses a translation key
-      applyLang(document.documentElement.getAttribute('data-lang') || 'en');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '';
+        submitBtn.style.cursor = '';
+        submitBtn.innerHTML = originalBtnLabel;
+        applyLang(document.documentElement.getAttribute('data-lang') || 'en');
+      }
     }
   });
 
@@ -716,5 +714,13 @@
       el.style.transition = 'opacity .55s ease, transform .55s ease';
       io.observe(el);
     });
+  }
+  } // end bootSonora
+
+  // GHL-safe boot: defer to DOMContentLoaded if DOM isn't ready yet.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootSonora);
+  } else {
+    bootSonora();
   }
 })();
