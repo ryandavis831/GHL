@@ -2267,3 +2267,66 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .topbar__flags .flag-emoji { font-size: 17px; }
 .lang-toggle__flag.flag-emoji { font-size: 18px; }
 .lang-toggle__flag svg { display: none; } /* hide any leftover SVG flag inside the toggle */
+
+/* ============== ABOUT IMAGE — contain inside the gradient frame ============== */
+.about__media-frame {
+  aspect-ratio: 3 / 2;          /* match astrid-card.png natural ratio so contain fills cleanly */
+  background: var(--grad-1);    /* keep colorful gradient border visible */
+  padding: 3px !important;
+  border-radius: 10px;
+}
+.about__media-frame::before { display: none !important; }
+.about__media-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;   /* full image visible — no cropping */
+  object-position: center center !important;
+  background: #FFFFFF;              /* clean letterbox surface if ratio drifts */
+  padding: 0 !important;
+  border-radius: 7px !important;
+  aspect-ratio: auto !important;
+  display: block;
+}
+.about__media { max-width: 620px; }
+@media (max-width: 1100px) {
+  .about__media { max-width: 680px !important; }
+}
+
+/* ============== NAV STABILITY — keep CTA visible, no shift on EN↔ES ============== */
+.nav__inner {
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow: visible !important;
+}
+.nav__links {
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: clamp(10px, 1.2vw, 22px);
+  min-width: 0;
+}
+.nav__links a {
+  min-width: 72px;             /* tighter than 88px so the CTA never gets cropped */
+  text-align: center;
+  white-space: nowrap;
+}
+.nav__cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lang-toggle {
+  width: 150px;
+  min-width: 150px;
+  justify-content: center;
+}
+.btn--nav-cta {
+  min-width: 200px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (min-width: 821px) and (max-width: 1280px) {
+  .nav__brandtxt { display: none; }   /* free up room — keep logo, drop wordmark */
+  .nav__links a   { min-width: 64px; }
+  .btn--nav-cta   { min-width: 172px; }
+}
