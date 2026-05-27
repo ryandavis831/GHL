@@ -14,6 +14,7 @@ import { auditWebsite } from './src/enrichment/websiteAudit.js';
 import { mergeLeads } from './src/enrichment/merge.js';
 import { classifyPhone } from './src/enrichment/phoneType.js';
 import { scoreLead } from './src/scoring/leadScore.js';
+import { assignTier } from './src/export/outreach.js';
 import { exportCSV, exportOutreachCSV } from './src/export/csv.js';
 import { exportOutreachXLSX } from './src/export/xlsx.js';
 import { exportJSON } from './src/export/json.js';
@@ -22,7 +23,7 @@ import { processOutscraperCSV } from './src/import/outscraper.js';
 
 function parseArgs() {
   const argv = minimist(process.argv.slice(2), {
-    string: ['city', 'niche', 'cities', 'niches', 'from', 'to', 'out', 'import'],
+    string: ['city', 'niche', 'cities', 'niches', 'from', 'to', 'out', 'import', 'tier'],
     boolean: [
       'noWebsiteOnly', 'allCities', 'allNiches', 'help',
       'auditSites', 'twilio', 'keepClosed', 'requirePhone', 'xlsx', 'noXlsx',
@@ -31,13 +32,15 @@ function parseArgs() {
       city: CONFIG.defaultCity,
       niche: CONFIG.defaultNiche,
       max: CONFIG.defaultResultsPerNiche,
-      noWebsiteOnly: CONFIG.noWebsiteOnly,
+      noWebsiteOnly: false,            // opt-in only — tier system handles website triage now
       auditSites: false,
       twilio: false,
       keepClosed: false,
       requirePhone: false,
       xlsx: true,
       noXlsx: false,
+      tier: 'all',
+      minScore: 1,                     // permissive default — use --minScore=5 to tighten
     },
   });
 
@@ -69,8 +72,20 @@ function parseArgs() {
     auditSites: !!argv.auditSites,
     useTwilio: !!argv.twilio,
     xlsx: !argv.noXlsx,
+    tiers: parseTiers(argv.tier),
+    minScore: Number.isFinite(parseInt(argv.minScore, 10)) ? parseInt(argv.minScore, 10) : 1,
     out: argv.out || null,
   };
+}
+
+function parseTiers(raw) {
+  if (!raw || raw === 'all') return new Set([1, 2, 3]);
+  const tiers = String(raw)
+    .split(',')
+    .map((t) => parseInt(t.trim(), 10))
+    .filter((n) => n >= 1 && n <= 3);
+  if (tiers.length === 0) return new Set([1, 2, 3]);
+  return new Set(tiers);
 }
 
 function printHelp() {
@@ -85,13 +100,20 @@ LIVE SCRAPING WORKFLOW (fallback):
 
 Outscraper flags:
   --import=<csv>            Path to Outscraper Google Maps CSV export
-  --noWebsiteOnly           Drop leads that already have a website
+  --tier=all                Keep all tiers (default). Or: --tier=1, --tier=1,2, --tier=2,3
+  --minScore=1              Drop leads scoring below N (default: 1 = no filter; try 5)
+  --noWebsiteOnly           OPT-IN: drop leads that have a website (legacy filter)
   --keepClosed              Keep closed/inactive businesses (default: drop)
   --requirePhone            Drop leads with no phone number
-  --auditSites              Also load each website for SSL/mobile/copyright checks
+  --auditSites              Audit each website for SSL/mobile/copyright (improves tiering)
   --twilio                  Use Twilio Lookup for mobile-vs-landline (needs env creds)
   --xlsx                    Write outreach.xlsx in addition to outreach.csv (default: on)
   --noXlsx                  Skip XLSX export
+
+Tiers (assigned automatically, never used to drop unless you pass --tier):
+  Tier 1: no website at all (easiest pitch: "you need a website")
+  Tier 2: weak/outdated/non-mobile/no-SSL/broken website
+  Tier 3: has a working website; upsell only (low reviews, ratings, SEO)
 
 Live-scrape flags:
   --city=Charlotte          Single city
@@ -175,9 +197,12 @@ async function writeOutputs(leads, args) {
 
   logger.success(`Wrote ${sorted.length} leads`, written);
 
+  const t1 = sorted.filter((l) => l.tier === 1).length;
+  const t2 = sorted.filter((l) => l.tier === 2).length;
+  const t3 = sorted.filter((l) => l.tier === 3).length;
   const high = sorted.filter((l) => l.highValue).length;
   const fbOnly = sorted.filter((l) => l.facebookOnly).length;
-  logger.info(`Summary: ${high} high-value (score >= 7), ${fbOnly} facebook-only`);
+  logger.info(`Summary: T1=${t1} T2=${t2} T3=${t3} | ${high} high-value (>=7) | ${fbOnly} facebook-only`);
 }
 
 async function runImport(args) {
@@ -195,11 +220,39 @@ async function runImport(args) {
     withPhone = await auditWebsites(withPhone);
   }
 
-  let scored = withPhone.map((l) => ({ ...l, ...scoreLead(l) }));
-  scored.sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
+  let scored = withPhone.map((l) => {
+    const withScore = { ...l, ...scoreLead(l) };
+    return { ...withScore, tier: assignTier(withScore) };
+  });
+
+  scored = applyTierAndScoreFilters(scored, args);
+  scored.sort((a, b) => {
+    // Tier first (1 best), then score desc.
+    if ((a.tier || 99) !== (b.tier || 99)) return (a.tier || 99) - (b.tier || 99);
+    return (b.leadScore || 0) - (a.leadScore || 0);
+  });
 
   await writeOutputs(scored, args);
   await closeBrowser();
+}
+
+function applyTierAndScoreFilters(leads, args) {
+  const before = leads.length;
+  let out = leads.filter((l) => args.tiers.has(l.tier));
+  const afterTier = out.length;
+  if (afterTier !== before) {
+    logger.info(`Filter "tier ${Array.from(args.tiers).sort().join(',')}": ${before} -> ${afterTier}`);
+  }
+  if (args.minScore > 1) {
+    out = out.filter((l) => (l.leadScore || 0) >= args.minScore);
+    logger.info(`Filter "minScore >= ${args.minScore}": ${afterTier} -> ${out.length}`);
+  }
+  const tierCounts = out.reduce((acc, l) => {
+    acc[`T${l.tier}`] = (acc[`T${l.tier}`] || 0) + 1;
+    return acc;
+  }, {});
+  logger.info('Tier distribution', tierCounts);
+  return out;
 }
 
 async function runLiveScrape(args) {
@@ -258,13 +311,26 @@ async function runLiveScrape(args) {
   })));
 
   const withPhone = await classifyPhones(audited, { useTwilio: args.useTwilio });
-  let scored = withPhone.map((l) => ({ ...l, ...scoreLead(l) }));
-  scored.sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
+  let scored = withPhone.map((l) => {
+    const withScore = { ...l, ...scoreLead(l) };
+    return { ...withScore, tier: assignTier(withScore) };
+  });
 
   if (args.noWebsiteOnly) {
     scored = scored.filter((l) => !l.website);
     logger.info(`After noWebsiteOnly filter: ${scored.length} leads`);
   }
+  if (args.requirePhone) {
+    const n = scored.length;
+    scored = scored.filter((l) => !!l.phone);
+    logger.info(`After requirePhone filter: ${n} -> ${scored.length}`);
+  }
+
+  scored = applyTierAndScoreFilters(scored, args);
+  scored.sort((a, b) => {
+    if ((a.tier || 99) !== (b.tier || 99)) return (a.tier || 99) - (b.tier || 99);
+    return (b.leadScore || 0) - (a.leadScore || 0);
+  });
 
   await writeOutputs(scored, args);
   await closeBrowser();

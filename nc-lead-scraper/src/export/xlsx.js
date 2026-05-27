@@ -41,6 +41,7 @@ const COLUMN_WIDTHS = {
   'Has Website': 11,
   'Facebook Only': 13,
   'Lead Score': 11,
+  'Tier': 7,
   'Lead Quality': 12,
   'Why This Lead': 40,
   'Suggested Offer': 36,
@@ -160,6 +161,45 @@ export async function exportOutreachXLSX(leads, outPath) {
   const lastCol = colLetter(OUTREACH_HEADERS.length);
   const lastRow = rows.length + 1;
   ws.autoFilter = { from: 'A1', to: `${lastCol}${lastRow}` };
+
+  // Conditional formatting on Tier column (1 = green, 2 = yellow, 3 = blue).
+  const tierCol = colLetter(COL['Tier']);
+  const tierRange = `${tierCol}2:${tierCol}${lastRow}`;
+  ws.addConditionalFormatting({
+    ref: tierRange,
+    rules: [
+      {
+        type: 'cellIs',
+        operator: 'equal',
+        priority: 1,
+        formulae: [1],
+        style: {
+          fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFC6EFCE' } },
+          font: { color: { argb: 'FF006100' }, bold: true },
+        },
+      },
+      {
+        type: 'cellIs',
+        operator: 'equal',
+        priority: 2,
+        formulae: [2],
+        style: {
+          fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFFFEB9C' } },
+          font: { color: { argb: 'FF9C5700' }, bold: true },
+        },
+      },
+      {
+        type: 'cellIs',
+        operator: 'equal',
+        priority: 3,
+        formulae: [3],
+        style: {
+          fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: 'FFDEEBF7' } },
+          font: { color: { argb: 'FF1F4E79' }, bold: true },
+        },
+      },
+    ],
+  });
 
   // Conditional formatting on Lead Score column (1-10 scale).
   const scoreCol = colLetter(COL['Lead Score']);

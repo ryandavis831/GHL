@@ -15,9 +15,11 @@ cp .env.example .env
 
 # 1. Export a Google Maps search from https://app.outscraper.com/ as CSV
 # 2. Drop it into ./input/  (or anywhere)
-# 3. Clean it:
-node index.js --import=./input/outscraper-charlotte-roofing.csv --noWebsiteOnly --requirePhone
+# 3. Clean and tier it:
+node index.js --import=./input/outscraper-charlotte-roofing.csv
 ```
+
+By default the pipeline keeps **every operational, de-duplicated row** and assigns each one a tier. Use `--tier=` / `--minScore=` to narrow down without throwing data away.
 
 You get four files in `./output/`:
 
@@ -37,44 +39,63 @@ This is the recommended workflow. Outscraper is faster, more reliable, and cheap
 ### What the importer does
 
 1. **Parse** the CSV with flexible column matching (handles Outscraper's many column-name variants).
-2. **Drop closed businesses** — anything with `business_status = CLOSED_PERMANENTLY/CLOSED_TEMPORARILY` or `permanently_closed = true`.
+2. **Drop closed businesses** — `business_status = CLOSED_PERMANENTLY/CLOSED_TEMPORARILY` or `permanently_closed = true`. Override with `--keepClosed`.
 3. **Dedupe** by `place_id` first, then phone, then normalized name + address. Duplicate rows are merged field-by-field (non-empty wins).
-4. **Filter** (all toggleable):
-   - `--noWebsiteOnly` drops anything with a website
-   - `--requirePhone` drops anything without a phone
-   - `--keepClosed` keeps closed businesses (off by default)
-5. **Classify each phone** as `toll-free`, `premium`, `invalid`, `mobile`, `landline`, `voip`, or `unknown` (see honest limitations below).
-6. **Infer the niche** from Outscraper's `category` / `type` / `subtypes` fields (e.g. `Roofing contractor` → `roofing`).
-7. **Flag Facebook-only** businesses (no website but has a Facebook URL).
-8. **Optionally audit** any remaining websites for SSL / mobile-viewport / stale-copyright (use `--auditSites`).
-9. **Score** each lead 1–10.
-10. **Export** full CSV, outreach CSV, and JSON.
+4. **Classify each phone** as `toll-free`, `premium`, `invalid`, `mobile`, `landline`, `voip`, or `unknown` (see honest limitations below).
+5. **Infer the niche** from Outscraper's `category` / `type` / `subtypes` (e.g. `Roofing contractor` → `roofing`).
+6. **Flag Facebook-only** businesses (no website but has a Facebook URL).
+7. **Optionally audit** any remaining websites for SSL / mobile-viewport / stale-copyright (use `--auditSites` — needed for accurate Tier 2 detection).
+8. **Score** each lead 1–10 and **assign a tier** (1/2/3).
+9. **Optional filters** (none on by default except closed-business removal):
+   - `--tier=1,2` keep only specific tiers
+   - `--minScore=5` drop leads below a score threshold
+   - `--requirePhone` drop leads without a phone
+   - `--noWebsiteOnly` legacy flag — drop any lead that has a website (use the tier system instead)
+10. **Sort** by Tier ascending, then Score descending.
+11. **Export** outreach CSV + XLSX + archival CSV + JSON.
+
+### Tiers
+
+Every lead is assigned exactly one tier:
+
+| Tier | Criteria | Typical pitch |
+| --- | --- | --- |
+| **T1** | No website at all (with or without Facebook / phone) | "You need a website" |
+| **T2** | Has a website but it's weak — no SSL, not mobile-friendly, stale copyright, broken/slow, or audit-flagged | "Your site is hurting you" |
+| **T3** | Has a working website that looks OK; possible upsell only | "Add a booking funnel / improve SEO / get more reviews" |
+
+T2 detection requires `--auditSites` (or trust Outscraper's data, which doesn't include SSL/mobile/copyright). Without an audit, a "has-website" lead defaults to T3.
 
 ### Import flags
 
-| Flag | Description |
-| --- | --- |
-| `--import=<csv>` | Path to Outscraper CSV (required for import mode) |
-| `--noWebsiteOnly` | Drop leads that already have a website |
-| `--keepClosed` | Keep closed/inactive businesses (default: drop) |
-| `--requirePhone` | Drop leads with no phone number |
-| `--auditSites` | Audit any remaining websites for SSL/mobile/copyright |
-| `--twilio` | Use Twilio Lookup for mobile-vs-landline (requires creds) |
-| `--xlsx` | Write `outreach.xlsx` in addition to `outreach.csv` (on by default) |
-| `--noXlsx` | Skip XLSX export (CSV only) |
-| `--out=<basename>` | Archival output basename (no extension) — `outreach.*` files are always written to `./output/` |
+| Flag | Default | Description |
+| --- | --- | --- |
+| `--import=<csv>` | — | Path to Outscraper CSV (required for import mode) |
+| `--tier=<set>` | `all` | Keep only these tiers. `all`, `1`, `1,2`, `2,3`, etc. |
+| `--minScore=<n>` | `1` | Drop leads scoring below `n` (1–10). Try `--minScore=5` for "real" leads only. |
+| `--requirePhone` | off | Drop leads with no phone number |
+| `--keepClosed` | off | Keep closed/inactive businesses (default: drop) |
+| `--noWebsiteOnly` | off | Legacy filter — drop any lead with a website. Prefer `--tier=1` instead. |
+| `--auditSites` | off | Audit websites for SSL/mobile/copyright (needed for accurate T2 detection) |
+| `--twilio` | off | Use Twilio Lookup for mobile-vs-landline (requires creds) |
+| `--xlsx` | on | Write `outreach.xlsx` in addition to `outreach.csv` |
+| `--noXlsx` | off | Skip XLSX export (CSV only) |
+| `--out=<basename>` | timestamp | Archival output basename. `outreach.*` files always land in `./output/` with stable names. |
 
 ### Examples
 
 ```bash
-# Prompt example — full polished pipeline with XLSX
-node index.js --import=outscraper.csv --noWebsiteOnly --requirePhone --xlsx
+# Default — every operational, deduped lead, all tiers, sorted by tier then score
+node index.js --import=./input/outscraper.csv
 
-# Clean an Outscraper export, no-website only, with phone required
-node index.js --import=./input/outscraper.csv --noWebsiteOnly --requirePhone
+# Only Tier 1 (no-website leads)
+node index.js --import=./input/outscraper.csv --tier=1
 
-# Same, plus audit any remaining websites for weak-site signals
-node index.js --import=./input/outscraper.csv --auditSites
+# Tiers 1+2 with a usable score floor (this is the common "outreach list" recipe)
+node index.js --import=./input/outscraper.csv --tier=1,2 --minScore=5 --requirePhone
+
+# Audit websites so weak sites get correctly bucketed as Tier 2 instead of Tier 3
+node index.js --import=./input/outscraper.csv --auditSites --tier=1,2
 
 # Definitive mobile/landline classification via Twilio Lookup
 TWILIO_ACCOUNT_SID=... TWILIO_AUTH_TOKEN=... \
@@ -126,7 +147,7 @@ This is the right tradeoff for outreach: a wrong `mobile` label sends an SMS to 
 
 ## Outreach output
 
-Both `outreach.csv` and `outreach.xlsx` share the same 24 columns in this exact order:
+Both `outreach.csv` and `outreach.xlsx` share the same 25 columns in this exact order:
 
 1. Business Name
 2. Owner/Contact Name
@@ -146,14 +167,15 @@ Both `outreach.csv` and `outreach.xlsx` share the same 24 columns in this exact 
 16. Has Website
 17. Facebook Only
 18. Lead Score
-19. Lead Quality (`High` ≥8, `Medium` 5–7, `Low` ≤4)
-20. Why This Lead (human-readable narrative)
-21. Suggested Offer
-22. Tags
-23. Source
-24. Last Checked
+19. **Tier** (1 / 2 / 3 — see Tier table above)
+20. Lead Quality (`High` ≥8, `Medium` 5–7, `Low` ≤4)
+21. Why This Lead (human-readable narrative)
+22. Suggested Offer
+23. Tags
+24. Source
+25. Last Checked
 
-Rows are sorted by **Lead Score descending**.
+Rows are sorted by **Tier ascending** (T1 first) then **Lead Score descending**.
 
 ### Sample `outreach.csv` row
 
@@ -169,6 +191,10 @@ Asheville Tree Pros,,(828) 555-0166,unknown,,,,https://www.google.com/maps/place
 - **Freeze top row** — headers stay visible while you scroll.
 - **Auto-filter** enabled across all 24 columns.
 - **Auto-sized columns** tuned for outreach readability (wide for `Address`, `Why This Lead`, `Suggested Offer`; narrow for `State`, `Rating`).
+- **Conditional formatting on Tier**:
+  - 1 → green (`#C6EFCE`)
+  - 2 → yellow (`#FFEB9C`)
+  - 3 → light blue (`#DEEBF7`)
 - **Conditional formatting on Lead Score**:
   - 8–10 → green (`#C6EFCE` fill, dark green bold text)
   - 5–7 → yellow (`#FFEB9C` fill, dark amber bold text)

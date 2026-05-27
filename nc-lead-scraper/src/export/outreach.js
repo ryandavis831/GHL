@@ -23,6 +23,7 @@ export const OUTREACH_HEADERS = [
   'Has Website',
   'Facebook Only',
   'Lead Score',
+  'Tier',
   'Lead Quality',
   'Why This Lead',
   'Suggested Offer',
@@ -50,6 +51,7 @@ export const COLUMN_KEYS = [
   'hasWebsite',
   'facebookOnly',
   'leadScore',
+  'tier',
   'leadQuality',
   'whyThisLead',
   'suggestedOffer',
@@ -62,6 +64,32 @@ function leadQuality(score) {
   if (score >= 8) return 'High';
   if (score >= 5) return 'Medium';
   return 'Low';
+}
+
+/**
+ * Tier assignment is *categorical* and independent of score.
+ *
+ *   T1 — no website at all (easiest outreach: "you need a website")
+ *   T2 — has a website but it's weak (no SSL / not mobile / stale / broken)
+ *   T3 — has a website that looks OK; possible upsell only
+ *
+ * Closed businesses get a sentinel tier of 0 so filters can drop them
+ * separately from "real" tiers.
+ */
+export function assignTier(lead) {
+  if (lead.closed) return 0;
+  if (!lead.website) return 1;
+
+  const reasons = new Set(lead.scoreReasons || []);
+  const weakSite =
+    reasons.has('no-ssl') ||
+    reasons.has('not-mobile-friendly') ||
+    reasons.has('stale-copyright') ||
+    reasons.has('broken-site') ||
+    lead.hasSSL === false ||
+    lead.mobileFriendly === false;
+  if (weakSite) return 2;
+  return 3;
 }
 
 function whyThisLead(lead) {
@@ -132,6 +160,7 @@ function sourceLabel(lead) {
 
 export function buildOutreachRow(lead) {
   const hasWebsite = !!lead.website;
+  const tier = lead.tier ?? assignTier(lead);
   return {
     businessName: lead.businessName || '',
     ownerName: ownerName(lead),
@@ -151,6 +180,7 @@ export function buildOutreachRow(lead) {
     hasWebsite: hasWebsite ? 'Yes' : 'No',
     facebookOnly: lead.facebookOnly ? 'Yes' : 'No',
     leadScore: lead.leadScore || 0,
+    tier,
     leadQuality: leadQuality(lead.leadScore || 0),
     whyThisLead: whyThisLead(lead),
     suggestedOffer: suggestedOffer(lead),
