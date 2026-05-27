@@ -19,11 +19,14 @@ cp .env.example .env
 node index.js --import=./input/outscraper-charlotte-roofing.csv --noWebsiteOnly --requirePhone
 ```
 
-You get two CSVs and a JSON file in `./output/`:
+You get four files in `./output/`:
 
-- `nc-leads-<timestamp>.csv` — full schema with every field
-- `nc-leads-<timestamp>-outreach.csv` — trimmed for paste-into-CRM use
+- **`outreach.csv`** — polished, outreach-ready CSV (UTF-8 with BOM so Excel opens it cleanly)
+- **`outreach.xlsx`** — formatted Excel workbook (freeze pane, auto-filter, conditional formatting, clickable URLs)
+- `nc-leads-<timestamp>.csv` — full archival schema with every field
 - `nc-leads-<timestamp>.json` — same data in JSON
+
+The `outreach.*` filenames are stable (no timestamp) so downstream tools and CRM imports can always find the latest. The archival files keep the timestamp.
 
 ---
 
@@ -57,11 +60,16 @@ This is the recommended workflow. Outscraper is faster, more reliable, and cheap
 | `--requirePhone` | Drop leads with no phone number |
 | `--auditSites` | Audit any remaining websites for SSL/mobile/copyright |
 | `--twilio` | Use Twilio Lookup for mobile-vs-landline (requires creds) |
-| `--out=<basename>` | Output basename, no extension |
+| `--xlsx` | Write `outreach.xlsx` in addition to `outreach.csv` (on by default) |
+| `--noXlsx` | Skip XLSX export (CSV only) |
+| `--out=<basename>` | Archival output basename (no extension) — `outreach.*` files are always written to `./output/` |
 
 ### Examples
 
 ```bash
+# Prompt example — full polished pipeline with XLSX
+node index.js --import=outscraper.csv --noWebsiteOnly --requirePhone --xlsx
+
 # Clean an Outscraper export, no-website only, with phone required
 node index.js --import=./input/outscraper.csv --noWebsiteOnly --requirePhone
 
@@ -116,16 +124,111 @@ This is the right tradeoff for outreach: a wrong `mobile` label sends an SMS to 
 
 ---
 
-## Outreach CSV format
+## Outreach output
+
+Both `outreach.csv` and `outreach.xlsx` share the same 24 columns in this exact order:
+
+1. Business Name
+2. Owner/Contact Name
+3. Phone
+4. Phone Type
+5. Email
+6. Website
+7. Facebook URL
+8. Google Maps URL
+9. Address
+10. City
+11. State
+12. Category/Niche
+13. Rating
+14. Review Count
+15. Business Status
+16. Has Website
+17. Facebook Only
+18. Lead Score
+19. Lead Quality (`High` ≥8, `Medium` 5–7, `Low` ≤4)
+20. Why This Lead (human-readable narrative)
+21. Suggested Offer
+22. Tags
+23. Source
+24. Last Checked
+
+Rows are sorted by **Lead Score descending**.
+
+### Sample `outreach.csv` row
 
 ```csv
-businessName,niche,category,city,state,phone,phoneType,email,address,googleMapsUrl,googleRating,reviewCount,facebookUrl,instagramUrl,facebookOnly,leadScore,highValue,scoreReasons,notes
-"Carolina Cuts Landscaping LLC",landscaping,Landscaper,Charlotte,NC,"(704) 555-0142",unknown,,"1234 Tryon St, Charlotte, NC 28202",https://www.google.com/maps/place/?cid=1,4.6,8,https://facebook.com/carolinacuts,,true,10,true,"no-website|facebook-only|low-reviews|niche:landscaping","Facebook only — no website; 8 reviews; 4.6★"
-"Queen City HVAC Co",HVAC,HVAC contractor,Charlotte,NC,"(704) 555-0199",toll-free,,"9012 South Blvd, Charlotte, NC 28209",https://www.google.com/maps/place/?cid=3,4.8,4,https://facebook.com/queencityhvac,,true,10,true,"no-website|facebook-only|low-reviews|niche:HVAC","Facebook only — no website; 4 reviews; 4.8★"
-"Asheville Tree Pros","tree service",Tree service,Asheville,NC,"(828) 555-0166",unknown,,"50 Pine St, Asheville, NC 28801",https://www.google.com/maps/place/?cid=5,4.9,3,,,false,8,true,"no-website|low-reviews|niche:tree service","No web presence; 3 reviews; 4.9★"
+Business Name,Owner/Contact Name,Phone,Phone Type,Email,Website,Facebook URL,Google Maps URL,Address,City,State,Category/Niche,Rating,Review Count,Business Status,Has Website,Facebook Only,Lead Score,Lead Quality,Why This Lead,Suggested Offer,Tags,Source,Last Checked
+Carolina Cuts Landscaping LLC,,(704) 555-0142,unknown,,,https://facebook.com/carolinacuts,https://www.google.com/maps/place/?cid=1,"1234 Tryon St, Charlotte, NC 28202",Charlotte,NC,landscaping,4.6,8,OPERATIONAL,No,Yes,10,High,Facebook-only business,Lead-capture website + booking funnel,"website-lead, no-website, facebook-only, landscaping, Charlotte",outscraper,2026-05-27
+Queen City HVAC Co,,(704) 555-0199,unknown,,,https://facebook.com/queencityhvac,https://www.google.com/maps/place/?cid=3,"9012 South Blvd, Charlotte, NC 28209",Charlotte,NC,HVAC,4.8,4,OPERATIONAL,No,Yes,10,High,Facebook-only business,Lead-capture website + booking funnel,"website-lead, no-website, facebook-only, HVAC, Charlotte",outscraper,2026-05-27
+Asheville Tree Pros,,(828) 555-0166,unknown,,,,https://www.google.com/maps/place/?cid=5,"50 Pine St, Asheville, NC 28801",Asheville,NC,tree service,4.9,3,OPERATIONAL,No,No,8,High,No web presence,Website redesign + Google Business setup,"website-lead, no-website, tree-service, Asheville",outscraper,2026-05-27
 ```
 
-The `notes` column is a human-readable summary built from the score reasons — good for a "First Line" field in cold outreach.
+### What the XLSX does that the CSV doesn't
+
+- **Freeze top row** — headers stay visible while you scroll.
+- **Auto-filter** enabled across all 24 columns.
+- **Auto-sized columns** tuned for outreach readability (wide for `Address`, `Why This Lead`, `Suggested Offer`; narrow for `State`, `Rating`).
+- **Conditional formatting on Lead Score**:
+  - 8–10 → green (`#C6EFCE` fill, dark green bold text)
+  - 5–7 → yellow (`#FFEB9C` fill, dark amber bold text)
+  - 1–4 → red (`#FFC7CE` fill, dark red bold text)
+- **Highlighted cells**:
+  - `Has Website = No` cell tinted orange
+  - `Facebook Only = Yes` cell tinted blue
+  - High review count (≥20) with weak branding signals → amber tint on rating cells
+- **Clickable hyperlinks** on Website, Facebook URL, Google Maps URL (and `mailto:` on Email).
+- **Light row banding** for readability.
+
+### Why This Lead — narrative logic
+
+First match wins, ordered most-specific first:
+
+| Condition | Output |
+| --- | --- |
+| Marked closed | "Business marked closed" |
+| No website but has Facebook URL | "Facebook-only business" |
+| No website, ≥20 reviews, ≥4.0★ | "No website, strong reviews" |
+| No website | "No web presence" |
+| Has site, no SSL | "No SSL on website" |
+| Has site, not mobile-friendly | "Weak mobile site" |
+| Has site, copyright ≥2 yrs stale | "Outdated website" |
+| Has site, broken/slow | "Website broken or slow" |
+| Recent LLC (≤180 days) | "Recently formed LLC" |
+| Improvable rating (3.5–4.5) | "Active business, room to grow reviews" |
+| Low review count | "Low review count for active business" |
+| Fallback | "Local service business — outreach candidate" |
+
+### Suggested Offer logic
+
+| Condition | Offer |
+| --- | --- |
+| Closed | "—" |
+| No website + has Facebook | "Lead-capture website + booking funnel" |
+| No website | "Website redesign + Google Business setup" |
+| Broken/slow site | "Website redesign" |
+| Not mobile-friendly or no SSL | "Website redesign" |
+| Stale copyright | "Website refresh + SEO" |
+| Recent LLC | "Website redesign + Google Business setup" |
+| Low reviews | "SEO + reviews" |
+| Improvable rating | "Google optimization" |
+| No / invalid phone | "Missed-call text back" |
+| Fallback | "Google optimization" |
+
+### Tags
+
+Every row gets the `website-lead` tag plus any of:
+
+- `no-website`
+- `facebook-only`
+- `<niche>` (e.g. `roofing`, `tree-service`)
+- `<city>` (e.g. `Charlotte`, `Chapel-Hill`)
+- `new-business` (if recent LLC)
+- `strong-reviews` (if ≥20 reviews and ≥4.0★)
+
+### Excel library note
+
+The user asked for SheetJS / `xlsx`. **The free SheetJS community edition does not support write-time conditional formatting** (it's a SheetJS Pro feature). To deliver everything you asked for — conditional formatting bands on Lead Score, auto-filter, freeze pane, hyperlinks, column sizing — without a paid library, this project uses `exceljs` instead. Same Node-native install, open source, no licensing constraints.
 
 ---
 
@@ -186,7 +289,11 @@ nc-lead-scraper/
 │   │   ├── phoneType.js           # toll-free / Twilio Lookup
 │   │   └── merge.js
 │   ├── scoring/leadScore.js
-│   ├── export/{csv.js,json.js}
+│   ├── export/
+│   │   ├── outreach.js            # row-builder for outreach schema (single source of truth)
+│   │   ├── csv.js                 # archival + outreach CSV writers
+│   │   ├── xlsx.js                # exceljs-based polished workbook
+│   │   └── json.js
 │   └── utils/                     # logger, delay, rateLimiter, retry, text, userAgents
 └── output/                        # CSV + JSON written here
 ```

@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { stringify } from 'csv-stringify/sync';
+import { buildOutreachRows, OUTREACH_HEADERS, COLUMN_KEYS } from './outreach.js';
 
-// Full export — every field we know about. Useful for archival.
+// Full archival columns — useful when you want every field we know about.
 const FULL_COLUMNS = [
   'businessName',
   'entityType',
@@ -46,51 +47,10 @@ const FULL_COLUMNS = [
   'sources',
 ];
 
-// Outreach export — the columns you actually paste into a CRM or call sheet.
-const OUTREACH_COLUMNS = [
-  'businessName',
-  'niche',
-  'category',
-  'city',
-  'state',
-  'phone',
-  'phoneType',
-  'email',
-  'address',
-  'googleMapsUrl',
-  'googleRating',
-  'reviewCount',
-  'facebookUrl',
-  'instagramUrl',
-  'facebookOnly',
-  'leadScore',
-  'highValue',
-  'scoreReasons',
-  'notes',
-];
-
-function buildNotes(lead) {
-  const bits = [];
-  if (lead.facebookOnly) bits.push('Facebook only — no website');
-  else if (!lead.website) bits.push('No web presence');
-  else if (lead.hasSSL === false) bits.push('No SSL on website');
-  else if (lead.mobileFriendly === false) bits.push('Site not mobile-friendly');
-  if (lead.copyrightYear && new Date().getFullYear() - lead.copyrightYear >= 2) {
-    bits.push(`Site copyright ${lead.copyrightYear}`);
-  }
-  if (typeof lead.reviewCount === 'number' && lead.reviewCount > 0 && lead.reviewCount < 15) {
-    bits.push(`${lead.reviewCount} reviews`);
-  }
-  if (typeof lead.googleRating === 'number') bits.push(`${lead.googleRating}★`);
-  return bits.join('; ');
-}
-
-function buildRow(lead, columns) {
+function buildFullRow(lead) {
   const row = {};
-  for (const col of columns) {
-    let v;
-    if (col === 'notes') v = buildNotes(lead);
-    else v = lead[col];
+  for (const col of FULL_COLUMNS) {
+    let v = lead[col];
     if (Array.isArray(v)) v = v.join('|');
     if (v == null) v = '';
     if (typeof v === 'boolean') v = v ? 'true' : 'false';
@@ -99,18 +59,30 @@ function buildRow(lead, columns) {
   return row;
 }
 
-function writeCSV(leads, columns, outPath) {
-  const rows = leads.map((l) => buildRow(l, columns));
-  const csv = stringify(rows, { header: true, columns });
+export function exportCSV(leads, outPath) {
+  const rows = leads.map(buildFullRow);
+  const csv = stringify(rows, { header: true, columns: FULL_COLUMNS, bom: true });
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, csv, 'utf8');
   return outPath;
 }
 
-export function exportCSV(leads, outPath) {
-  return writeCSV(leads, FULL_COLUMNS, outPath);
-}
-
+/**
+ * Outreach CSV — exact column order, polished labels, sorted by score desc,
+ * UTF-8 with BOM (so Excel opens it without mojibake).
+ */
 export function exportOutreachCSV(leads, outPath) {
-  return writeCSV(leads, OUTREACH_COLUMNS, outPath);
+  const rows = buildOutreachRows(leads);
+  // Map internal keys → display headers in the requested order.
+  const displayRows = rows.map((r) => {
+    const out = {};
+    for (let i = 0; i < OUTREACH_HEADERS.length; i += 1) {
+      out[OUTREACH_HEADERS[i]] = r[COLUMN_KEYS[i]];
+    }
+    return out;
+  });
+  const csv = stringify(displayRows, { header: true, columns: OUTREACH_HEADERS, bom: true });
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, csv, 'utf8');
+  return outPath;
 }

@@ -15,6 +15,7 @@ import { mergeLeads } from './src/enrichment/merge.js';
 import { classifyPhone } from './src/enrichment/phoneType.js';
 import { scoreLead } from './src/scoring/leadScore.js';
 import { exportCSV, exportOutreachCSV } from './src/export/csv.js';
+import { exportOutreachXLSX } from './src/export/xlsx.js';
 import { exportJSON } from './src/export/json.js';
 import { closeBrowser } from './src/scrapers/browser.js';
 import { processOutscraperCSV } from './src/import/outscraper.js';
@@ -24,7 +25,7 @@ function parseArgs() {
     string: ['city', 'niche', 'cities', 'niches', 'from', 'to', 'out', 'import'],
     boolean: [
       'noWebsiteOnly', 'allCities', 'allNiches', 'help',
-      'auditSites', 'twilio', 'keepClosed', 'requirePhone',
+      'auditSites', 'twilio', 'keepClosed', 'requirePhone', 'xlsx', 'noXlsx',
     ],
     default: {
       city: CONFIG.defaultCity,
@@ -35,6 +36,8 @@ function parseArgs() {
       twilio: false,
       keepClosed: false,
       requirePhone: false,
+      xlsx: true,
+      noXlsx: false,
     },
   });
 
@@ -65,6 +68,7 @@ function parseArgs() {
     requirePhone: !!argv.requirePhone,
     auditSites: !!argv.auditSites,
     useTwilio: !!argv.twilio,
+    xlsx: !argv.noXlsx,
     out: argv.out || null,
   };
 }
@@ -86,6 +90,8 @@ Outscraper flags:
   --requirePhone            Drop leads with no phone number
   --auditSites              Also load each website for SSL/mobile/copyright checks
   --twilio                  Use Twilio Lookup for mobile-vs-landline (needs env creds)
+  --xlsx                    Write outreach.xlsx in addition to outreach.csv (default: on)
+  --noXlsx                  Skip XLSX export
 
 Live-scrape flags:
   --city=Charlotte          Single city
@@ -147,19 +153,30 @@ async function auditWebsites(leads) {
   })));
 }
 
-function writeOutputs(leads, args) {
+async function writeOutputs(leads, args) {
+  // Sort highest score first so every export reflects priority order.
+  const sorted = [...leads].sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
+
   const stamp = new Date().toISOString().replace(/[:T.]/g, '-').slice(0, 19);
   const base = args.out || path.join(CONFIG.outputDir, `nc-leads-${stamp}`);
-  const csvPath = exportCSV(leads, `${base}.csv`);
-  const outreachPath = exportOutreachCSV(leads, `${base}-outreach.csv`);
-  const jsonPath = exportJSON(leads, `${base}.json`);
-  logger.success(`Wrote ${leads.length} leads`, {
-    full: csvPath,
-    outreach: outreachPath,
-    json: jsonPath,
-  });
-  const high = leads.filter((l) => l.highValue).length;
-  const fbOnly = leads.filter((l) => l.facebookOnly).length;
+
+  // Polished outreach files use stable filenames so downstream tools can find
+  // them without timestamp guessing. The archival files keep the timestamp.
+  const outreachCsv = exportOutreachCSV(sorted, path.join(CONFIG.outputDir, 'outreach.csv'));
+  const archivalCsv = exportCSV(sorted, `${base}.csv`);
+  const archivalJson = exportJSON(sorted, `${base}.json`);
+
+  const written = { 'outreach.csv': outreachCsv, full: archivalCsv, json: archivalJson };
+
+  if (args.xlsx) {
+    const outreachXlsx = await exportOutreachXLSX(sorted, path.join(CONFIG.outputDir, 'outreach.xlsx'));
+    written['outreach.xlsx'] = outreachXlsx;
+  }
+
+  logger.success(`Wrote ${sorted.length} leads`, written);
+
+  const high = sorted.filter((l) => l.highValue).length;
+  const fbOnly = sorted.filter((l) => l.facebookOnly).length;
   logger.info(`Summary: ${high} high-value (score >= 7), ${fbOnly} facebook-only`);
 }
 
@@ -181,7 +198,7 @@ async function runImport(args) {
   let scored = withPhone.map((l) => ({ ...l, ...scoreLead(l) }));
   scored.sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
 
-  writeOutputs(scored, args);
+  await writeOutputs(scored, args);
   await closeBrowser();
 }
 
@@ -249,7 +266,7 @@ async function runLiveScrape(args) {
     logger.info(`After noWebsiteOnly filter: ${scored.length} leads`);
   }
 
-  writeOutputs(scored, args);
+  await writeOutputs(scored, args);
   await closeBrowser();
 }
 
