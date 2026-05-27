@@ -1,0 +1,22 @@
+{
+  "name": "nc-lead-scraper",
+  "version": "0.1.0",
+  "description": "North Carolina local business lead scraper for website/SEO outreach.",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "scrape": "node index.js",
+    "scrape:charlotte": "node index.js --city=Charlotte",
+    "scrape:no-website": "node index.js --noWebsiteOnly=true",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "csv-stringify": "^6.5.1",
+    "dotenv": "^16.4.5",
+    "minimist": "^1.2.8",
+    "p-limit": "^5.0.0",
+    "playwright": "^1.47.0"
+  }
+}
