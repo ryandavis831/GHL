@@ -12,20 +12,29 @@ import { findFacebookPage } from './src/scrapers/facebook.js';
 import { enrichWithYelp } from './src/scrapers/yelp.js';
 import { auditWebsite } from './src/enrichment/websiteAudit.js';
 import { mergeLeads } from './src/enrichment/merge.js';
+import { classifyPhone } from './src/enrichment/phoneType.js';
 import { scoreLead } from './src/scoring/leadScore.js';
-import { exportCSV } from './src/export/csv.js';
+import { exportCSV, exportOutreachCSV } from './src/export/csv.js';
 import { exportJSON } from './src/export/json.js';
 import { closeBrowser } from './src/scrapers/browser.js';
+import { processOutscraperCSV } from './src/import/outscraper.js';
 
 function parseArgs() {
   const argv = minimist(process.argv.slice(2), {
-    string: ['city', 'niche', 'cities', 'niches', 'from', 'to', 'out'],
-    boolean: ['noWebsiteOnly', 'allCities', 'allNiches', 'help'],
+    string: ['city', 'niche', 'cities', 'niches', 'from', 'to', 'out', 'import'],
+    boolean: [
+      'noWebsiteOnly', 'allCities', 'allNiches', 'help',
+      'auditSites', 'twilio', 'keepClosed', 'requirePhone',
+    ],
     default: {
       city: CONFIG.defaultCity,
       niche: CONFIG.defaultNiche,
       max: CONFIG.defaultResultsPerNiche,
       noWebsiteOnly: CONFIG.noWebsiteOnly,
+      auditSites: false,
+      twilio: false,
+      keepClosed: false,
+      requirePhone: false,
     },
   });
 
@@ -45,12 +54,17 @@ function parseArgs() {
   else niches = [argv.niche];
 
   return {
+    importPath: argv.import || null,
     cities,
     niches,
     max: parseInt(argv.max, 10) || CONFIG.defaultResultsPerNiche,
     from: argv.from || null,
     to: argv.to || null,
     noWebsiteOnly: !!argv.noWebsiteOnly,
+    keepClosed: !!argv.keepClosed,
+    requirePhone: !!argv.requirePhone,
+    auditSites: !!argv.auditSites,
+    useTwilio: !!argv.twilio,
     out: argv.out || null,
   };
 }
@@ -59,27 +73,44 @@ function printHelp() {
   console.log(`
 NC Local Business Lead Scraper
 
-Usage:
-  node index.js [flags]
+PRIMARY WORKFLOW — Outscraper CSV import:
+  node index.js --import=path/to/outscraper.csv [flags]
 
-Flags:
-  --city=Charlotte               Single city (default: \${DEFAULT_CITY})
-  --cities=Charlotte,Raleigh     Comma-separated cities
-  --allCities                    All built-in NC cities
-  --niche=roofing                Single niche
-  --niches=roofing,plumbing      Comma-separated niches
-  --allNiches                    All built-in niches
-  --max=20                       Max results per niche/city
-  --from=YYYY-MM-DD              Filter SoS filings from date
-  --to=YYYY-MM-DD                Filter SoS filings to date
-  --noWebsiteOnly                Output only leads with no website
-  --out=output/leads             Output basename (no extension)
-  --help                         Show this help
+LIVE SCRAPING WORKFLOW (fallback):
+  node index.js --city=Charlotte --niche=roofing
+
+Outscraper flags:
+  --import=<csv>            Path to Outscraper Google Maps CSV export
+  --noWebsiteOnly           Drop leads that already have a website
+  --keepClosed              Keep closed/inactive businesses (default: drop)
+  --requirePhone            Drop leads with no phone number
+  --auditSites              Also load each website for SSL/mobile/copyright checks
+  --twilio                  Use Twilio Lookup for mobile-vs-landline (needs env creds)
+
+Live-scrape flags:
+  --city=Charlotte          Single city
+  --cities=Charlotte,Raleigh
+  --allCities               All built-in NC cities
+  --niche=roofing
+  --niches=roofing,plumbing
+  --allNiches               All built-in niches
+  --max=20                  Max results per niche/city
+  --from=YYYY-MM-DD         Filter SoS filings from date
+  --to=YYYY-MM-DD           Filter SoS filings to date
+
+Common:
+  --out=output/leads        Output basename (no extension)
+  --help
 
 Examples:
-  node index.js --city=Charlotte --niche=roofing
-  node index.js --allCities --niche=HVAC --max=30
-  node index.js --city=Raleigh --allNiches --noWebsiteOnly
+  # Clean an Outscraper export into outreach-ready CSV
+  node index.js --import=./input/outscraper-charlotte-roofing.csv --noWebsiteOnly
+
+  # Same, but also audit any remaining websites for weak-site signals
+  node index.js --import=./input/outscraper.csv --auditSites
+
+  # Live scrape (no CSV)
+  node index.js --city=Raleigh --niche=HVAC --max=30
 `);
 }
 
@@ -93,10 +124,69 @@ function inDateRange(filingDate, from, to) {
   return true;
 }
 
-async function run() {
-  const args = parseArgs();
-  logger.info('Starting NC lead scraper', args);
+async function classifyPhones(leads, { useTwilio }) {
+  const limit = pLimit(useTwilio ? 4 : 32);
+  return Promise.all(leads.map((lead) => limit(async () => {
+    if (!lead.phone) return { ...lead, phoneType: 'invalid' };
+    const cls = await classifyPhone(lead.phone, { useTwilio });
+    return {
+      ...lead,
+      phoneType: cls.phoneType,
+      phoneCarrier: cls.carrier || null,
+    };
+  })));
+}
 
+async function auditWebsites(leads) {
+  const limit = pLimit(3);
+  return Promise.all(leads.map((lead) => limit(async () => {
+    if (!lead.website) return lead;
+    const audit = await auditWebsite(lead.website).catch(() => null);
+    if (!audit) return lead;
+    return { ...lead, ...audit };
+  })));
+}
+
+function writeOutputs(leads, args) {
+  const stamp = new Date().toISOString().replace(/[:T.]/g, '-').slice(0, 19);
+  const base = args.out || path.join(CONFIG.outputDir, `nc-leads-${stamp}`);
+  const csvPath = exportCSV(leads, `${base}.csv`);
+  const outreachPath = exportOutreachCSV(leads, `${base}-outreach.csv`);
+  const jsonPath = exportJSON(leads, `${base}.json`);
+  logger.success(`Wrote ${leads.length} leads`, {
+    full: csvPath,
+    outreach: outreachPath,
+    json: jsonPath,
+  });
+  const high = leads.filter((l) => l.highValue).length;
+  const fbOnly = leads.filter((l) => l.facebookOnly).length;
+  logger.info(`Summary: ${high} high-value (score >= 7), ${fbOnly} facebook-only`);
+}
+
+async function runImport(args) {
+  logger.info('Outscraper CSV import mode', { file: args.importPath });
+  const leads = processOutscraperCSV(args.importPath, {
+    removeClosed: !args.keepClosed,
+    removeWithWebsite: args.noWebsiteOnly,
+    requirePhone: args.requirePhone,
+  });
+
+  let withPhone = await classifyPhones(leads, { useTwilio: args.useTwilio });
+
+  if (args.auditSites) {
+    logger.info(`Auditing ${withPhone.filter((l) => l.website).length} websites`);
+    withPhone = await auditWebsites(withPhone);
+  }
+
+  let scored = withPhone.map((l) => ({ ...l, ...scoreLead(l) }));
+  scored.sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
+
+  writeOutputs(scored, args);
+  await closeBrowser();
+}
+
+async function runLiveScrape(args) {
+  logger.info('Live scrape mode', args);
   const allMaps = [];
   const allSos = [];
 
@@ -130,7 +220,6 @@ async function run() {
     logger.info(`After date filter: ${merged.length} leads`);
   }
 
-  // Audit websites + look up Facebook for leads missing a site.
   const limit = pLimit(3);
   const audited = await Promise.all(merged.map((lead) => limit(async () => {
     const audit = await auditWebsite(lead.website).catch(() => null);
@@ -148,11 +237,11 @@ async function run() {
 
     if (!out.email && audit?.pageEmail) out.email = audit.pageEmail;
     if (!out.phone && audit?.pagePhone) out.phone = audit.pagePhone;
-
     return out;
   })));
 
-  let scored = audited.map((l) => ({ ...l, ...scoreLead(l) }));
+  const withPhone = await classifyPhones(audited, { useTwilio: args.useTwilio });
+  let scored = withPhone.map((l) => ({ ...l, ...scoreLead(l) }));
   scored.sort((a, b) => (b.leadScore || 0) - (a.leadScore || 0));
 
   if (args.noWebsiteOnly) {
@@ -160,17 +249,17 @@ async function run() {
     logger.info(`After noWebsiteOnly filter: ${scored.length} leads`);
   }
 
-  const stamp = new Date().toISOString().replace(/[:T.]/g, '-').slice(0, 19);
-  const base = args.out || path.join(CONFIG.outputDir, `nc-leads-${stamp}`);
-  const csvPath = exportCSV(scored, `${base}.csv`);
-  const jsonPath = exportJSON(scored, `${base}.json`);
-
-  logger.success(`Wrote ${scored.length} leads`, { csv: csvPath, json: jsonPath });
-
-  const high = scored.filter((l) => l.highValue).length;
-  logger.info(`High-value leads (score >= 7): ${high}`);
-
+  writeOutputs(scored, args);
   await closeBrowser();
+}
+
+async function run() {
+  const args = parseArgs();
+  if (args.importPath) {
+    await runImport(args);
+  } else {
+    await runLiveScrape(args);
+  }
 }
 
 run().catch(async (err) => {

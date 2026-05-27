@@ -20,6 +20,11 @@ export function scoreLead(lead) {
   let score = 0;
   const reasons = [];
 
+  // Closed businesses are never worth scoring — return floor.
+  if (lead.closed) {
+    return { leadScore: 1, highValue: false, scoreReasons: ['closed'], facebookOnly: false };
+  }
+
   const hasWebsite = !!lead.website;
   const fbOnly = !hasWebsite && !!lead.facebookUrl;
 
@@ -74,5 +79,5 @@ export function scoreLead(lead) {
 
   const clamped = Math.max(1, Math.min(10, score));
   const highValue = clamped >= 7;
-  return { leadScore: clamped, highValue, scoreReasons: reasons };
+  return { leadScore: clamped, highValue, scoreReasons: reasons, facebookOnly: fbOnly };
 }
