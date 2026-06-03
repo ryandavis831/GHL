@@ -13,11 +13,11 @@
     console.log('Sonora script loaded');
 
   /* ===========================================================
-     GHL Inbound Webhook integration
-     Paste the GHL Inbound Webhook URL from the workflow:
-       "Sonora Website Consultation Lead"
+     Form submission endpoint
+     Cloudflare Pages Function at functions/api/submit.js
+     forwards the payload to Resend, which emails Astrid.
      =========================================================== */
-  const GHL_WEBHOOK_URL = "PASTE_GHL_WEBHOOK_URL_HERE";
+  const SUBMIT_ENDPOINT = "/api/submit";
 
   /* ---------------- Sticky nav ---------------- */
   const nav = document.getElementById('nav');
@@ -240,16 +240,12 @@
     }
 
     try {
-      if (!GHL_WEBHOOK_URL || GHL_WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
-        throw new Error('GHL_WEBHOOK_URL is not configured');
-      }
-      const res = await fetch(GHL_WEBHOOK_URL, {
+      const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
-        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+      if (!res.ok) throw new Error('Submit returned ' + res.status);
 
       formEl.hidden = true;
       successEl.hidden = false;
