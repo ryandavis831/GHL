@@ -450,7 +450,13 @@
       'modal.okTitle':  'Thank you!',
       'modal.okSub':    'We received your request. Astrid will reach out shortly to schedule your free consultation.',
       'modal.okClose':  'Close',
-      'modal.error':    'Something went wrong sending your request. Please try again or call us at (919) 923-0394.',
+      'modal.error':    'Something went wrong sending your request. Please try again or call us at (919) 241-7414.',
+      'map.phoneOfficeLbl': 'Office:',
+      'map.phoneCellLbl':   'Cell:',
+      'map.phoneFaxLbl':    'Fax:',
+      'footer.phoneOfficeLbl': 'Office:',
+      'footer.phoneCellLbl':   'Cell:',
+      'footer.phoneFaxLbl':    'Fax:',
     },
 
     es: {
@@ -629,7 +635,13 @@
       'modal.okTitle':  '¡Gracias!',
       'modal.okSub':    'Recibimos su solicitud. Astrid se comunicará pronto para agendar su consulta gratis.',
       'modal.okClose':  'Cerrar',
-      'modal.error':    'Algo salió mal al enviar su solicitud. Por favor intente de nuevo o llámenos al (919) 923-0394.',
+      'modal.error':    'Algo salió mal al enviar su solicitud. Por favor intente de nuevo o llámenos al (919) 241-7414.',
+      'map.phoneOfficeLbl': 'Oficina:',
+      'map.phoneCellLbl':   'Celular:',
+      'map.phoneFaxLbl':    'Fax:',
+      'footer.phoneOfficeLbl': 'Oficina:',
+      'footer.phoneCellLbl':   'Celular:',
+      'footer.phoneFaxLbl':    'Fax:',
     },
   };
 
