@@ -13,11 +13,11 @@
     console.log('Sonora script loaded');
 
   /* ===========================================================
-     Form submission endpoint
-     Cloudflare Pages Function at functions/api/submit.js
-     forwards the payload to Resend, which emails Astrid.
+     Web3Forms — emails submissions to the address on the access key.
+     Manage at https://web3forms.com/
      =========================================================== */
-  const SUBMIT_ENDPOINT = "/api/submit";
+  const WEB3FORMS_ENDPOINT    = "https://api.web3forms.com/submit";
+  const WEB3FORMS_ACCESS_KEY  = "3e4ffe64-a7fd-4edf-8887-34d51988e8be";
 
   /* ---------------- Sticky nav ---------------- */
   const nav = document.getElementById('nav');
@@ -215,17 +215,34 @@
     const tags = ['website-lead', 'sonora-website', 'consultation-request',
                   lang === 'es' ? 'spanish-lead' : 'english-lead'];
 
+    const full_name      = (formEl.querySelector('#f-name')    || {}).value || '';
+    const phone          = (formEl.querySelector('#f-phone')   || {}).value || '';
+    const email          = (formEl.querySelector('#f-email')   || {}).value || '';
+    const contact_method = (formEl.querySelector('#f-contact') || {}).value || '';
+    const message        = (formEl.querySelector('#f-message') || {}).value || '';
+    const honeypotValue  = (formEl.querySelector('[name="company_website"]') || {}).value || '';
+
+    const subject = (lang === 'es' ? 'Nueva consulta — ' : 'New Consultation Request — ')
+                  + full_name
+                  + (selectedLabels.length ? ' (' + selectedLabels.join(', ') + ')' : '');
+
     const payload = {
-      full_name:      (formEl.querySelector('#f-name')    || {}).value || '',
-      phone:          (formEl.querySelector('#f-phone')   || {}).value || '',
-      email:          (formEl.querySelector('#f-email')   || {}).value || '',
+      access_key:     WEB3FORMS_ACCESS_KEY,
+      subject:        subject,
+      from_name:      'Sonora Website',
+      replyto:        email,
+      botcheck:       honeypotValue,
+
+      full_name:      full_name,
+      phone:          phone,
+      email:          email,
       services:       selectedLabels.join(', '),
       services_array: selectedLabels,
-      contact_method: (formEl.querySelector('#f-contact') || {}).value || '',
-      message:        (formEl.querySelector('#f-message') || {}).value || '',
+      contact_method: contact_method,
+      message:        message,
       page_language:  lang,
       source:         'sonora-website',
-      tags:           tags,
+      tags:           tags.join(', '),
       submitted_at:   new Date().toISOString(),
     };
 
@@ -240,12 +257,15 @@
     }
 
     try {
-      const res = await fetch(SUBMIT_ENDPOINT, {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error('Submit returned ' + res.status);
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.success) {
+        throw new Error('Web3Forms: ' + (result.message || res.status));
+      }
 
       formEl.hidden = true;
       successEl.hidden = false;
